@@ -19,8 +19,7 @@
 #' @param ariaLabel
 #' @param width
 #' @param height
-#' @param barSeries
-#' @param lineSeries
+#' @param series
 #' @param elementId
 #'
 #' @import htmlwidgets
@@ -42,8 +41,7 @@ dui_histogram <- function(
   onMouseLeave = NULL,
   tooltipData = NULL,
   ariaLabel = NULL,
-  barSeries = NULL,
-  lineSeries = NULL,
+  series = NULL,
   width = NULL, height = NULL, elementId = NULL
 ) {
 
@@ -67,14 +65,12 @@ dui_histogram <- function(
       tooltipData = tooltipData,
       ariaLabel = ariaLabel,
       height = height,
-      width = width,
-      barSeries,
-      lineSeries
+      width = width
     ))
   )
 
   # create widget
-  htmlwidgets::createWidget(
+  hw <- htmlwidgets::createWidget(
     name = 'dataui',
     reactR::reactMarkup(component),
     width = width,
@@ -82,6 +78,9 @@ dui_histogram <- function(
     package = 'dataui',
     elementId = elementId
   )
+
+  hw$x$tag$children <- series
+  hw
 }
 
 #' Shiny bindings for dataui

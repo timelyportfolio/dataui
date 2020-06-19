@@ -20,8 +20,7 @@ dui_histogram(
   onMouseLeave = NULL,
   tooltipData = NULL,
   ariaLabel = NULL,
-  barSeries = NULL,
-  lineSeries = NULL,
+  series = NULL,
   width = NULL,
   height = NULL,
   elementId = NULL

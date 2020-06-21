@@ -19,7 +19,7 @@
 #' @param ariaLabel
 #' @param width
 #' @param height
-#' @param series
+#' @param components
 #' @param elementId
 #'
 #' @import htmlwidgets
@@ -41,7 +41,7 @@ dui_histogram <- function(
   onMouseLeave = NULL,
   tooltipData = NULL,
   ariaLabel = NULL,
-  series = NULL,
+  components = NULL,
   width = NULL, height = NULL, elementId = NULL
 ) {
 
@@ -79,7 +79,7 @@ dui_histogram <- function(
     elementId = elementId
   )
 
-  hw$x$tag$children <- series
+  hw$x$tag$children <- components
   hw
 }
 

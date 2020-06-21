@@ -31,3 +31,37 @@ dui_densityseries <- function(
     ...
   )
 }
+
+
+#' Title
+#'
+#' @param ...
+#'
+#' @return
+#' @export
+#'
+#' @examples
+dui_xAxis <- function(
+  ...
+) {
+  reactR::React$XAxis(
+    ...
+  )
+}
+
+
+#' Title
+#'
+#' @param ...
+#'
+#' @return
+#' @export
+#'
+#' @examples
+dui_yAxis <- function(
+  ...
+) {
+  reactR::React$YAxis(
+    ...
+  )
+}

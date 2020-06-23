@@ -3030,6 +3030,2184 @@ exports["default"] = (0, _bounds.withBoundingRects)(TooltipWithBounds);
 
 /***/ }),
 
+/***/ "./node_modules/@data-ui/sparkline/esm/annotation/BandLine.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/@data-ui/sparkline/esm/annotation/BandLine.js ***!
+  \********************************************************************/
+/*! exports provided: propTypes, defaultProps, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "propTypes", function() { return propTypes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "defaultProps", function() { return defaultProps; });
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var d3_array__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! d3-array */ "./node_modules/d3-array/src/index.js");
+/* harmony import */ var _vx_shape_build_shapes_Bar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @vx/shape/build/shapes/Bar */ "./node_modules/@vx/shape/build/shapes/Bar.js");
+/* harmony import */ var _vx_shape_build_shapes_Bar__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_vx_shape_build_shapes_Bar__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _data_ui_theme__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @data-ui/theme */ "./node_modules/@data-ui/sparkline/node_modules/@data-ui/theme/build/index.js");
+/* harmony import */ var _data_ui_theme__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_data_ui_theme__WEBPACK_IMPORTED_MODULE_4__);
+function _inheritsLoose(subClass, superClass) {
+  subClass.prototype = Object.create(superClass.prototype);
+  subClass.prototype.constructor = subClass;
+  subClass.__proto__ = superClass;
+}
+
+
+
+
+
+
+var propTypes = {
+  band: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.shape({
+    from: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.shape({
+      // @TODO check that it's a length of 2
+      x: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number,
+      y: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number
+    }),
+    to: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.shape({
+      // @TODO check that it's a length of 2
+      x: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number,
+      y: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number
+    })
+  }), prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOf(['innerquartiles'])]),
+  fill: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  fillOpacity: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number,
+  stroke: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  strokeWidth: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number,
+  // all likely passed by the parent chart
+  data: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.object])),
+  getY: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func,
+  xScale: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func,
+  yScale: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func
+};
+var defaultProps = {
+  band: 'innerquartiles',
+  data: [],
+  fill: _data_ui_theme__WEBPACK_IMPORTED_MODULE_4__["color"].lightGray,
+  fillOpacity: 0.5,
+  getY: null,
+  stroke: 'transparent',
+  strokeWidth: 0,
+  xScale: null,
+  yScale: null
+};
+
+var BandLine = /*#__PURE__*/function (_React$PureComponent) {
+  _inheritsLoose(BandLine, _React$PureComponent);
+
+  function BandLine() {
+    return _React$PureComponent.apply(this, arguments) || this;
+  }
+
+  var _proto = BandLine.prototype;
+
+  _proto.render = function render() {
+    var _this$props = this.props,
+        band = _this$props.band,
+        data = _this$props.data,
+        fill = _this$props.fill,
+        fillOpacity = _this$props.fillOpacity,
+        getY = _this$props.getY,
+        stroke = _this$props.stroke,
+        strokeWidth = _this$props.strokeWidth,
+        xScale = _this$props.xScale,
+        yScale = _this$props.yScale;
+    if (!xScale || !yScale || !getY || !data.length) return null;
+
+    var _xScale$range = xScale.range(),
+        x0 = _xScale$range[0],
+        x1 = _xScale$range[1];
+
+    var _yScale$range = yScale.range(),
+        y1 = _yScale$range[0],
+        y0 = _yScale$range[1];
+
+    var x = 0;
+    var y = 0;
+    var width = 0;
+    var height = 0;
+
+    if (band === 'innerquartiles') {
+      var sortedData = [].concat(data).sort(function (a, b) {
+        return parseFloat(getY(a)) - parseFloat(getY(b));
+      });
+      var lowerQuartile = yScale(Object(d3_array__WEBPACK_IMPORTED_MODULE_2__["quantile"])(sortedData, 0.25, getY)); // eslint-disable-line no-magic-numbers
+
+      var upperQuartile = yScale(Object(d3_array__WEBPACK_IMPORTED_MODULE_2__["quantile"])(sortedData, 0.75, getY)); // eslint-disable-line no-magic-numbers
+
+      y = Math.min(lowerQuartile, upperQuartile);
+      height = Math.abs(upperQuartile - lowerQuartile);
+      x = x0;
+      width = x1 - x0;
+    } else {
+      // input points are assumed to be values so we must scale them
+      var yFrom = typeof band.from.y === 'undefined' ? y0 : yScale(band.from.y);
+      var yTo = typeof band.to.y === 'undefined' ? y1 : yScale(band.to.y);
+      y = Math.min(yFrom, yTo);
+      height = Math.abs(yFrom - yTo);
+      x = typeof band.from.x === 'undefined' ? x0 : xScale(band.from.x);
+      width = (typeof band.to.x === 'undefined' ? x1 : xScale(band.to.x)) - x;
+    }
+
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_vx_shape_build_shapes_Bar__WEBPACK_IMPORTED_MODULE_3___default.a, {
+      x: x,
+      y: y,
+      width: width,
+      height: height,
+      fill: fill,
+      fillOpacity: fillOpacity,
+      stroke: stroke,
+      strokeWidth: strokeWidth
+    });
+  };
+
+  return BandLine;
+}(react__WEBPACK_IMPORTED_MODULE_1___default.a.PureComponent);
+
+BandLine.propTypes = propTypes;
+BandLine.defaultProps = defaultProps;
+BandLine.displayName = 'BandLine';
+/* harmony default export */ __webpack_exports__["default"] = (BandLine);
+
+/***/ }),
+
+/***/ "./node_modules/@data-ui/sparkline/esm/annotation/HorizontalReferenceLine.js":
+/*!***********************************************************************************!*\
+  !*** ./node_modules/@data-ui/sparkline/esm/annotation/HorizontalReferenceLine.js ***!
+  \***********************************************************************************/
+/*! exports provided: propTypes, defaultProps, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "propTypes", function() { return propTypes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "defaultProps", function() { return defaultProps; });
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var d3_array__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! d3-array */ "./node_modules/d3-array/src/index.js");
+/* harmony import */ var _vx_group_build_Group__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @vx/group/build/Group */ "./node_modules/@vx/group/build/Group.js");
+/* harmony import */ var _vx_group_build_Group__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_vx_group_build_Group__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _vx_shape_build_shapes_Line__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @vx/shape/build/shapes/Line */ "./node_modules/@vx/shape/build/shapes/Line.js");
+/* harmony import */ var _vx_shape_build_shapes_Line__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_vx_shape_build_shapes_Line__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _vx_point_build_Point__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @vx/point/build/Point */ "./node_modules/@vx/point/build/Point.js");
+/* harmony import */ var _vx_point_build_Point__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_vx_point_build_Point__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _data_ui_theme__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @data-ui/theme */ "./node_modules/@data-ui/sparkline/node_modules/@data-ui/theme/build/index.js");
+/* harmony import */ var _data_ui_theme__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_data_ui_theme__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _Label__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Label */ "./node_modules/@data-ui/sparkline/esm/annotation/Label.js");
+/* harmony import */ var _utils_positionLabel__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../utils/positionLabel */ "./node_modules/@data-ui/sparkline/esm/utils/positionLabel.js");
+function _inheritsLoose(subClass, superClass) {
+  subClass.prototype = Object.create(superClass.prototype);
+  subClass.prototype.constructor = subClass;
+  subClass.__proto__ = superClass;
+}
+
+function _extends() {
+  _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
+}
+
+
+
+
+
+
+
+
+
+
+var propTypes = {
+  reference: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOf(['mean', 'median', 'min', 'max'])]),
+  LabelComponent: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.element,
+  labelOffset: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number,
+  labelPosition: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOf(['top', 'right', 'bottom', 'left']),
+  renderLabel: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func,
+  stroke: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  strokeDasharray: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  strokeLinecap: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOf(['butt', 'square', 'round', 'inherit']),
+  strokeWidth: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number,
+  // all likely passed by the parent chart
+  data: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.object])),
+  getY: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func,
+  xScale: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func,
+  yScale: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func
+};
+var defaultProps = {
+  data: [],
+  getY: null,
+  LabelComponent: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Label__WEBPACK_IMPORTED_MODULE_7__["default"], _extends({}, _data_ui_theme__WEBPACK_IMPORTED_MODULE_6__["svgLabel"].baseTickLabel, {
+    stroke: "#fff"
+  })),
+  labelOffset: 8,
+  labelPosition: 'right',
+  reference: 'mean',
+  renderLabel: null,
+  stroke: _data_ui_theme__WEBPACK_IMPORTED_MODULE_6__["color"].darkGray,
+  strokeDasharray: null,
+  strokeLinecap: 'round',
+  strokeWidth: 2,
+  xScale: null,
+  yScale: null
+};
+
+var HorizontalReferenceLine = /*#__PURE__*/function (_React$PureComponent) {
+  _inheritsLoose(HorizontalReferenceLine, _React$PureComponent);
+
+  function HorizontalReferenceLine() {
+    return _React$PureComponent.apply(this, arguments) || this;
+  }
+
+  var _proto = HorizontalReferenceLine.prototype;
+
+  _proto.render = function render() {
+    var _this$props = this.props,
+        data = _this$props.data,
+        getY = _this$props.getY,
+        LabelComponent = _this$props.LabelComponent,
+        labelOffset = _this$props.labelOffset,
+        labelPosition = _this$props.labelPosition,
+        reference = _this$props.reference,
+        renderLabel = _this$props.renderLabel,
+        stroke = _this$props.stroke,
+        strokeDasharray = _this$props.strokeDasharray,
+        strokeLinecap = _this$props.strokeLinecap,
+        strokeWidth = _this$props.strokeWidth,
+        xScale = _this$props.xScale,
+        yScale = _this$props.yScale;
+    if (!xScale || !yScale || !getY || !data.length) return null;
+
+    var _xScale$range = xScale.range(),
+        x0 = _xScale$range[0],
+        x1 = _xScale$range[1];
+
+    var refNumber = reference;
+    if (reference === 'mean') refNumber = Object(d3_array__WEBPACK_IMPORTED_MODULE_2__["mean"])(data, getY);
+    if (reference === 'median') refNumber = Object(d3_array__WEBPACK_IMPORTED_MODULE_2__["median"])(data, getY);
+    if (reference === 'max') refNumber = Object(d3_array__WEBPACK_IMPORTED_MODULE_2__["max"])(data, getY);
+    if (reference === 'min') refNumber = Object(d3_array__WEBPACK_IMPORTED_MODULE_2__["min"])(data, getY);
+    var scaledRef = yScale(refNumber);
+    var fromPoint = new _vx_point_build_Point__WEBPACK_IMPORTED_MODULE_5___default.a({
+      x: x0,
+      y: scaledRef
+    });
+    var toPoint = new _vx_point_build_Point__WEBPACK_IMPORTED_MODULE_5___default.a({
+      x: x1,
+      y: scaledRef
+    });
+    var label = renderLabel && renderLabel(refNumber);
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_vx_group_build_Group__WEBPACK_IMPORTED_MODULE_3___default.a, {
+      style: {
+        pointerEvents: 'none'
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_vx_shape_build_shapes_Line__WEBPACK_IMPORTED_MODULE_4___default.a, {
+      from: fromPoint,
+      to: toPoint,
+      stroke: stroke,
+      strokeDasharray: strokeDasharray,
+      strokeLinecap: strokeLinecap,
+      strokeWidth: strokeWidth,
+      vectorEffect: "non-scaling-stroke"
+    }), label && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.cloneElement(LabelComponent, _extends({
+      x: toPoint.x,
+      y: toPoint.y
+    }, Object(_utils_positionLabel__WEBPACK_IMPORTED_MODULE_8__["default"])(labelPosition, labelOffset), {
+      label: label
+    })));
+  };
+
+  return HorizontalReferenceLine;
+}(react__WEBPACK_IMPORTED_MODULE_1___default.a.PureComponent);
+
+HorizontalReferenceLine.propTypes = propTypes;
+HorizontalReferenceLine.defaultProps = defaultProps;
+HorizontalReferenceLine.displayName = 'ReferenceLine';
+/* harmony default export */ __webpack_exports__["default"] = (HorizontalReferenceLine);
+
+/***/ }),
+
+/***/ "./node_modules/@data-ui/sparkline/esm/annotation/Label.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/@data-ui/sparkline/esm/annotation/Label.js ***!
+  \*****************************************************************/
+/*! exports provided: propTypes, defaultProps, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "propTypes", function() { return propTypes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "defaultProps", function() { return defaultProps; });
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _data_ui_theme__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @data-ui/theme */ "./node_modules/@data-ui/sparkline/node_modules/@data-ui/theme/build/index.js");
+/* harmony import */ var _data_ui_theme__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_data_ui_theme__WEBPACK_IMPORTED_MODULE_2__);
+function _extends() {
+  _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
+}
+
+function _objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0) continue;
+    target[key] = source[key];
+  }
+
+  return target;
+}
+
+
+
+
+var propTypes = {
+  anchor: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOf(['start', 'middle', 'end']),
+  dominantBaseline: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  dx: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number,
+  dy: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number,
+  fill: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  label: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.node,
+  paintOrder: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  stroke: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  strokeWidth: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number,
+  x: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number,
+  y: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number
+};
+var defaultProps = {
+  anchor: 'middle',
+  dominantBaseline: 'middle',
+  dx: 0,
+  dy: 0,
+  fill: _data_ui_theme__WEBPACK_IMPORTED_MODULE_2__["color"].text,
+  label: null,
+  paintOrder: 'stroke',
+  stroke: '#fff',
+  strokeWidth: 2,
+  x: 0,
+  y: 0
+};
+
+function Label(_ref) {
+  var anchor = _ref.anchor,
+      dominantBaseline = _ref.dominantBaseline,
+      dx = _ref.dx,
+      dy = _ref.dy,
+      fill = _ref.fill,
+      label = _ref.label,
+      paintOrder = _ref.paintOrder,
+      stroke = _ref.stroke,
+      strokeWidth = _ref.strokeWidth,
+      x = _ref.x,
+      y = _ref.y,
+      rest = _objectWithoutPropertiesLoose(_ref, ["anchor", "dominantBaseline", "dx", "dy", "fill", "label", "paintOrder", "stroke", "strokeWidth", "x", "y"]);
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("text", _extends({
+    x: x,
+    y: y,
+    dx: dx,
+    dy: dy,
+    fill: fill,
+    dominantBaseline: dominantBaseline,
+    paintOrder: paintOrder,
+    stroke: stroke,
+    strokeWidth: strokeWidth,
+    textAnchor: anchor
+  }, rest), label);
+}
+
+Label.propTypes = propTypes;
+Label.defaultProps = defaultProps;
+Label.displayName = 'Label';
+/* harmony default export */ __webpack_exports__["default"] = (Label);
+
+/***/ }),
+
+/***/ "./node_modules/@data-ui/sparkline/esm/annotation/VerticalReferenceLine.js":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/@data-ui/sparkline/esm/annotation/VerticalReferenceLine.js ***!
+  \*********************************************************************************/
+/*! exports provided: propTypes, defaultProps, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "propTypes", function() { return propTypes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "defaultProps", function() { return defaultProps; });
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _vx_group_build_Group__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @vx/group/build/Group */ "./node_modules/@vx/group/build/Group.js");
+/* harmony import */ var _vx_group_build_Group__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_vx_group_build_Group__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _vx_shape_build_shapes_Line__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @vx/shape/build/shapes/Line */ "./node_modules/@vx/shape/build/shapes/Line.js");
+/* harmony import */ var _vx_shape_build_shapes_Line__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_vx_shape_build_shapes_Line__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _vx_point_build_Point__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @vx/point/build/Point */ "./node_modules/@vx/point/build/Point.js");
+/* harmony import */ var _vx_point_build_Point__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_vx_point_build_Point__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _data_ui_theme__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @data-ui/theme */ "./node_modules/@data-ui/sparkline/node_modules/@data-ui/theme/build/index.js");
+/* harmony import */ var _data_ui_theme__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_data_ui_theme__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _Label__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Label */ "./node_modules/@data-ui/sparkline/esm/annotation/Label.js");
+/* harmony import */ var _utils_positionLabel__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../utils/positionLabel */ "./node_modules/@data-ui/sparkline/esm/utils/positionLabel.js");
+function _inheritsLoose(subClass, superClass) {
+  subClass.prototype = Object.create(superClass.prototype);
+  subClass.prototype.constructor = subClass;
+  subClass.__proto__ = superClass;
+}
+
+function _extends() {
+  _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
+}
+/* eslint complexity: ['error', 12] */
+
+
+
+
+
+
+
+
+
+
+var ZERO_DELTA = 0.00001;
+var propTypes = {
+  reference: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOf(['first', 'last', 'min', 'max'])]),
+  LabelComponent: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.element,
+  labelOffset: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number,
+  labelPosition: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOf(['top', 'right', 'bottom', 'left']),
+  renderLabel: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func,
+  stroke: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  strokeDasharray: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  strokeLinecap: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOf(['butt', 'square', 'round', 'inherit']),
+  strokeWidth: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number,
+  // all likely passed by the parent chart
+  data: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.object])),
+  getX: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func,
+  getY: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func,
+  xScale: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func,
+  yScale: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func
+};
+var defaultProps = {
+  data: [],
+  getX: null,
+  getY: null,
+  LabelComponent: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Label__WEBPACK_IMPORTED_MODULE_6__["default"], _extends({}, _data_ui_theme__WEBPACK_IMPORTED_MODULE_5__["svgLabel"].baseTickLabel, {
+    stroke: "#fff"
+  })),
+  labelOffset: 10,
+  labelPosition: 'top',
+  reference: 'last',
+  renderLabel: null,
+  stroke: _data_ui_theme__WEBPACK_IMPORTED_MODULE_5__["color"].darkGray,
+  strokeDasharray: null,
+  strokeLinecap: 'round',
+  strokeWidth: 2,
+  xScale: null,
+  yScale: null
+};
+
+var VerticalReferenceLine = /*#__PURE__*/function (_React$PureComponent) {
+  _inheritsLoose(VerticalReferenceLine, _React$PureComponent);
+
+  function VerticalReferenceLine() {
+    return _React$PureComponent.apply(this, arguments) || this;
+  }
+
+  var _proto = VerticalReferenceLine.prototype;
+
+  _proto.render = function render() {
+    var _this$props = this.props,
+        data = _this$props.data,
+        getX = _this$props.getX,
+        getY = _this$props.getY,
+        LabelComponent = _this$props.LabelComponent,
+        labelOffset = _this$props.labelOffset,
+        labelPosition = _this$props.labelPosition,
+        reference = _this$props.reference,
+        renderLabel = _this$props.renderLabel,
+        stroke = _this$props.stroke,
+        strokeDasharray = _this$props.strokeDasharray,
+        strokeLinecap = _this$props.strokeLinecap,
+        strokeWidth = _this$props.strokeWidth,
+        xScale = _this$props.xScale,
+        yScale = _this$props.yScale;
+    if (!xScale || !yScale || !getY || !getX || !data.length) return null;
+
+    var _yScale$range = yScale.range(),
+        y1 = _yScale$range[0],
+        y0 = _yScale$range[1];
+
+    var _yScale$domain = yScale.domain(),
+        yMin = _yScale$domain[0],
+        yMax = _yScale$domain[1]; // use a number if passed, else find the index based on the ref type
+
+
+    var index = reference;
+
+    if (typeof reference !== 'number') {
+      index = data.findIndex(function (d, i) {
+        return reference === 'first' && i === 0 || reference === 'last' && i === data.length - 1 || reference === 'min' && Math.abs(getY(d) - yMin) < ZERO_DELTA || reference === 'max' && Math.abs(getY(d) - yMax) < ZERO_DELTA;
+      });
+    }
+
+    var datum = data[index]; // use passed value if no datum, this enables custom x values
+
+    var refNumber = datum ? getX(datum) : index;
+    var scaledRef = xScale(refNumber);
+    var fromPoint = new _vx_point_build_Point__WEBPACK_IMPORTED_MODULE_4___default.a({
+      x: scaledRef,
+      y: y1
+    });
+    var toPoint = new _vx_point_build_Point__WEBPACK_IMPORTED_MODULE_4___default.a({
+      x: scaledRef,
+      y: y0
+    });
+    var label = renderLabel && renderLabel(datum && getY(datum) || refNumber);
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_vx_group_build_Group__WEBPACK_IMPORTED_MODULE_2___default.a, {
+      style: {
+        pointerEvents: 'none'
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_vx_shape_build_shapes_Line__WEBPACK_IMPORTED_MODULE_3___default.a, {
+      from: fromPoint,
+      to: toPoint,
+      stroke: stroke,
+      strokeDasharray: strokeDasharray,
+      strokeLinecap: strokeLinecap,
+      strokeWidth: strokeWidth,
+      vectorEffect: "non-scaling-stroke"
+    }), label && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.cloneElement(LabelComponent, _extends({
+      x: toPoint.x,
+      y: toPoint.y
+    }, Object(_utils_positionLabel__WEBPACK_IMPORTED_MODULE_7__["default"])(labelPosition, labelOffset), {
+      label: label
+    })));
+  };
+
+  return VerticalReferenceLine;
+}(react__WEBPACK_IMPORTED_MODULE_1___default.a.PureComponent);
+
+VerticalReferenceLine.propTypes = propTypes;
+VerticalReferenceLine.defaultProps = defaultProps;
+VerticalReferenceLine.displayName = 'VerticalReferenceLine';
+/* harmony default export */ __webpack_exports__["default"] = (VerticalReferenceLine);
+
+/***/ }),
+
+/***/ "./node_modules/@data-ui/sparkline/esm/chart/Sparkline.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/@data-ui/sparkline/esm/chart/Sparkline.js ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var d3_array__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! d3-array */ "./node_modules/d3-array/src/index.js");
+/* harmony import */ var _vx_group_build_Group__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @vx/group/build/Group */ "./node_modules/@vx/group/build/Group.js");
+/* harmony import */ var _vx_group_build_Group__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_vx_group_build_Group__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _vx_scale_build_scales_linear__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @vx/scale/build/scales/linear */ "./node_modules/@vx/scale/build/scales/linear.js");
+/* harmony import */ var _vx_scale_build_scales_linear__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_vx_scale_build_scales_linear__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _series_BarSeries__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../series/BarSeries */ "./node_modules/@data-ui/sparkline/esm/series/BarSeries.js");
+/* harmony import */ var _utils_componentIsX__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils/componentIsX */ "./node_modules/@data-ui/sparkline/esm/utils/componentIsX.js");
+/* harmony import */ var _utils_defined__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../utils/defined */ "./node_modules/@data-ui/sparkline/esm/utils/defined.js");
+function _inheritsLoose(subClass, superClass) {
+  subClass.prototype = Object.create(superClass.prototype);
+  subClass.prototype.constructor = subClass;
+  subClass.__proto__ = superClass;
+}
+
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
+function _extends() {
+  _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
+}
+/* eslint react/no-unused-prop-types: 0 */
+
+
+
+
+
+
+
+
+
+
+var propTypes = {
+  ariaLabel: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string.isRequired,
+  children: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.node.isRequired,
+  className: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  // number or objects (with accessors)
+  data: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.object])),
+  height: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number.isRequired,
+  margin: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.shape({
+    top: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number,
+    right: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number,
+    bottom: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number,
+    left: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number
+  }),
+  max: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number,
+  min: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number,
+  onMouseMove: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func,
+  onMouseLeave: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func,
+  preserveAspectRatio: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  styles: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.object,
+  // eslint-disable-line react/forbid-prop-types
+  width: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number.isRequired,
+  valueAccessor: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func,
+  viewBox: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string
+};
+var defaultProps = {
+  className: null,
+  data: [],
+  margin: {
+    top: 16,
+    right: 16,
+    bottom: 16,
+    left: 16
+  },
+  max: null,
+  min: null,
+  onMouseMove: null,
+  onMouseLeave: null,
+  preserveAspectRatio: null,
+  styles: null,
+  valueAccessor: function valueAccessor(d) {
+    return d;
+  },
+  viewBox: null
+};
+
+var getX = function getX(d) {
+  return d.i;
+};
+
+var getY = function getY(d) {
+  return d.y;
+};
+
+var parsedDatumThunk = function parsedDatumThunk(valueAccessor) {
+  return function (d, i) {
+    var y = valueAccessor(d);
+    return _extends({
+      i: i,
+      y: y,
+      id: y
+    }, d);
+  };
+};
+
+var Sparkline = /*#__PURE__*/function (_React$PureComponent) {
+  _inheritsLoose(Sparkline, _React$PureComponent);
+
+  function Sparkline(props) {
+    var _this;
+
+    _this = _React$PureComponent.call(this, props) || this;
+    _this.getMaxY = _this.getMaxY.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.state = _this.getStateFromProps(props);
+    return _this;
+  }
+
+  var _proto = Sparkline.prototype;
+
+  _proto.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+    var _this2 = this;
+
+    if ([// recompute scales if any of the following change
+    'data', 'height', 'margin', 'max', 'min', 'valueAccessor', 'width'].some(function (prop) {
+      return _this2.props[prop] !== nextProps[prop];
+    }) // eslint-disable-line react/destructuring-assignment
+    ) {
+        this.setState(this.getStateFromProps(nextProps));
+      }
+  };
+
+  _proto.getStateFromProps = function getStateFromProps(props) {
+    var dimensions = this.getDimmensions(props);
+    var scales = this.getScales(props, dimensions);
+    return _extends({}, dimensions, scales);
+  };
+
+  _proto.getScales = function getScales(props, _ref) {
+    var innerHeight = _ref.innerHeight,
+        innerWidth = _ref.innerWidth;
+
+    var _ref2 = props || this.props,
+        rawData = _ref2.data,
+        min = _ref2.min,
+        max = _ref2.max,
+        valueAccessor = _ref2.valueAccessor;
+
+    var data = rawData.map(parsedDatumThunk(valueAccessor));
+    var yExtent = Object(d3_array__WEBPACK_IMPORTED_MODULE_2__["extent"])(data, getY);
+    var xScale = _vx_scale_build_scales_linear__WEBPACK_IMPORTED_MODULE_4___default()({
+      domain: [0, data.length - 1],
+      range: [0, innerWidth]
+    });
+    var yScale = _vx_scale_build_scales_linear__WEBPACK_IMPORTED_MODULE_4___default()({
+      domain: [Object(_utils_defined__WEBPACK_IMPORTED_MODULE_7__["default"])(min) ? min : yExtent[0], Object(_utils_defined__WEBPACK_IMPORTED_MODULE_7__["default"])(max) ? max : yExtent[1]],
+      range: [innerHeight, 0]
+    });
+    return {
+      xScale: xScale,
+      yScale: yScale,
+      data: data
+    };
+  };
+
+  _proto.getMaxY = function getMaxY() {
+    var yScale = this.state.yScale;
+    return Math.max.apply(Math, yScale.domain());
+  };
+
+  _proto.getDimmensions = function getDimmensions(props) {
+    var _ref3 = props || this.props,
+        margin = _ref3.margin,
+        width = _ref3.width,
+        height = _ref3.height;
+
+    var completeMargin = _extends({}, defaultProps.margin, margin);
+
+    return {
+      margin: completeMargin,
+      innerHeight: height - completeMargin.top - completeMargin.bottom,
+      innerWidth: width - completeMargin.left - completeMargin.right
+    };
+  };
+
+  _proto.render = function render() {
+    var _this$props = this.props,
+        ariaLabel = _this$props.ariaLabel,
+        children = _this$props.children,
+        className = _this$props.className,
+        height = _this$props.height,
+        onMouseMove = _this$props.onMouseMove,
+        onMouseLeave = _this$props.onMouseLeave,
+        preserveAspectRatio = _this$props.preserveAspectRatio,
+        styles = _this$props.styles,
+        width = _this$props.width,
+        viewBox = _this$props.viewBox;
+    var _this$state = this.state,
+        data = _this$state.data,
+        margin = _this$state.margin,
+        xScale = _this$state.xScale,
+        yScale = _this$state.yScale;
+    var seriesProps = {
+      xScale: xScale,
+      yScale: yScale,
+      data: data,
+      getX: getX,
+      getY: getY,
+      margin: margin
+    };
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("svg", {
+      "aria-label": ariaLabel,
+      className: className,
+      height: height,
+      role: "img",
+      preserveAspectRatio: preserveAspectRatio,
+      style: styles,
+      width: width,
+      viewBox: viewBox
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_vx_group_build_Group__WEBPACK_IMPORTED_MODULE_3___default.a, {
+      left: margin.left,
+      top: margin.top
+    }, react__WEBPACK_IMPORTED_MODULE_1___default.a.Children.map(children, function (Child) {
+      var name = Object(_utils_componentIsX__WEBPACK_IMPORTED_MODULE_6__["componentName"])(Child);
+
+      if (Object(_utils_componentIsX__WEBPACK_IMPORTED_MODULE_6__["isSeries"])(name) || Object(_utils_componentIsX__WEBPACK_IMPORTED_MODULE_6__["isReferenceLine"])(name) || Object(_utils_componentIsX__WEBPACK_IMPORTED_MODULE_6__["isBandLine"])(name)) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.cloneElement(Child, seriesProps);
+      }
+
+      return Child;
+    }), (onMouseMove || onMouseLeave) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_series_BarSeries__WEBPACK_IMPORTED_MODULE_5__["default"], _extends({
+      fill: "transparent",
+      fillOpacity: 0,
+      stroke: "transparent",
+      strokeWidth: 1
+    }, seriesProps, {
+      getY: this.getMaxY,
+      onMouseMove: onMouseMove,
+      onMouseLeave: onMouseLeave
+    }))));
+  };
+
+  return Sparkline;
+}(react__WEBPACK_IMPORTED_MODULE_1___default.a.PureComponent);
+
+Sparkline.propTypes = propTypes;
+Sparkline.defaultProps = defaultProps;
+Sparkline.displayName = 'Sparkline';
+/* harmony default export */ __webpack_exports__["default"] = (Sparkline);
+
+/***/ }),
+
+/***/ "./node_modules/@data-ui/sparkline/esm/index.js":
+/*!******************************************************!*\
+  !*** ./node_modules/@data-ui/sparkline/esm/index.js ***!
+  \******************************************************/
+/*! exports provided: Sparkline, BarSeries, LineSeries, PointSeries, BandLine, Label, HorizontalReferenceLine, VerticalReferenceLine, WithTooltip, Tooltip, withTooltipPropTypes, LinearGradient, PatternLines, withScreenSize, withParentSize */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _chart_Sparkline__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./chart/Sparkline */ "./node_modules/@data-ui/sparkline/esm/chart/Sparkline.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Sparkline", function() { return _chart_Sparkline__WEBPACK_IMPORTED_MODULE_0__["default"]; });
+
+/* harmony import */ var _series_BarSeries__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./series/BarSeries */ "./node_modules/@data-ui/sparkline/esm/series/BarSeries.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BarSeries", function() { return _series_BarSeries__WEBPACK_IMPORTED_MODULE_1__["default"]; });
+
+/* harmony import */ var _series_LineSeries__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./series/LineSeries */ "./node_modules/@data-ui/sparkline/esm/series/LineSeries.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LineSeries", function() { return _series_LineSeries__WEBPACK_IMPORTED_MODULE_2__["default"]; });
+
+/* harmony import */ var _series_PointSeries__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./series/PointSeries */ "./node_modules/@data-ui/sparkline/esm/series/PointSeries.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PointSeries", function() { return _series_PointSeries__WEBPACK_IMPORTED_MODULE_3__["default"]; });
+
+/* harmony import */ var _annotation_BandLine__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./annotation/BandLine */ "./node_modules/@data-ui/sparkline/esm/annotation/BandLine.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BandLine", function() { return _annotation_BandLine__WEBPACK_IMPORTED_MODULE_4__["default"]; });
+
+/* harmony import */ var _annotation_Label__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./annotation/Label */ "./node_modules/@data-ui/sparkline/esm/annotation/Label.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Label", function() { return _annotation_Label__WEBPACK_IMPORTED_MODULE_5__["default"]; });
+
+/* harmony import */ var _annotation_HorizontalReferenceLine__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./annotation/HorizontalReferenceLine */ "./node_modules/@data-ui/sparkline/esm/annotation/HorizontalReferenceLine.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "HorizontalReferenceLine", function() { return _annotation_HorizontalReferenceLine__WEBPACK_IMPORTED_MODULE_6__["default"]; });
+
+/* harmony import */ var _annotation_VerticalReferenceLine__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./annotation/VerticalReferenceLine */ "./node_modules/@data-ui/sparkline/esm/annotation/VerticalReferenceLine.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VerticalReferenceLine", function() { return _annotation_VerticalReferenceLine__WEBPACK_IMPORTED_MODULE_7__["default"]; });
+
+/* harmony import */ var _data_ui_shared__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @data-ui/shared */ "./node_modules/@data-ui/shared/esm/index.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "WithTooltip", function() { return _data_ui_shared__WEBPACK_IMPORTED_MODULE_8__["WithTooltip"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Tooltip", function() { return _data_ui_shared__WEBPACK_IMPORTED_MODULE_8__["Tooltip"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "withTooltipPropTypes", function() { return _data_ui_shared__WEBPACK_IMPORTED_MODULE_8__["withTooltipPropTypes"]; });
+
+/* harmony import */ var _vx_gradient__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @vx/gradient */ "./node_modules/@vx/gradient/dist/vx-gradient.es.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LinearGradient", function() { return _vx_gradient__WEBPACK_IMPORTED_MODULE_9__["LinearGradient"]; });
+
+/* harmony import */ var _vx_pattern__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @vx/pattern */ "./node_modules/@vx/pattern/dist/vx-pattern.es.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PatternLines", function() { return _vx_pattern__WEBPACK_IMPORTED_MODULE_10__["PatternLines"]; });
+
+/* harmony import */ var _vx_responsive__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @vx/responsive */ "./node_modules/@vx/responsive/esm/index.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "withScreenSize", function() { return _vx_responsive__WEBPACK_IMPORTED_MODULE_11__["withScreenSize"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "withParentSize", function() { return _vx_responsive__WEBPACK_IMPORTED_MODULE_11__["withParentSize"]; });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@data-ui/sparkline/esm/series/BarSeries.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/@data-ui/sparkline/esm/series/BarSeries.js ***!
+  \*****************************************************************/
+/*! exports provided: propTypes, defaultProps, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "propTypes", function() { return propTypes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "defaultProps", function() { return defaultProps; });
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _vx_group_build_Group__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @vx/group/build/Group */ "./node_modules/@vx/group/build/Group.js");
+/* harmony import */ var _vx_group_build_Group__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_vx_group_build_Group__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _vx_shape_build_shapes_Bar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @vx/shape/build/shapes/Bar */ "./node_modules/@vx/shape/build/shapes/Bar.js");
+/* harmony import */ var _vx_shape_build_shapes_Bar__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_vx_shape_build_shapes_Bar__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _data_ui_theme__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @data-ui/theme */ "./node_modules/@data-ui/sparkline/node_modules/@data-ui/theme/build/index.js");
+/* harmony import */ var _data_ui_theme__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_data_ui_theme__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _annotation_Label__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../annotation/Label */ "./node_modules/@data-ui/sparkline/esm/annotation/Label.js");
+/* harmony import */ var _utils_callOrValue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils/callOrValue */ "./node_modules/@data-ui/sparkline/esm/utils/callOrValue.js");
+/* harmony import */ var _utils_positionLabel__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../utils/positionLabel */ "./node_modules/@data-ui/sparkline/esm/utils/positionLabel.js");
+function _inheritsLoose(subClass, superClass) {
+  subClass.prototype = Object.create(superClass.prototype);
+  subClass.prototype.constructor = subClass;
+  subClass.__proto__ = superClass;
+}
+
+function _extends() {
+  _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
+}
+
+
+
+
+
+
+
+
+
+var propTypes = {
+  fill: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string]),
+  fillOpacity: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number]),
+  LabelComponent: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.element,
+  labelOffset: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number,
+  labelPosition: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOf(['top', 'right', 'bottom', 'left'])]),
+  onMouseMove: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func,
+  onMouseLeave: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func,
+  renderLabel: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func,
+  // (val, i) => node
+  stroke: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string]),
+  strokeWidth: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number]),
+  // all likely passed by the parent chart
+  data: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.object])),
+  getX: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func,
+  getY: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func,
+  xScale: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func,
+  yScale: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func
+};
+var defaultProps = {
+  data: [],
+  fill: _data_ui_theme__WEBPACK_IMPORTED_MODULE_4__["color"]["default"],
+  fillOpacity: 0.7,
+  getX: null,
+  getY: null,
+  labelOffset: 8,
+  LabelComponent: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_annotation_Label__WEBPACK_IMPORTED_MODULE_5__["default"], _extends({}, _data_ui_theme__WEBPACK_IMPORTED_MODULE_4__["svgLabel"].baseTickLabel, {
+    stroke: "#fff"
+  })),
+  labelPosition: 'top',
+  onMouseMove: null,
+  onMouseLeave: null,
+  renderLabel: null,
+  stroke: '#fff',
+  strokeWidth: 1,
+  xScale: null,
+  yScale: null
+};
+
+var BarSeries = /*#__PURE__*/function (_React$PureComponent) {
+  _inheritsLoose(BarSeries, _React$PureComponent);
+
+  function BarSeries() {
+    return _React$PureComponent.apply(this, arguments) || this;
+  }
+
+  var _proto = BarSeries.prototype;
+
+  _proto.render = function render() {
+    var _this$props = this.props,
+        data = _this$props.data,
+        getX = _this$props.getX,
+        getY = _this$props.getY,
+        fill = _this$props.fill,
+        fillOpacity = _this$props.fillOpacity,
+        labelOffset = _this$props.labelOffset,
+        LabelComponent = _this$props.LabelComponent,
+        labelPosition = _this$props.labelPosition,
+        onMouseMove = _this$props.onMouseMove,
+        onMouseLeave = _this$props.onMouseLeave,
+        renderLabel = _this$props.renderLabel,
+        stroke = _this$props.stroke,
+        strokeWidth = _this$props.strokeWidth,
+        xScale = _this$props.xScale,
+        yScale = _this$props.yScale;
+    if (!xScale || !yScale || !getX || !getY || !data.length) return null;
+    var barWidth = Math.max(1, Math.max.apply(Math, xScale.range()) / data.length - 1);
+    var maxBarHeight = Math.max.apply(Math, yScale.range());
+    var labels = []; // render labels as top-most layer
+
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_vx_group_build_Group__WEBPACK_IMPORTED_MODULE_2___default.a, null, data.map(function (d, i) {
+      var yVal = getY(d);
+      var x = xScale(getX(d));
+      var y = yScale(yVal);
+      var key = "bar-" + x + "-" + y + "-" + i;
+      var label = renderLabel && renderLabel(yVal, i);
+      var fillValue = Object(_utils_callOrValue__WEBPACK_IMPORTED_MODULE_6__["default"])(d.fill || fill, yVal, i);
+
+      if (label) {
+        labels.push(_extends({
+          key: key,
+          label: label,
+          x: x,
+          y: y
+        }, Object(_utils_positionLabel__WEBPACK_IMPORTED_MODULE_7__["default"])(Object(_utils_callOrValue__WEBPACK_IMPORTED_MODULE_6__["default"])(labelPosition, yVal, i), labelOffset)));
+      }
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_vx_shape_build_shapes_Bar__WEBPACK_IMPORTED_MODULE_3___default.a, {
+        key: key,
+        x: x - barWidth / 2,
+        y: y,
+        width: barWidth,
+        height: maxBarHeight - y,
+        fill: fillValue,
+        fillOpacity: Object(_utils_callOrValue__WEBPACK_IMPORTED_MODULE_6__["default"])(typeof d.fillOpacity === 'undefined' ? fillOpacity : d.fillOpacity, yVal, i),
+        stroke: Object(_utils_callOrValue__WEBPACK_IMPORTED_MODULE_6__["default"])(d.stroke || stroke, yVal, i),
+        strokeWidth: Object(_utils_callOrValue__WEBPACK_IMPORTED_MODULE_6__["default"])(d.strokeWidth || strokeWidth, yVal, i),
+        onMouseMove: onMouseMove && function () {
+          return function (event) {
+            onMouseMove({
+              event: event,
+              data: data,
+              datum: d,
+              index: i,
+              color: fillValue
+            });
+          };
+        },
+        onMouseLeave: onMouseLeave && function () {
+          return onMouseLeave;
+        }
+      });
+    }), labels.map(function (labelProps) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.cloneElement(LabelComponent, labelProps);
+    }));
+  };
+
+  return BarSeries;
+}(react__WEBPACK_IMPORTED_MODULE_1___default.a.PureComponent);
+
+BarSeries.propTypes = propTypes;
+BarSeries.defaultProps = defaultProps;
+BarSeries.displayName = 'BarSeries';
+/* harmony default export */ __webpack_exports__["default"] = (BarSeries);
+
+/***/ }),
+
+/***/ "./node_modules/@data-ui/sparkline/esm/series/LineSeries.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@data-ui/sparkline/esm/series/LineSeries.js ***!
+  \******************************************************************/
+/*! exports provided: propTypes, defaultProps, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "propTypes", function() { return propTypes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "defaultProps", function() { return defaultProps; });
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _vx_curve__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @vx/curve */ "./node_modules/@vx/curve/dist/vx-curve.es.js");
+/* harmony import */ var _vx_group_build_Group__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @vx/group/build/Group */ "./node_modules/@vx/group/build/Group.js");
+/* harmony import */ var _vx_group_build_Group__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_vx_group_build_Group__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _vx_shape_build_shapes_LinePath__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @vx/shape/build/shapes/LinePath */ "./node_modules/@vx/shape/build/shapes/LinePath.js");
+/* harmony import */ var _vx_shape_build_shapes_LinePath__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_vx_shape_build_shapes_LinePath__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _vx_shape_build_shapes_AreaClosed__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @vx/shape/build/shapes/AreaClosed */ "./node_modules/@vx/shape/build/shapes/AreaClosed.js");
+/* harmony import */ var _vx_shape_build_shapes_AreaClosed__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_vx_shape_build_shapes_AreaClosed__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _data_ui_theme__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @data-ui/theme */ "./node_modules/@data-ui/sparkline/node_modules/@data-ui/theme/build/index.js");
+/* harmony import */ var _data_ui_theme__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_data_ui_theme__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _utils_defined__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../utils/defined */ "./node_modules/@data-ui/sparkline/esm/utils/defined.js");
+/* harmony import */ var _utils_findClosestDatum__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../utils/findClosestDatum */ "./node_modules/@data-ui/sparkline/esm/utils/findClosestDatum.js");
+function _inheritsLoose(subClass, superClass) {
+  subClass.prototype = Object.create(superClass.prototype);
+  subClass.prototype.constructor = subClass;
+  subClass.__proto__ = superClass;
+}
+
+
+
+
+
+
+
+
+
+
+var propTypes = {
+  curve: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOf(['linear', 'cardinal', 'basis', 'monotoneX']),
+  fill: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  fillOpacity: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number,
+  onMouseMove: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func,
+  onMouseLeave: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func,
+  showArea: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.bool,
+  showLine: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.bool,
+  stroke: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  strokeDasharray: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  strokeLinecap: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOf(['butt', 'square', 'round', 'inherit']),
+  strokeWidth: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number,
+  // all likely passed by the parent chart
+  data: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.object])),
+  getX: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func,
+  getY: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func,
+  xScale: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func,
+  yScale: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func,
+  margin: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.shape({
+    top: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number,
+    right: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number,
+    bottom: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number,
+    left: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number
+  })
+};
+var defaultProps = {
+  curve: 'monotoneX',
+  data: [],
+  fill: _data_ui_theme__WEBPACK_IMPORTED_MODULE_6__["color"]["default"],
+  fillOpacity: 0.3,
+  getX: null,
+  getY: null,
+  onMouseMove: null,
+  onMouseLeave: null,
+  showArea: false,
+  showLine: true,
+  stroke: _data_ui_theme__WEBPACK_IMPORTED_MODULE_6__["color"]["default"],
+  strokeWidth: 2,
+  strokeDasharray: null,
+  strokeLinecap: 'round',
+  xScale: null,
+  yScale: null,
+  margin: {}
+};
+var CURVE_LOOKUP = {
+  linear: _vx_curve__WEBPACK_IMPORTED_MODULE_2__["curveLinear"],
+  basis: _vx_curve__WEBPACK_IMPORTED_MODULE_2__["curveBasis"],
+  cardinal: _vx_curve__WEBPACK_IMPORTED_MODULE_2__["curveCardinal"],
+  monotoneX: _vx_curve__WEBPACK_IMPORTED_MODULE_2__["curveMonotoneX"]
+};
+
+var LineSeries = /*#__PURE__*/function (_React$PureComponent) {
+  _inheritsLoose(LineSeries, _React$PureComponent);
+
+  function LineSeries() {
+    return _React$PureComponent.apply(this, arguments) || this;
+  }
+
+  var _proto = LineSeries.prototype;
+
+  _proto.render = function render() {
+    var _this$props = this.props,
+        curve = _this$props.curve,
+        data = _this$props.data,
+        getX = _this$props.getX,
+        getY = _this$props.getY,
+        fill = _this$props.fill,
+        fillOpacity = _this$props.fillOpacity,
+        onMouseMove = _this$props.onMouseMove,
+        onMouseLeave = _this$props.onMouseLeave,
+        showArea = _this$props.showArea,
+        showLine = _this$props.showLine,
+        stroke = _this$props.stroke,
+        strokeWidth = _this$props.strokeWidth,
+        strokeDasharray = _this$props.strokeDasharray,
+        strokeLinecap = _this$props.strokeLinecap,
+        xScale = _this$props.xScale,
+        yScale = _this$props.yScale,
+        margin = _this$props.margin;
+    if (!xScale || !yScale || !getX || !getY || !data.length) return null;
+    var curveFunc = CURVE_LOOKUP[curve];
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_vx_group_build_Group__WEBPACK_IMPORTED_MODULE_3___default.a, {
+      onMouseMove: onMouseMove && function (event) {
+        var _findClosestDatum = Object(_utils_findClosestDatum__WEBPACK_IMPORTED_MODULE_8__["default"])({
+          data: data,
+          getX: getX,
+          event: event,
+          xScale: xScale,
+          marginLeft: margin.left
+        }),
+            datum = _findClosestDatum.datum,
+            index = _findClosestDatum.index;
+
+        onMouseMove({
+          event: event,
+          data: data,
+          datum: datum,
+          index: index,
+          color: fill
+        });
+      },
+      onMouseLeave: onMouseLeave
+    }, showArea && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_vx_shape_build_shapes_AreaClosed__WEBPACK_IMPORTED_MODULE_5___default.a, {
+      data: data,
+      x: getX,
+      y: getY,
+      xScale: xScale,
+      yScale: yScale,
+      fill: fill,
+      fillOpacity: fillOpacity,
+      stroke: "transparent",
+      strokeWidth: strokeWidth,
+      curve: curveFunc,
+      defined: function defined(d) {
+        return Object(_utils_defined__WEBPACK_IMPORTED_MODULE_7__["default"])(getY(d));
+      }
+    }), showLine && strokeWidth > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_vx_shape_build_shapes_LinePath__WEBPACK_IMPORTED_MODULE_4___default.a, {
+      data: data,
+      x: getX,
+      y: getY,
+      xScale: xScale,
+      yScale: yScale,
+      stroke: stroke,
+      strokeWidth: strokeWidth,
+      strokeDasharray: strokeDasharray,
+      strokeLinecap: strokeLinecap,
+      curve: curveFunc,
+      glyph: null,
+      defined: function defined(d) {
+        return Object(_utils_defined__WEBPACK_IMPORTED_MODULE_7__["default"])(getY(d));
+      }
+    }));
+  };
+
+  return LineSeries;
+}(react__WEBPACK_IMPORTED_MODULE_1___default.a.PureComponent);
+
+LineSeries.propTypes = propTypes;
+LineSeries.defaultProps = defaultProps;
+LineSeries.displayName = 'LineSeries';
+/* harmony default export */ __webpack_exports__["default"] = (LineSeries);
+
+/***/ }),
+
+/***/ "./node_modules/@data-ui/sparkline/esm/series/PointSeries.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/@data-ui/sparkline/esm/series/PointSeries.js ***!
+  \*******************************************************************/
+/*! exports provided: propTypes, defaultProps, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "propTypes", function() { return propTypes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "defaultProps", function() { return defaultProps; });
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var d3_array__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! d3-array */ "./node_modules/d3-array/src/index.js");
+/* harmony import */ var _vx_glyph_build_glyphs_Dot__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @vx/glyph/build/glyphs/Dot */ "./node_modules/@vx/glyph/build/glyphs/Dot.js");
+/* harmony import */ var _vx_glyph_build_glyphs_Dot__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_vx_glyph_build_glyphs_Dot__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _vx_group_build_Group__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @vx/group/build/Group */ "./node_modules/@vx/group/build/Group.js");
+/* harmony import */ var _vx_group_build_Group__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_vx_group_build_Group__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _data_ui_theme__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @data-ui/theme */ "./node_modules/@data-ui/sparkline/node_modules/@data-ui/theme/build/index.js");
+/* harmony import */ var _data_ui_theme__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_data_ui_theme__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _annotation_Label__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../annotation/Label */ "./node_modules/@data-ui/sparkline/esm/annotation/Label.js");
+/* harmony import */ var _utils_callOrValue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../utils/callOrValue */ "./node_modules/@data-ui/sparkline/esm/utils/callOrValue.js");
+/* harmony import */ var _utils_defined__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../utils/defined */ "./node_modules/@data-ui/sparkline/esm/utils/defined.js");
+/* harmony import */ var _utils_positionLabel__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../utils/positionLabel */ "./node_modules/@data-ui/sparkline/esm/utils/positionLabel.js");
+function _inheritsLoose(subClass, superClass) {
+  subClass.prototype = Object.create(superClass.prototype);
+  subClass.prototype.constructor = subClass;
+  subClass.__proto__ = superClass;
+}
+
+function _extends() {
+  _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
+}
+/* eslint complexity: 0 */
+
+
+
+
+
+
+
+
+
+
+
+
+var propTypes = {
+  fill: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string]),
+  fillOpacity: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number]),
+  LabelComponent: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.element,
+  labelOffset: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number,
+  labelPosition: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOf(['auto', 'top', 'right', 'bottom', 'left'])]),
+  onMouseMove: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func,
+  onMouseLeave: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func,
+  points: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number, // index
+  prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOf(['all', 'min', 'max', 'first', 'last'])])),
+  size: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number]),
+  renderLabel: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func,
+  // (d, i) => node
+  stroke: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string]),
+  strokeWidth: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number]),
+  // all likely passed by the parent chart
+  data: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.object])),
+  getX: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func,
+  getY: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func,
+  xScale: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func,
+  yScale: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func
+};
+var defaultProps = {
+  data: [],
+  fill: _data_ui_theme__WEBPACK_IMPORTED_MODULE_5__["color"]["default"],
+  fillOpacity: 1,
+  LabelComponent: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_annotation_Label__WEBPACK_IMPORTED_MODULE_6__["default"], _extends({}, _data_ui_theme__WEBPACK_IMPORTED_MODULE_5__["svgLabel"].baseTickLabel, {
+    stroke: "#fff"
+  })),
+  labelOffset: 12,
+  labelPosition: 'auto',
+  onMouseMove: null,
+  onMouseLeave: null,
+  getX: null,
+  getY: null,
+  points: ['min', 'max'],
+  renderLabel: null,
+  size: 4,
+  stroke: '#fff',
+  strokeWidth: 2,
+  xScale: null,
+  yScale: null
+};
+var ZERO_DELTA = 0.00001;
+
+var PointSeries = /*#__PURE__*/function (_React$Component) {
+  _inheritsLoose(PointSeries, _React$Component);
+
+  function PointSeries() {
+    return _React$Component.apply(this, arguments) || this;
+  }
+
+  var _proto = PointSeries.prototype; // we define a custom handler because the points prop may be impractible to cache
+
+  _proto.shouldComponentUpdate = function shouldComponentUpdate(nextProps) {
+    var _this = this;
+
+    var nonPointsAreEqual = Object.keys(propTypes).every( // eslint-disable-next-line react/destructuring-assignment
+    function (prop) {
+      return prop === 'points' || _this.props[prop] === nextProps[prop];
+    });
+    var points = this.props.points;
+    var pointsAreEqual = nextProps.points.length === points.length && nextProps.points.every(function (point) {
+      return points.indexOf(point) > -1;
+    });
+    return !(pointsAreEqual && nonPointsAreEqual);
+  };
+
+  _proto.render = function render() {
+    var _this$props = this.props,
+        data = _this$props.data,
+        getX = _this$props.getX,
+        getY = _this$props.getY,
+        fill = _this$props.fill,
+        fillOpacity = _this$props.fillOpacity,
+        LabelComponent = _this$props.LabelComponent,
+        labelOffset = _this$props.labelOffset,
+        labelPosition = _this$props.labelPosition,
+        onMouseMove = _this$props.onMouseMove,
+        onMouseLeave = _this$props.onMouseLeave,
+        points = _this$props.points,
+        renderLabel = _this$props.renderLabel,
+        size = _this$props.size,
+        stroke = _this$props.stroke,
+        strokeWidth = _this$props.strokeWidth,
+        xScale = _this$props.xScale,
+        yScale = _this$props.yScale;
+    if (!xScale || !yScale || !getX || !getY || !data.length) return null;
+    var showAll = points.includes('all');
+    var showMin = points.includes('min');
+    var showMax = points.includes('max');
+    var showFirst = points.includes('first');
+    var showLast = points.includes('last');
+
+    var _extent = Object(d3_array__WEBPACK_IMPORTED_MODULE_2__["extent"])(data, getY),
+        minY = _extent[0],
+        maxY = _extent[1];
+
+    var lastIndex = data.length - 1;
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_vx_group_build_Group__WEBPACK_IMPORTED_MODULE_4___default.a, null, data.map(function (d, i) {
+      if (points.indexOf(i) > -1 || showAll || showFirst && i === 0 || showLast && i === lastIndex || showMin && Math.abs(getY(d) - minY) < ZERO_DELTA || showMax && Math.abs(getY(d) - maxY) < ZERO_DELTA) {
+        var yVal = getY(d);
+        var cx = xScale(getX(d));
+        var cy = yScale(yVal);
+        var key = cx + "-" + cy + "-" + i;
+        var label = renderLabel && renderLabel(yVal, i);
+        var prevCy = data[i - 1] ? yScale(getY(data[i - 1])) : null;
+        var nextCy = data[i + 1] ? yScale(getY(data[i + 1])) : null;
+        var fillValue = Object(_utils_callOrValue__WEBPACK_IMPORTED_MODULE_7__["default"])(d.fill || fill, yVal, i); // position label above a point if either of the surrounding points are lower
+
+        var autoLabelPosition = prevCy !== null && prevCy > cy || nextCy !== null && nextCy > cy ? 'top' : 'bottom';
+        return Object(_utils_defined__WEBPACK_IMPORTED_MODULE_8__["default"])(cx) && Object(_utils_defined__WEBPACK_IMPORTED_MODULE_8__["default"])(cy) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_vx_glyph_build_glyphs_Dot__WEBPACK_IMPORTED_MODULE_3___default.a, {
+          key: key,
+          cx: cx,
+          cy: cy,
+          r: Object(_utils_callOrValue__WEBPACK_IMPORTED_MODULE_7__["default"])(d.size || size, yVal, i),
+          fill: fillValue,
+          fillOpacity: Object(_utils_callOrValue__WEBPACK_IMPORTED_MODULE_7__["default"])(d.fillOpacity || fillOpacity, yVal, i),
+          stroke: Object(_utils_callOrValue__WEBPACK_IMPORTED_MODULE_7__["default"])(d.stroke || stroke, yVal, i),
+          strokeWidth: Object(_utils_callOrValue__WEBPACK_IMPORTED_MODULE_7__["default"])(d.strokeWidth || strokeWidth, yVal, i),
+          onMouseMove: onMouseMove && function (event) {
+            onMouseMove({
+              event: event,
+              data: data,
+              datum: d,
+              index: i,
+              color: fillValue
+            });
+          },
+          onMouseLeave: onMouseLeave
+        }, label && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.cloneElement(LabelComponent, _extends({
+          x: cx,
+          y: cy
+        }, Object(_utils_positionLabel__WEBPACK_IMPORTED_MODULE_9__["default"])(labelPosition === 'auto' ? autoLabelPosition : Object(_utils_callOrValue__WEBPACK_IMPORTED_MODULE_7__["default"])(labelPosition, yVal, i), labelOffset), {
+          label: label
+        })));
+      }
+
+      return null;
+    }));
+  };
+
+  return PointSeries;
+}(react__WEBPACK_IMPORTED_MODULE_1___default.a.Component);
+
+PointSeries.propTypes = propTypes;
+PointSeries.defaultProps = defaultProps;
+PointSeries.displayName = 'PointSeries';
+/* harmony default export */ __webpack_exports__["default"] = (PointSeries);
+
+/***/ }),
+
+/***/ "./node_modules/@data-ui/sparkline/esm/utils/callOrValue.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@data-ui/sparkline/esm/utils/callOrValue.js ***!
+  \******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return callOrValue; });
+function callOrValue(maybeFn) {
+  if (typeof maybeFn === 'function') {
+    for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      args[_key - 1] = arguments[_key];
+    }
+
+    return maybeFn.apply(void 0, args);
+  }
+
+  return maybeFn;
+}
+
+/***/ }),
+
+/***/ "./node_modules/@data-ui/sparkline/esm/utils/componentIsX.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/@data-ui/sparkline/esm/utils/componentIsX.js ***!
+  \*******************************************************************/
+/*! exports provided: componentName, isSeries, isReferenceLine, isBandLine */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "componentName", function() { return componentName; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isSeries", function() { return isSeries; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isReferenceLine", function() { return isReferenceLine; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isBandLine", function() { return isBandLine; });
+function componentName(component) {
+  if (component && component.type) {
+    return component.type.displayName || component.type.name || 'Component';
+  }
+
+  return '';
+}
+function isSeries(name) {
+  return /series/gi.test(name);
+}
+function isReferenceLine(name) {
+  return /referenceline/gi.test(name);
+}
+function isBandLine(name) {
+  return /bandline/gi.test(name);
+}
+
+/***/ }),
+
+/***/ "./node_modules/@data-ui/sparkline/esm/utils/defined.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/@data-ui/sparkline/esm/utils/defined.js ***!
+  \**************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// eslint-disable-next-line no-restricted-globals
+var defined = function defined(d) {
+  return typeof d !== 'undefined' && d !== null && !isNaN(d);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (defined);
+
+/***/ }),
+
+/***/ "./node_modules/@data-ui/sparkline/esm/utils/findClosestDatum.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/@data-ui/sparkline/esm/utils/findClosestDatum.js ***!
+  \***********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return findClosestDatum; });
+/* harmony import */ var d3_array__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! d3-array */ "./node_modules/d3-array/src/index.js");
+/* harmony import */ var _vx_event_build_localPoint__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @vx/event/build/localPoint */ "./node_modules/@vx/event/build/localPoint.js");
+/* harmony import */ var _vx_event_build_localPoint__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_vx_event_build_localPoint__WEBPACK_IMPORTED_MODULE_1__);
+
+
+function findClosestDatum(_ref) {
+  var data = _ref.data,
+      getX = _ref.getX,
+      xScale = _ref.xScale,
+      event = _ref.event,
+      _ref$marginLeft = _ref.marginLeft,
+      marginLeft = _ref$marginLeft === void 0 ? 0 : _ref$marginLeft;
+  if (!event || !event.target || !event.target.ownerSVGElement) return {};
+  var bisect = Object(d3_array__WEBPACK_IMPORTED_MODULE_0__["bisector"])(getX).right;
+  var svgCoords = _vx_event_build_localPoint__WEBPACK_IMPORTED_MODULE_1___default()(event.target.ownerSVGElement, event);
+  var x = svgCoords.x - marginLeft;
+  var dataX = xScale.invert(x);
+  var index = bisect(data, dataX, 1);
+  var d0 = data[index - 1];
+  var d1 = data[index];
+  var d = !d0 || Math.abs(dataX - getX(d0)) > Math.abs(dataX - getX(d1)) ? d1 : d0;
+  return {
+    datum: d,
+    index: d === d0 ? index - 1 : index
+  };
+}
+
+/***/ }),
+
+/***/ "./node_modules/@data-ui/sparkline/esm/utils/positionLabel.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/@data-ui/sparkline/esm/utils/positionLabel.js ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return positionLabel; });
+var DEFAULT_LABEL_OFFSET = 8;
+function positionLabel(orientation, labelOffset) {
+  if (labelOffset === void 0) {
+    labelOffset = DEFAULT_LABEL_OFFSET;
+  }
+
+  if (orientation === 'top') {
+    return {
+      textAnchor: 'middle',
+      dy: -Math.abs(labelOffset),
+      dx: 0
+    };
+  } else if (orientation === 'right') {
+    return {
+      textAnchor: 'start',
+      dy: 0,
+      dx: Math.abs(labelOffset)
+    };
+  } else if (orientation === 'bottom') {
+    return {
+      textAnchor: 'middle',
+      dy: Math.abs(labelOffset),
+      dx: 0
+    };
+  } else if (orientation === 'left') {
+    return {
+      textAnchor: 'end',
+      dy: 0,
+      dx: -Math.abs(labelOffset)
+    };
+  }
+
+  return orientation;
+}
+
+/***/ }),
+
+/***/ "./node_modules/@data-ui/sparkline/node_modules/@data-ui/theme/build/chartTheme.js":
+/*!*****************************************************************************************!*\
+  !*** ./node_modules/@data-ui/sparkline/node_modules/@data-ui/theme/build/chartTheme.js ***!
+  \*****************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.yTickStyles = exports.xTickStyles = exports.yAxisStyles = exports.xAxisStyles = exports.gridStyles = exports.labelStyles = exports.colors = undefined;
+
+var _color = __webpack_require__(/*! ./color */ "./node_modules/@data-ui/sparkline/node_modules/@data-ui/theme/build/color.js");
+
+var _color2 = _interopRequireDefault(_color);
+
+var _font = __webpack_require__(/*! ./font */ "./node_modules/@data-ui/sparkline/node_modules/@data-ui/theme/build/font.js");
+
+var _font2 = _interopRequireDefault(_font);
+
+var _svgLabel = __webpack_require__(/*! ./svgLabel */ "./node_modules/@data-ui/sparkline/node_modules/@data-ui/theme/build/svgLabel.js");
+
+var _size = __webpack_require__(/*! ./size */ "./node_modules/@data-ui/sparkline/node_modules/@data-ui/theme/build/size.js");
+
+var _size2 = _interopRequireDefault(_size);
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    'default': obj
+  };
+}
+
+var colors = exports.colors = _color2['default'];
+var labelStyles = exports.labelStyles = Object.assign({}, _svgLabel.baseLabel, _font2['default'].light);
+var gridStyles = exports.gridStyles = {
+  stroke: colors.grid,
+  strokeWidth: 1
+};
+var xAxisStyles = exports.xAxisStyles = {
+  stroke: colors.gridDark,
+  strokeWidth: 2,
+  label: {
+    bottom: Object.assign({}, _svgLabel.baseLabel),
+    top: Object.assign({}, _svgLabel.baseLabel)
+  }
+};
+var yAxisStyles = exports.yAxisStyles = {
+  stroke: colors.grid,
+  strokeWidth: 1,
+  label: {
+    left: Object.assign({}, _svgLabel.baseLabel),
+    right: Object.assign({}, _svgLabel.baseLabel)
+  }
+};
+var xTickStyles = exports.xTickStyles = {
+  stroke: colors.grid,
+  length: 1 * _size2['default'],
+  label: {
+    bottom: Object.assign({}, _svgLabel.tickLabels.bottom),
+    top: Object.assign({}, _svgLabel.tickLabels.top)
+  }
+};
+var yTickStyles = exports.yTickStyles = {
+  stroke: colors.grid,
+  length: 1 * _size2['default'],
+  label: {
+    left: Object.assign({}, _svgLabel.tickLabels.left),
+    right: Object.assign({}, _svgLabel.tickLabels.right)
+  }
+};
+exports['default'] = {
+  colors: colors,
+  labelStyles: labelStyles,
+  gridStyles: gridStyles,
+  xAxisStyles: xAxisStyles,
+  xTickStyles: xTickStyles,
+  yAxisStyles: yAxisStyles,
+  yTickStyles: yTickStyles
+};
+
+/***/ }),
+
+/***/ "./node_modules/@data-ui/sparkline/node_modules/@data-ui/theme/build/color.js":
+/*!************************************************************************************!*\
+  !*** ./node_modules/@data-ui/sparkline/node_modules/@data-ui/theme/build/color.js ***!
+  \************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+function _toConsumableArray(arr) {
+  if (Array.isArray(arr)) {
+    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
+      arr2[i] = arr[i];
+    }
+
+    return arr2;
+  } else {
+    return Array.from(arr);
+  }
+}
+/* eslint max-len: 0 */
+// source https://yeun.github.io/open-color/
+
+
+var allColors = exports.allColors = {
+  red: ['#fff5f5', '#ffe3e3', '#ffc9c9', '#ffa8a8', '#ff8787', '#ff6b6b', '#fa5252', '#f03e3e', '#e03131', '#c92a2a'],
+  pink: ['#fff0f6', '#ffdeeb', '#fcc2d7', '#faa2c1', '#f783ac', '#f06595', '#e64980', '#d6336c', '#c2255c', '#a61e4d'],
+  grape: ['#f8f0fc', '#f3d9fa', '#eebefa', '#e599f7', '#da77f2', '#cc5de8', '#be4bdb', '#ae3ec9', '#9c36b5', '#862e9c'],
+  violet: ['#f3f0ff', '#e5dbff', '#d0bfff', '#b197fc', '#9775fa', '#845ef7', '#7950f2', '#7048e8', '#6741d9', '#5f3dc4'],
+  indigo: ['#edf2ff', '#dbe4ff', '#bac8ff', '#91a7ff', '#748ffc', '#5c7cfa', '#4c6ef5', '#4263eb', '#3b5bdb', '#364fc7'],
+  blue: ['#e8f7ff', '#ccedff', '#a3daff', '#72c3fc', '#4dadf7', '#329af0', '#228ae6', '#1c7cd6', '#1b6ec2', '#1862ab'],
+  cyan: ['#e3fafc', '#c5f6fa', '#99e9f2', '#66d9e8', '#3bc9db', '#22b8cf', '#15aabf', '#1098ad', '#0c8599', '#0b7285'],
+  teal: ['#e6fcf5', '#c3fae8', '#96f2d7', '#63e6be', '#38d9a9', '#20c997', '#12b886', '#0ca678', '#099268', '#087f5b'],
+  green: ['#ebfbee', '#d3f9d8', '#b2f2bb', '#8ce99a', '#69db7c', '#51cf66', '#40c057', '#37b24d', '#2f9e44', '#2b8a3e'],
+  lime: ['#f4fce3', '#e9fac8', '#d8f5a2', '#c0eb75', '#a9e34b', '#94d82d', '#82c91e', '#74b816', '#66a80f', '#5c940d'],
+  yellow: ['#fff9db', '#fff3bf', '#ffec99', '#ffe066', '#ffd43b', '#fcc419', '#fab005', '#f59f00', '#f08c00', '#e67700'],
+  orange: ['#fff4e6', '#ffe8cc', '#ffd8a8', '#ffc078', '#ffa94d', '#ff922b', '#fd7e14', '#f76707', '#e8590c', '#d9480f']
+};
+var grayColors = exports.grayColors = ['#f8f9fa', '#f1f3f5', '#e9ecef', '#dee2e6', '#ced4da', '#adb5bd', '#868e96', '#495057', '#343a40', '#212529'];
+
+var getPaletteForBrightness = exports.getPaletteForBrightness = function getPaletteForBrightness() {
+  var brightness = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 6;
+  var hues = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : ['cyan', 'yellow', 'pink', 'grape', 'blue', 'lime', 'teal', 'red', 'violet', 'orange', 'indigo', 'green']; // sanity check indices
+
+  var index = Math.max(0, Math.min(brightness, allColors.red.length - 1)); // filter non-sensical hues
+
+  return hues.map(function (hue) {
+    return allColors[hue] && allColors[hue][index];
+  }).filter(function (val) {
+    return val;
+  });
+};
+
+var primaryHue = 'cyan';
+var colorHues = exports.colorHues = Object.keys(allColors).sort();
+var textColor = exports.textColor = grayColors[7];
+exports['default'] = {
+  'default': allColors[primaryHue][5],
+  dark: allColors[primaryHue][7],
+  light: allColors[primaryHue][3],
+  disabled: textColor,
+  lightDisabled: grayColors[3],
+  text: textColor,
+  black: grayColors[9],
+  darkGray: grayColors[8],
+  lightGray: grayColors[3],
+  grid: grayColors[4],
+  gridDark: grayColors[8],
+  label: textColor,
+  tickLabel: textColor,
+  grays: grayColors,
+  categories: [].concat(_toConsumableArray(getPaletteForBrightness(6)), _toConsumableArray(getPaletteForBrightness(2)))
+};
+
+/***/ }),
+
+/***/ "./node_modules/@data-ui/sparkline/node_modules/@data-ui/theme/build/font.js":
+/*!***********************************************************************************!*\
+  !*** ./node_modules/@data-ui/sparkline/node_modules/@data-ui/theme/build/font.js ***!
+  \***********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _color = __webpack_require__(/*! ./color */ "./node_modules/@data-ui/sparkline/node_modules/@data-ui/theme/build/color.js");
+
+var getFont = function getFont(_ref) {
+  var fontFamily = _ref.fontFamily,
+      fontSize = _ref.fontSize,
+      _ref$letterSpacing = _ref.letterSpacing,
+      letterSpacing = _ref$letterSpacing === undefined ? 0 : _ref$letterSpacing,
+      lineHeight = _ref.lineHeight,
+      padding = _ref.padding;
+  return {
+    color: _color.textColor,
+    fontFamily: fontFamily,
+    fontSize: fontSize,
+    letterSpacing: letterSpacing,
+    lineHeight: String(lineHeight) + 'px',
+    paddingBottom: padding,
+    paddingTop: padding
+  };
+};
+
+var fontFamily = 'BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif';
+exports['default'] = {
+  fontFamily: fontFamily,
+  // weights
+  light: {
+    fontWeight: 200
+  },
+  bold: {
+    fontWeight: 700
+  },
+  // size
+  tiny: Object.assign({}, getFont({
+    fontFamily: fontFamily,
+    fontSize: 10,
+    lineHeight: 12,
+    letterSpacing: 0.4
+  })),
+  small: Object.assign({}, getFont({
+    fontFamily: fontFamily,
+    fontSize: 12,
+    lineHeight: 16,
+    letterSpacing: 0.4
+  })),
+  regular: Object.assign({}, getFont({
+    fontFamily: fontFamily,
+    fontSize: 14,
+    lineHeight: 18,
+    letterSpacing: 0.2
+  })),
+  large: Object.assign({}, getFont({
+    fontFamily: fontFamily,
+    fontSize: 18,
+    lineHeight: 24,
+    spacing: 0
+  }))
+};
+
+/***/ }),
+
+/***/ "./node_modules/@data-ui/sparkline/node_modules/@data-ui/theme/build/index.js":
+/*!************************************************************************************!*\
+  !*** ./node_modules/@data-ui/sparkline/node_modules/@data-ui/theme/build/index.js ***!
+  \************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _color = __webpack_require__(/*! ./color */ "./node_modules/@data-ui/sparkline/node_modules/@data-ui/theme/build/color.js");
+
+Object.defineProperty(exports, 'color', {
+  enumerable: true,
+  get: function () {
+    function get() {
+      return _interopRequireDefault(_color)['default'];
+    }
+
+    return get;
+  }()
+});
+Object.defineProperty(exports, 'allColors', {
+  enumerable: true,
+  get: function () {
+    function get() {
+      return _color.allColors;
+    }
+
+    return get;
+  }()
+});
+Object.defineProperty(exports, 'getPaletteForBrightness', {
+  enumerable: true,
+  get: function () {
+    function get() {
+      return _color.getPaletteForBrightness;
+    }
+
+    return get;
+  }()
+});
+
+var _font = __webpack_require__(/*! ./font */ "./node_modules/@data-ui/sparkline/node_modules/@data-ui/theme/build/font.js");
+
+Object.defineProperty(exports, 'font', {
+  enumerable: true,
+  get: function () {
+    function get() {
+      return _interopRequireDefault(_font)['default'];
+    }
+
+    return get;
+  }()
+});
+
+var _size = __webpack_require__(/*! ./size */ "./node_modules/@data-ui/sparkline/node_modules/@data-ui/theme/build/size.js");
+
+Object.defineProperty(exports, 'unit', {
+  enumerable: true,
+  get: function () {
+    function get() {
+      return _size.unit;
+    }
+
+    return get;
+  }()
+});
+
+var _svgFont = __webpack_require__(/*! ./svgFont */ "./node_modules/@data-ui/sparkline/node_modules/@data-ui/theme/build/svgFont.js");
+
+Object.defineProperty(exports, 'svgFont', {
+  enumerable: true,
+  get: function () {
+    function get() {
+      return _interopRequireDefault(_svgFont)['default'];
+    }
+
+    return get;
+  }()
+});
+
+var _svgLabel = __webpack_require__(/*! ./svgLabel */ "./node_modules/@data-ui/sparkline/node_modules/@data-ui/theme/build/svgLabel.js");
+
+Object.defineProperty(exports, 'svgLabel', {
+  enumerable: true,
+  get: function () {
+    function get() {
+      return _interopRequireDefault(_svgLabel)['default'];
+    }
+
+    return get;
+  }()
+});
+
+var _chartTheme = __webpack_require__(/*! ./chartTheme */ "./node_modules/@data-ui/sparkline/node_modules/@data-ui/theme/build/chartTheme.js");
+
+Object.defineProperty(exports, 'chartTheme', {
+  enumerable: true,
+  get: function () {
+    function get() {
+      return _interopRequireDefault(_chartTheme)['default'];
+    }
+
+    return get;
+  }()
+});
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    'default': obj
+  };
+}
+
+/***/ }),
+
+/***/ "./node_modules/@data-ui/sparkline/node_modules/@data-ui/theme/build/size.js":
+/*!***********************************************************************************!*\
+  !*** ./node_modules/@data-ui/sparkline/node_modules/@data-ui/theme/build/size.js ***!
+  \***********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/* eslint import/prefer-default-export: 0 */
+
+var unit = exports.unit = 8;
+
+/***/ }),
+
+/***/ "./node_modules/@data-ui/sparkline/node_modules/@data-ui/theme/build/svgFont.js":
+/*!**************************************************************************************!*\
+  !*** ./node_modules/@data-ui/sparkline/node_modules/@data-ui/theme/build/svgFont.js ***!
+  \**************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _color = __webpack_require__(/*! ./color */ "./node_modules/@data-ui/sparkline/node_modules/@data-ui/theme/build/color.js");
+
+var getSvgFont = function getSvgFont(_ref) {
+  var fontFamily = _ref.fontFamily,
+      fontSize = _ref.fontSize,
+      letterSpacing = _ref.letterSpacing;
+  return {
+    fill: _color.textColor,
+    stroke: 'none',
+    fontFamily: fontFamily,
+    fontSize: fontSize,
+    letterSpacing: letterSpacing
+  };
+};
+
+var fontFamily = 'BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif';
+exports['default'] = {
+  fontFamily: fontFamily,
+  // weights
+  light: {
+    fontWeight: 200
+  },
+  bold: {
+    fontWeight: 700
+  },
+  // alignment
+  start: {
+    textAnchor: 'start'
+  },
+  middle: {
+    textAnchor: 'middle'
+  },
+  end: {
+    textAnchor: 'end'
+  },
+  // size
+  tiny: Object.assign({}, getSvgFont({
+    fontFamily: fontFamily,
+    fontSize: 10,
+    letterSpacing: 0.4
+  })),
+  small: Object.assign({}, getSvgFont({
+    fontFamily: fontFamily,
+    fontSize: 12,
+    letterSpacing: 0.4
+  })),
+  regular: Object.assign({}, getSvgFont({
+    fontFamily: fontFamily,
+    fontSize: 14,
+    letterSpacing: 0.2
+  })),
+  large: Object.assign({}, getSvgFont({
+    fontFamily: fontFamily,
+    fontSize: 18,
+    spacing: 0
+  }))
+};
+
+/***/ }),
+
+/***/ "./node_modules/@data-ui/sparkline/node_modules/@data-ui/theme/build/svgLabel.js":
+/*!***************************************************************************************!*\
+  !*** ./node_modules/@data-ui/sparkline/node_modules/@data-ui/theme/build/svgLabel.js ***!
+  \***************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.tickLabels = exports.baseTickLabel = exports.baseLabel = undefined;
+
+var _svgFont = __webpack_require__(/*! ./svgFont */ "./node_modules/@data-ui/sparkline/node_modules/@data-ui/theme/build/svgFont.js");
+
+var _svgFont2 = _interopRequireDefault(_svgFont);
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    'default': obj
+  };
+}
+
+var baseLabel = exports.baseLabel = Object.assign({}, _svgFont2['default'].small, _svgFont2['default'].bold, _svgFont2['default'].middle, {
+  pointerEvents: 'none'
+});
+var baseTickLabel = exports.baseTickLabel = Object.assign({}, _svgFont2['default'].small, _svgFont2['default'].light, _svgFont2['default'].middle, {
+  pointerEvents: 'none'
+});
+var tickLabels = exports.tickLabels = {
+  top: Object.assign({}, baseTickLabel, {
+    dy: '-0.25em'
+  }),
+  right: Object.assign({}, baseTickLabel, _svgFont2['default'].start, {
+    dx: '0.25em',
+    dy: '0.25em'
+  }),
+  bottom: Object.assign({}, baseTickLabel, {
+    dy: '0.25em'
+  }),
+  left: Object.assign({}, baseTickLabel, _svgFont2['default'].end, {
+    dx: '-0.25em',
+    dy: '0.25em'
+  })
+};
+exports['default'] = {
+  baseLabel: baseLabel,
+  baseTickLabel: baseTickLabel,
+  tickLabels: tickLabels
+};
+
+/***/ }),
+
 /***/ "./node_modules/@data-ui/theme/esm/chartTheme.js":
 /*!*******************************************************!*\
   !*** ./node_modules/@data-ui/theme/esm/chartTheme.js ***!
@@ -4382,6 +6560,220 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/@vx/event/build/localPoint.js":
+/*!****************************************************!*\
+  !*** ./node_modules/@vx/event/build/localPoint.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = localPoint;
+
+var _point = __webpack_require__(/*! @vx/point */ "./node_modules/@vx/point/dist/vx-point.es.js");
+
+function localPoint(node, event) {
+  // called with no args
+  if (!node) return; // called with localPoint(event)
+
+  if (node.target) {
+    event = node; // set node to targets owner svg
+
+    node = event.target.ownerSVGElement; // find the outermost svg
+
+    while (node.ownerSVGElement) {
+      node = node.ownerSVGElement;
+    }
+  } // default to mouse event
+
+
+  var _event = event,
+      clientX = _event.clientX,
+      clientY = _event.clientY; // support touch event
+
+  if (event.changedTouches) {
+    clientX = event.changedTouches[0].clientX;
+    clientY = event.changedTouches[0].clientY;
+  } // calculate coordinates from svg
+
+
+  if (node.createSVGPoint) {
+    var point = node.createSVGPoint();
+    point.x = clientX;
+    point.y = clientY;
+    point = point.matrixTransform(node.getScreenCTM().inverse());
+    return new _point.Point({
+      x: point.x,
+      y: point.y
+    });
+  } // fallback to calculating position from non-svg dom node
+
+
+  var rect = node.getBoundingClientRect();
+  return new _point.Point({
+    x: clientX - rect.left - node.clientLeft,
+    y: clientY - rect.top - node.clientTop
+  });
+}
+
+/***/ }),
+
+/***/ "./node_modules/@vx/glyph/build/glyphs/Dot.js":
+/*!****************************************************!*\
+  !*** ./node_modules/@vx/glyph/build/glyphs/Dot.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];
+
+    for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }
+
+  return target;
+};
+
+exports["default"] = GlyphDot;
+
+var _react = __webpack_require__(/*! react */ "react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _Glyph = __webpack_require__(/*! ./Glyph */ "./node_modules/@vx/glyph/build/glyphs/Glyph.js");
+
+var _Glyph2 = _interopRequireDefault(_Glyph);
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    "default": obj
+  };
+}
+
+function _objectWithoutProperties(obj, keys) {
+  var target = {};
+
+  for (var i in obj) {
+    if (keys.indexOf(i) >= 0) continue;
+    if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
+    target[i] = obj[i];
+  }
+
+  return target;
+}
+
+function GlyphDot(_ref) {
+  var _ref$top = _ref.top,
+      top = _ref$top === undefined ? 0 : _ref$top,
+      _ref$left = _ref.left,
+      left = _ref$left === undefined ? 0 : _ref$left,
+      className = _ref.className,
+      children = _ref.children,
+      cx = _ref.cx,
+      cy = _ref.cy,
+      r = _ref.r,
+      fill = _ref.fill,
+      stroke = _ref.stroke,
+      strokeWidth = _ref.strokeWidth,
+      strokeDasharray = _ref.strokeDasharray,
+      restProps = _objectWithoutProperties(_ref, ['top', 'left', 'className', 'children', 'cx', 'cy', 'r', 'fill', 'stroke', 'strokeWidth', 'strokeDasharray']);
+
+  return _react2["default"].createElement(_Glyph2["default"], {
+    top: top,
+    left: left
+  }, _react2["default"].createElement('circle', _extends({
+    className: (0, _classnames2["default"])('vx-glyph-dot', className),
+    cx: cx,
+    cy: cy,
+    r: r,
+    fill: fill,
+    stroke: stroke,
+    strokeWidth: strokeWidth,
+    strokeDasharray: strokeDasharray
+  }, restProps)), children);
+}
+
+/***/ }),
+
+/***/ "./node_modules/@vx/glyph/build/glyphs/Glyph.js":
+/*!******************************************************!*\
+  !*** ./node_modules/@vx/glyph/build/glyphs/Glyph.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = Glyph;
+
+var _react = __webpack_require__(/*! react */ "react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _group = __webpack_require__(/*! @vx/group */ "./node_modules/@vx/group/dist/vx-group.es.js");
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    "default": obj
+  };
+}
+
+Glyph.propTypes = {
+  top: _propTypes2["default"].number,
+  left: _propTypes2["default"].number,
+  className: _propTypes2["default"].string,
+  children: _propTypes2["default"].any
+};
+
+function Glyph(_ref) {
+  var _ref$top = _ref.top,
+      top = _ref$top === undefined ? 0 : _ref$top,
+      _ref$left = _ref.left,
+      left = _ref$left === undefined ? 0 : _ref$left,
+      className = _ref.className,
+      children = _ref.children;
+  return _react2["default"].createElement(_group.Group, {
+    className: (0, _classnames2["default"])('vx-glyph', className),
+    top: top,
+    left: left
+  }, children);
+}
+
+/***/ }),
+
 /***/ "./node_modules/@vx/gradient/dist/vx-gradient.es.js":
 /*!**********************************************************!*\
   !*** ./node_modules/@vx/gradient/dist/vx-gradient.es.js ***!
@@ -4612,6 +7004,80 @@ var TealBlue = function TealBlue(props) {
 };
 
 
+
+/***/ }),
+
+/***/ "./node_modules/@vx/group/build/Group.js":
+/*!***********************************************!*\
+  !*** ./node_modules/@vx/group/build/Group.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];
+
+    for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }
+
+  return target;
+};
+
+exports["default"] = Group;
+
+var _react = __webpack_require__(/*! react */ "react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    "default": obj
+  };
+}
+
+function _objectWithoutProperties(obj, keys) {
+  var target = {};
+
+  for (var i in obj) {
+    if (keys.indexOf(i) >= 0) continue;
+    if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
+    target[i] = obj[i];
+  }
+
+  return target;
+}
+
+function Group(_ref) {
+  var _ref$top = _ref.top,
+      top = _ref$top === undefined ? 0 : _ref$top,
+      _ref$left = _ref.left,
+      left = _ref$left === undefined ? 0 : _ref$left,
+      transform = _ref.transform,
+      className = _ref.className,
+      children = _ref.children,
+      restProps = _objectWithoutProperties(_ref, ['top', 'left', 'transform', 'className', 'children']);
+
+  return _react2["default"].createElement('g', _extends({
+    className: (0, _classnames2["default"])('vx-group', className),
+    transform: transform || 'translate(' + left + ', ' + top + ')'
+  }, restProps), children);
+}
 
 /***/ }),
 
@@ -5081,6 +7547,79 @@ function PatternHexagons(_ref) {
 }
 
 
+
+/***/ }),
+
+/***/ "./node_modules/@vx/point/build/Point.js":
+/*!***********************************************!*\
+  !*** ./node_modules/@vx/point/build/Point.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
+
+  return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) defineProperties(Constructor, staticProps);
+    return Constructor;
+  };
+}();
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+var Point = function () {
+  function Point(_ref) {
+    var _ref$x = _ref.x,
+        x = _ref$x === undefined ? 0 : _ref$x,
+        _ref$y = _ref.y,
+        y = _ref$y === undefined ? 0 : _ref$y;
+
+    _classCallCheck(this, Point);
+
+    this.x = x;
+    this.y = y;
+  }
+
+  _createClass(Point, [{
+    key: "value",
+    value: function value() {
+      return {
+        x: this.x,
+        y: this.y
+      };
+    }
+  }, {
+    key: "toArray",
+    value: function toArray() {
+      return [this.x, this.y];
+    }
+  }]);
+
+  return Point;
+}();
+
+exports["default"] = Point;
 
 /***/ }),
 
@@ -5663,6 +8202,42 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+/***/ }),
+
+/***/ "./node_modules/@vx/scale/build/scales/linear.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/@vx/scale/build/scales/linear.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _d3Scale = __webpack_require__(/*! d3-scale */ "./node_modules/@vx/scale/node_modules/d3-scale/src/index.js");
+
+exports["default"] = function (_ref) {
+  var range = _ref.range,
+      rangeRound = _ref.rangeRound,
+      domain = _ref.domain,
+      _ref$nice = _ref.nice,
+      nice = _ref$nice === undefined ? false : _ref$nice,
+      _ref$clamp = _ref.clamp,
+      clamp = _ref$clamp === undefined ? false : _ref$clamp;
+  var scale = (0, _d3Scale.scaleLinear)();
+  scale.type = 'linear';
+  if (range) scale.range(range);
+  if (rangeRound) scale.rangeRound(rangeRound);
+  if (domain) scale.domain(domain);
+  if (nice) scale.nice();
+  if (clamp) scale.clamp(true);
+  return scale;
+};
 
 /***/ }),
 
@@ -7524,6 +10099,537 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = (function () {
   return _init__WEBPACK_IMPORTED_MODULE_3__["initRange"].apply(Object(_time__WEBPACK_IMPORTED_MODULE_0__["calendar"])(d3_time__WEBPACK_IMPORTED_MODULE_2__["utcYear"], d3_time__WEBPACK_IMPORTED_MODULE_2__["utcMonth"], d3_time__WEBPACK_IMPORTED_MODULE_2__["utcWeek"], d3_time__WEBPACK_IMPORTED_MODULE_2__["utcDay"], d3_time__WEBPACK_IMPORTED_MODULE_2__["utcHour"], d3_time__WEBPACK_IMPORTED_MODULE_2__["utcMinute"], d3_time__WEBPACK_IMPORTED_MODULE_2__["utcSecond"], d3_time__WEBPACK_IMPORTED_MODULE_2__["utcMillisecond"], d3_time_format__WEBPACK_IMPORTED_MODULE_1__["utcFormat"]).domain([Date.UTC(2000, 0, 1), Date.UTC(2000, 0, 2)]), arguments);
 });
+
+/***/ }),
+
+/***/ "./node_modules/@vx/shape/build/shapes/AreaClosed.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/@vx/shape/build/shapes/AreaClosed.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];
+
+    for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }
+
+  return target;
+};
+
+exports["default"] = AreaClosed;
+
+var _react = __webpack_require__(/*! react */ "react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _d3Shape = __webpack_require__(/*! d3-shape */ "./node_modules/d3-shape/src/index.js");
+
+var _additionalProps = __webpack_require__(/*! ../util/additionalProps */ "./node_modules/@vx/shape/build/util/additionalProps.js");
+
+var _additionalProps2 = _interopRequireDefault(_additionalProps);
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    "default": obj
+  };
+}
+
+function _objectWithoutProperties(obj, keys) {
+  var target = {};
+
+  for (var i in obj) {
+    if (keys.indexOf(i) >= 0) continue;
+    if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
+    target[i] = obj[i];
+  }
+
+  return target;
+}
+
+AreaClosed.propTypes = {
+  innerRef: _propTypes2["default"].func
+};
+
+function AreaClosed(_ref) {
+  var x = _ref.x,
+      y = _ref.y,
+      y0 = _ref.y0,
+      xScale = _ref.xScale,
+      yScale = _ref.yScale,
+      data = _ref.data,
+      _ref$defined = _ref.defined,
+      defined = _ref$defined === undefined ? function () {
+    return true;
+  } : _ref$defined,
+      className = _ref.className,
+      strokeDasharray = _ref.strokeDasharray,
+      _ref$strokeWidth = _ref.strokeWidth,
+      strokeWidth = _ref$strokeWidth === undefined ? 2 : _ref$strokeWidth,
+      _ref$stroke = _ref.stroke,
+      stroke = _ref$stroke === undefined ? 'black' : _ref$stroke,
+      _ref$fill = _ref.fill,
+      fill = _ref$fill === undefined ? 'rgba(0,0,0,0.3)' : _ref$fill,
+      curve = _ref.curve,
+      innerRef = _ref.innerRef,
+      restProps = _objectWithoutProperties(_ref, ['x', 'y', 'y0', 'xScale', 'yScale', 'data', 'defined', 'className', 'strokeDasharray', 'strokeWidth', 'stroke', 'fill', 'curve', 'innerRef']);
+
+  var path = (0, _d3Shape.area)().x(function () {
+    return xScale(x.apply(undefined, arguments));
+  }).y0(y0 || yScale.range()[0]).y1(function () {
+    return yScale(y.apply(undefined, arguments));
+  }).defined(defined);
+  if (curve) path.curve(curve);
+  return _react2["default"].createElement('g', null, _react2["default"].createElement('path', _extends({
+    ref: innerRef,
+    className: (0, _classnames2["default"])('vx-area-closed', className),
+    d: path(data),
+    stroke: stroke,
+    strokeWidth: strokeWidth,
+    strokeDasharray: strokeDasharray,
+    fill: fill
+  }, (0, _additionalProps2["default"])(restProps, data))));
+}
+
+/***/ }),
+
+/***/ "./node_modules/@vx/shape/build/shapes/Bar.js":
+/*!****************************************************!*\
+  !*** ./node_modules/@vx/shape/build/shapes/Bar.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];
+
+    for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }
+
+  return target;
+};
+
+exports["default"] = Bar;
+
+var _react = __webpack_require__(/*! react */ "react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _additionalProps = __webpack_require__(/*! ../util/additionalProps */ "./node_modules/@vx/shape/build/util/additionalProps.js");
+
+var _additionalProps2 = _interopRequireDefault(_additionalProps);
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    "default": obj
+  };
+}
+
+function _objectWithoutProperties(obj, keys) {
+  var target = {};
+
+  for (var i in obj) {
+    if (keys.indexOf(i) >= 0) continue;
+    if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
+    target[i] = obj[i];
+  }
+
+  return target;
+}
+
+Bar.propTypes = {
+  innerRef: _propTypes2["default"].func
+};
+
+function Bar(_ref) {
+  var className = _ref.className,
+      innerRef = _ref.innerRef,
+      data = _ref.data,
+      _ref$x = _ref.x,
+      x = _ref$x === undefined ? 0 : _ref$x,
+      _ref$y = _ref.y,
+      y = _ref$y === undefined ? 0 : _ref$y,
+      width = _ref.width,
+      height = _ref.height,
+      rx = _ref.rx,
+      ry = _ref.ry,
+      _ref$fill = _ref.fill,
+      fill = _ref$fill === undefined ? 'steelblue' : _ref$fill,
+      fillOpacity = _ref.fillOpacity,
+      stroke = _ref.stroke,
+      strokeWidth = _ref.strokeWidth,
+      strokeDasharray = _ref.strokeDasharray,
+      strokeLinecap = _ref.strokeLinecap,
+      strokeLinejoin = _ref.strokeLinejoin,
+      strokeMiterlimit = _ref.strokeMiterlimit,
+      strokeOpacity = _ref.strokeOpacity,
+      restProps = _objectWithoutProperties(_ref, ['className', 'innerRef', 'data', 'x', 'y', 'width', 'height', 'rx', 'ry', 'fill', 'fillOpacity', 'stroke', 'strokeWidth', 'strokeDasharray', 'strokeLinecap', 'strokeLinejoin', 'strokeMiterlimit', 'strokeOpacity']);
+
+  return _react2["default"].createElement('rect', _extends({
+    ref: innerRef,
+    className: (0, _classnames2["default"])('vx-bar', className),
+    x: x,
+    y: y,
+    width: width,
+    height: height,
+    rx: rx,
+    ry: ry,
+    fill: fill,
+    fillOpacity: fillOpacity,
+    stroke: stroke,
+    strokeWidth: strokeWidth,
+    strokeDasharray: strokeDasharray,
+    strokeLinecap: strokeLinecap,
+    strokeLinejoin: strokeLinejoin,
+    strokeMiterlimit: strokeMiterlimit,
+    strokeOpacity: strokeOpacity
+  }, (0, _additionalProps2["default"])(restProps, data)));
+}
+
+/***/ }),
+
+/***/ "./node_modules/@vx/shape/build/shapes/Line.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/@vx/shape/build/shapes/Line.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];
+
+    for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }
+
+  return target;
+};
+
+exports["default"] = Line;
+
+var _react = __webpack_require__(/*! react */ "react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _point = __webpack_require__(/*! @vx/point */ "./node_modules/@vx/point/dist/vx-point.es.js");
+
+var _additionalProps = __webpack_require__(/*! ../util/additionalProps */ "./node_modules/@vx/shape/build/util/additionalProps.js");
+
+var _additionalProps2 = _interopRequireDefault(_additionalProps);
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    "default": obj
+  };
+}
+
+function _objectWithoutProperties(obj, keys) {
+  var target = {};
+
+  for (var i in obj) {
+    if (keys.indexOf(i) >= 0) continue;
+    if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
+    target[i] = obj[i];
+  }
+
+  return target;
+}
+
+Line.propTypes = {
+  innerRef: _propTypes2["default"].func
+};
+
+function Line(_ref) {
+  var _ref$from = _ref.from,
+      from = _ref$from === undefined ? new _point.Point({
+    x: 0,
+    y: 0
+  }) : _ref$from,
+      _ref$to = _ref.to,
+      to = _ref$to === undefined ? new _point.Point({
+    x: 1,
+    y: 1
+  }) : _ref$to,
+      _ref$stroke = _ref.stroke,
+      stroke = _ref$stroke === undefined ? 'black' : _ref$stroke,
+      _ref$strokeWidth = _ref.strokeWidth,
+      strokeWidth = _ref$strokeWidth === undefined ? 1 : _ref$strokeWidth,
+      _ref$strokeDasharray = _ref.strokeDasharray,
+      strokeDasharray = _ref$strokeDasharray === undefined ? '' : _ref$strokeDasharray,
+      _ref$transform = _ref.transform,
+      transform = _ref$transform === undefined ? '' : _ref$transform,
+      _ref$className = _ref.className,
+      className = _ref$className === undefined ? '' : _ref$className,
+      data = _ref.data,
+      innerRef = _ref.innerRef,
+      restProps = _objectWithoutProperties(_ref, ['from', 'to', 'stroke', 'strokeWidth', 'strokeDasharray', 'transform', 'className', 'data', 'innerRef']);
+
+  return _react2["default"].createElement('line', _extends({
+    ref: innerRef,
+    className: (0, _classnames2["default"])('vx-line', className),
+    x1: from.x,
+    y1: from.y,
+    x2: to.x,
+    y2: to.y,
+    stroke: stroke,
+    strokeWidth: strokeWidth,
+    strokeDasharray: strokeDasharray,
+    transform: transform
+  }, (0, _additionalProps2["default"])(restProps, data)));
+}
+
+/***/ }),
+
+/***/ "./node_modules/@vx/shape/build/shapes/LinePath.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/@vx/shape/build/shapes/LinePath.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];
+
+    for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }
+
+  return target;
+};
+
+exports["default"] = LinePath;
+
+var _curve = __webpack_require__(/*! @vx/curve */ "./node_modules/@vx/curve/dist/vx-curve.es.js");
+
+var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _d3Shape = __webpack_require__(/*! d3-shape */ "./node_modules/d3-shape/src/index.js");
+
+var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _react = __webpack_require__(/*! react */ "react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _additionalProps = __webpack_require__(/*! ../util/additionalProps */ "./node_modules/@vx/shape/build/util/additionalProps.js");
+
+var _additionalProps2 = _interopRequireDefault(_additionalProps);
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    "default": obj
+  };
+}
+
+function _objectWithoutProperties(obj, keys) {
+  var target = {};
+
+  for (var i in obj) {
+    if (keys.indexOf(i) >= 0) continue;
+    if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
+    target[i] = obj[i];
+  }
+
+  return target;
+}
+
+LinePath.propTypes = {
+  innerRef: _propTypes2["default"].func,
+  xScale: _propTypes2["default"].func,
+  yScale: _propTypes2["default"].func,
+  data: _propTypes2["default"].array,
+  x: _propTypes2["default"].func,
+  y: _propTypes2["default"].func,
+  defined: _propTypes2["default"].func,
+  stroke: _propTypes2["default"].string,
+  strokeWidth: _propTypes2["default"].number,
+  glyph: _propTypes2["default"].func,
+  curve: _propTypes2["default"].func
+};
+
+function LinePath(_ref) {
+  var children = _ref.children,
+      data = _ref.data,
+      xScale = _ref.xScale,
+      yScale = _ref.yScale,
+      x = _ref.x,
+      y = _ref.y,
+      _ref$defined = _ref.defined,
+      defined = _ref$defined === undefined ? function () {
+    return true;
+  } : _ref$defined,
+      className = _ref.className,
+      _ref$stroke = _ref.stroke,
+      stroke = _ref$stroke === undefined ? 'steelblue' : _ref$stroke,
+      _ref$strokeWidth = _ref.strokeWidth,
+      strokeWidth = _ref$strokeWidth === undefined ? 2 : _ref$strokeWidth,
+      _ref$strokeDasharray = _ref.strokeDasharray,
+      strokeDasharray = _ref$strokeDasharray === undefined ? '' : _ref$strokeDasharray,
+      _ref$strokeDashoffset = _ref.strokeDashoffset,
+      strokeDashoffset = _ref$strokeDashoffset === undefined ? 0 : _ref$strokeDashoffset,
+      _ref$fill = _ref.fill,
+      fill = _ref$fill === undefined ? 'none' : _ref$fill,
+      _ref$curve = _ref.curve,
+      curve = _ref$curve === undefined ? _curve.curveLinear : _ref$curve,
+      glyph = _ref.glyph,
+      innerRef = _ref.innerRef,
+      restProps = _objectWithoutProperties(_ref, ['children', 'data', 'xScale', 'yScale', 'x', 'y', 'defined', 'className', 'stroke', 'strokeWidth', 'strokeDasharray', 'strokeDashoffset', 'fill', 'curve', 'glyph', 'innerRef']);
+
+  var path = (0, _d3Shape.line)().x(function () {
+    return xScale(x.apply(undefined, arguments));
+  }).y(function () {
+    return yScale(y.apply(undefined, arguments));
+  }).defined(defined).curve(curve);
+  if (children) return children({
+    path: path
+  });
+  return _react2["default"].createElement('g', null, _react2["default"].createElement('path', _extends({
+    ref: innerRef,
+    className: (0, _classnames2["default"])('vx-linepath', className),
+    d: path(data),
+    stroke: stroke,
+    strokeWidth: strokeWidth,
+    strokeDasharray: strokeDasharray,
+    strokeDashoffset: strokeDashoffset,
+    fill: fill
+  }, (0, _additionalProps2["default"])(restProps, data))), glyph && _react2["default"].createElement('g', {
+    className: 'vx-linepath-glyphs'
+  }, data.map(glyph)));
+}
+
+/***/ }),
+
+/***/ "./node_modules/@vx/shape/build/util/additionalProps.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/@vx/shape/build/util/additionalProps.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = additionalProps;
+
+var _callOrValue = __webpack_require__(/*! ./callOrValue */ "./node_modules/@vx/shape/build/util/callOrValue.js");
+
+var _callOrValue2 = _interopRequireDefault(_callOrValue);
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    "default": obj
+  };
+}
+
+function additionalProps(restProps, data) {
+  return Object.keys(restProps).reduce(function (ret, cur) {
+    ret[cur] = (0, _callOrValue2["default"])(restProps[cur], data);
+    return ret;
+  }, {});
+}
+
+/***/ }),
+
+/***/ "./node_modules/@vx/shape/build/util/callOrValue.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/@vx/shape/build/util/callOrValue.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = callOrValue;
+
+function callOrValue(maybeFn, data) {
+  if (typeof maybeFn === 'function') {
+    return maybeFn(data);
+  }
+
+  return maybeFn;
+}
 
 /***/ }),
 
@@ -26052,6 +29158,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var reactR__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! reactR */ "reactR");
 /* harmony import */ var reactR__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(reactR__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _data_ui_histogram__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @data-ui/histogram */ "./node_modules/@data-ui/histogram/esm/index.js");
+/* harmony import */ var _data_ui_sparkline__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @data-ui/sparkline */ "./node_modules/@data-ui/sparkline/esm/index.js");
+
 
 
 Object(reactR__WEBPACK_IMPORTED_MODULE_0__["reactWidget"])('dataui', 'output', {
@@ -26059,7 +29167,15 @@ Object(reactR__WEBPACK_IMPORTED_MODULE_0__["reactWidget"])('dataui', 'output', {
   BarSeries: _data_ui_histogram__WEBPACK_IMPORTED_MODULE_1__["BarSeries"],
   DensitySeries: _data_ui_histogram__WEBPACK_IMPORTED_MODULE_1__["DensitySeries"],
   XAxis: _data_ui_histogram__WEBPACK_IMPORTED_MODULE_1__["XAxis"],
-  YAxis: _data_ui_histogram__WEBPACK_IMPORTED_MODULE_1__["YAxis"]
+  YAxis: _data_ui_histogram__WEBPACK_IMPORTED_MODULE_1__["YAxis"],
+  Sparkline: _data_ui_sparkline__WEBPACK_IMPORTED_MODULE_2__["Sparkline"],
+  SparklineLineSeries: _data_ui_sparkline__WEBPACK_IMPORTED_MODULE_2__["LineSeries"],
+  SparklinePointSeries: _data_ui_sparkline__WEBPACK_IMPORTED_MODULE_2__["PointSeries"],
+  SparklineBarSeries: _data_ui_sparkline__WEBPACK_IMPORTED_MODULE_2__["BarSeries"],
+  HorizontalReferenceLine: _data_ui_sparkline__WEBPACK_IMPORTED_MODULE_2__["HorizontalReferenceLine"],
+  VerticalReferenceLine: _data_ui_sparkline__WEBPACK_IMPORTED_MODULE_2__["VerticalReferenceLines"],
+  BandLine: _data_ui_sparkline__WEBPACK_IMPORTED_MODULE_2__["BandLine"],
+  PatternLines: _data_ui_sparkline__WEBPACK_IMPORTED_MODULE_2__["PatternLines"]
 }, {});
 
 /***/ }),

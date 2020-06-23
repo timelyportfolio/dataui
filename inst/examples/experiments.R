@@ -80,6 +80,38 @@ reactable(
           components = list(
             dui_barseries(rawData = values, fill = fillColors[index]),
             dui_densityseries(rawData = values, stroke = fillColors[index], fill = fillColors[index]),
+            dui_xAxis()
+          )
+        )
+      }
+    )
+  ),
+  width = 600
+)
+
+
+reactable(
+  data,
+  columns = list(
+    feed = colDef(maxWidth = 100),
+    weight = colDef(
+      minWidth = 400,
+      cell = function(values, index) {
+        dui_histogram(
+          height = 200,
+          width = 400,
+          binValues = binValues,
+          renderTooltip = htmlwidgets::JS(reactR::babel_transform("
+{({ event, datum, data, color }) => (
+  // can be any react component but we will need to expose the libraries
+  <svg width = {100} height = {100}>
+    <circle cx={50} cy = {50} r= {50}/>
+  </svg>
+)}
+          ")),
+          components = list(
+            dui_barseries(rawData = values, fill = fillColors[index]),
+            dui_densityseries(rawData = values, stroke = fillColors[index], fill = fillColors[index]),
             dui_xAxis(numTicks = 2)
           )
         )

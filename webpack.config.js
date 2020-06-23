@@ -4,7 +4,6 @@ module.exports = {
     mode: 'development',
     entry: path.join(__dirname, 'srcjs', 'dataui.jsx'),
     output: {
-        path: path.join(__dirname, 'inst', 'www', '${package}', 'dataui'),
         path: path.join(__dirname, 'inst/htmlwidgets'),
         filename: 'dataui.js'
     },

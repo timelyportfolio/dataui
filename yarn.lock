@@ -912,6 +912,32 @@
     d3-array "^1.2.1"
     prop-types "^15.5.10"
 
+"@data-ui/sparkline@^0.0.84":
+  version "0.0.84"
+  resolved "https://registry.yarnpkg.com/@data-ui/sparkline/-/sparkline-0.0.84.tgz#be722bcb6fe4844b26905419ecfb3a727b2d206e"
+  integrity sha512-Ja7T2JjioZtnoy0PEXF72qv/J8xIotu+oS1Z+ygVGZni6aN/DUY35eGpg/DDeemEFDMoifcx+kYa5LU7hQCnJg==
+  dependencies:
+    "@data-ui/shared" "^0.0.84"
+    "@data-ui/theme" "^0.0.8"
+    "@vx/axis" "^0.0.179"
+    "@vx/curve" "^0.0.165"
+    "@vx/event" "^0.0.179"
+    "@vx/glyph" "^0.0.179"
+    "@vx/gradient" "^0.0.165"
+    "@vx/group" "^0.0.170"
+    "@vx/pattern" "^0.0.179"
+    "@vx/point" "^0.0.165"
+    "@vx/responsive" "^0.0.192"
+    "@vx/scale" "^0.0.179"
+    "@vx/shape" "^0.0.179"
+    d3-array "^1.2.0"
+    prop-types "^15.5.10"
+
+"@data-ui/theme@^0.0.8":
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/@data-ui/theme/-/theme-0.0.8.tgz#3116723d04b99f65c7750f81a500e9608b4837c3"
+  integrity sha1-MRZyPQS5n2XHdQ+BpQDpYItIN8M=
+
 "@data-ui/theme@^0.0.84":
   version "0.0.84"
   resolved "https://registry.yarnpkg.com/@data-ui/theme/-/theme-0.0.84.tgz#b75c23d7f38c582adbb8d2159d0d703159f8e3b2"
@@ -1002,7 +1028,7 @@
     classnames "^2.2.5"
     prop-types "^15.5.10"
 
-"@vx/point@0.0.165":
+"@vx/point@0.0.165", "@vx/point@^0.0.165":
   version "0.0.165"
   resolved "https://registry.yarnpkg.com/@vx/point/-/point-0.0.165.tgz#7ebde5da3d86954fe31a56f923f31550f0b4b867"
   integrity sha512-spoHilhjcWNgccrSzBUPw+PXV81tYxeyEWBkgr35aGVU4m7YT86Ywvfemwp7AVVGPn+XJHrhB0ujAhDoyqFPoA==

@@ -29155,27 +29155,128 @@ module.exports = g;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var reactR__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! reactR */ "reactR");
-/* harmony import */ var reactR__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(reactR__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _data_ui_histogram__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @data-ui/histogram */ "./node_modules/@data-ui/histogram/esm/index.js");
-/* harmony import */ var _data_ui_sparkline__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @data-ui/sparkline */ "./node_modules/@data-ui/sparkline/esm/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var reactR__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! reactR */ "reactR");
+/* harmony import */ var reactR__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(reactR__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _data_ui_histogram__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @data-ui/histogram */ "./node_modules/@data-ui/histogram/esm/index.js");
+/* harmony import */ var _data_ui_sparkline__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @data-ui/sparkline */ "./node_modules/@data-ui/sparkline/esm/index.js");
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
 
 
-Object(reactR__WEBPACK_IMPORTED_MODULE_0__["reactWidget"])('dataui', 'output', {
-  Histogram: _data_ui_histogram__WEBPACK_IMPORTED_MODULE_1__["Histogram"],
-  BarSeries: _data_ui_histogram__WEBPACK_IMPORTED_MODULE_1__["BarSeries"],
-  DensitySeries: _data_ui_histogram__WEBPACK_IMPORTED_MODULE_1__["DensitySeries"],
-  XAxis: _data_ui_histogram__WEBPACK_IMPORTED_MODULE_1__["XAxis"],
-  YAxis: _data_ui_histogram__WEBPACK_IMPORTED_MODULE_1__["YAxis"],
-  Sparkline: _data_ui_sparkline__WEBPACK_IMPORTED_MODULE_2__["Sparkline"],
-  SparklineLineSeries: _data_ui_sparkline__WEBPACK_IMPORTED_MODULE_2__["LineSeries"],
-  SparklinePointSeries: _data_ui_sparkline__WEBPACK_IMPORTED_MODULE_2__["PointSeries"],
-  SparklineBarSeries: _data_ui_sparkline__WEBPACK_IMPORTED_MODULE_2__["BarSeries"],
-  HorizontalReferenceLine: _data_ui_sparkline__WEBPACK_IMPORTED_MODULE_2__["HorizontalReferenceLine"],
-  VerticalReferenceLine: _data_ui_sparkline__WEBPACK_IMPORTED_MODULE_2__["VerticalReferenceLines"],
-  BandLine: _data_ui_sparkline__WEBPACK_IMPORTED_MODULE_2__["BandLine"],
-  PatternLines: _data_ui_sparkline__WEBPACK_IMPORTED_MODULE_2__["PatternLines"]
+
+ // copied from https://github.com/williaster/data-ui/blob/master/packages/sparkline/src/utils/componentIsX.js
+
+var componentName = function componentName(component) {
+  if (component && component.type) {
+    return component.type.displayName || component.type.name || 'Component';
+  }
+
+  return '';
+};
+
+var SparklineWithTooltip = function SparklineWithTooltip(props) {
+  return /*#__PURE__*/React.createElement(_data_ui_sparkline__WEBPACK_IMPORTED_MODULE_3__["WithTooltip"], {
+    renderTooltip: props.renderTooltip
+  }, function (_ref) {
+    var onMouseMove = _ref.onMouseMove,
+        onMouseLeave = _ref.onMouseLeave,
+        tooltipData = _ref.tooltipData;
+    var tooltipCopy = null;
+
+    if (typeof tooltipData !== "undefined") {
+      tooltipCopy = Object.assign({}, {
+        index: tooltipData.index,
+        datum: tooltipData.datum,
+        data: tooltipData.data
+      });
+    }
+
+    var children = props.children,
+        propsNoChildren = _objectWithoutProperties(props, ["children"]);
+
+    return /*#__PURE__*/React.createElement(_data_ui_sparkline__WEBPACK_IMPORTED_MODULE_3__["Sparkline"], _extends({}, propsNoChildren, {
+      onMouseLeave: onMouseLeave,
+      onMouseMove: onMouseMove
+    }), react__WEBPACK_IMPORTED_MODULE_0__["Children"].map(children, function (Child) {
+      var name = componentName(Child);
+      return React.cloneElement(Child, {
+        tooltipData: tooltipCopy
+      });
+    }));
+  });
+};
+
+var TooltipComponent = function TooltipComponent(props) {
+  var children = props.children,
+      xScale = props.xScale,
+      yScale = props.yScale,
+      data = props.data,
+      getX = props.getX,
+      getY = props.getY,
+      margin = props.margin;
+  var seriesProps = {
+    xScale: xScale,
+    yScale: yScale,
+    data: data,
+    getX: getX,
+    getY: getY,
+    margin: margin
+  };
+
+  if (props.tooltipData !== null && typeof props.tooltipData !== "undefined") {
+    return react__WEBPACK_IMPORTED_MODULE_0__["Children"].map(props.children, function (Child) {
+      var name = componentName(Child);
+
+      if (name === "VerticalReferenceLine") {
+        return React.cloneElement(Child, Object.assign({}, seriesProps, {
+          reference: props.tooltipData.index
+        }));
+      }
+
+      if (name === "ReferenceLine") {
+        return React.cloneElement(Child, Object.assign({}, seriesProps, {
+          reference: props.tooltipData.datum.y
+        }));
+      }
+
+      if (/pointseries/gi.test(name)) {
+        return React.cloneElement(Child, Object.assign({}, seriesProps, {
+          points: [props.tooltipData.index]
+        }));
+      }
+
+      return Child;
+    });
+  }
+
+  return null;
+};
+
+TooltipComponent.displayName = "referencelinetooltip";
+Object(reactR__WEBPACK_IMPORTED_MODULE_1__["reactWidget"])('dataui', 'output', {
+  Histogram: _data_ui_histogram__WEBPACK_IMPORTED_MODULE_2__["Histogram"],
+  BarSeries: _data_ui_histogram__WEBPACK_IMPORTED_MODULE_2__["BarSeries"],
+  DensitySeries: _data_ui_histogram__WEBPACK_IMPORTED_MODULE_2__["DensitySeries"],
+  XAxis: _data_ui_histogram__WEBPACK_IMPORTED_MODULE_2__["XAxis"],
+  YAxis: _data_ui_histogram__WEBPACK_IMPORTED_MODULE_2__["YAxis"],
+  Sparkline: _data_ui_sparkline__WEBPACK_IMPORTED_MODULE_3__["Sparkline"],
+  SparklineWithTooltip: SparklineWithTooltip,
+  SparklineLineSeries: _data_ui_sparkline__WEBPACK_IMPORTED_MODULE_3__["LineSeries"],
+  SparklinePointSeries: _data_ui_sparkline__WEBPACK_IMPORTED_MODULE_3__["PointSeries"],
+  SparklineBarSeries: _data_ui_sparkline__WEBPACK_IMPORTED_MODULE_3__["BarSeries"],
+  HorizontalReferenceLine: _data_ui_sparkline__WEBPACK_IMPORTED_MODULE_3__["HorizontalReferenceLine"],
+  VerticalReferenceLine: _data_ui_sparkline__WEBPACK_IMPORTED_MODULE_3__["VerticalReferenceLine"],
+  BandLine: _data_ui_sparkline__WEBPACK_IMPORTED_MODULE_3__["BandLine"],
+  PatternLines: _data_ui_sparkline__WEBPACK_IMPORTED_MODULE_3__["PatternLines"],
+  WithTooltip: _data_ui_sparkline__WEBPACK_IMPORTED_MODULE_3__["WithTooltip"],
+  TooltipComponent: TooltipComponent,
+  Fragment: React.Fragment
 }, {});
 
 /***/ }),

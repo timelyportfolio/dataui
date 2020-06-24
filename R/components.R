@@ -161,3 +161,49 @@ dui_sparkpatternlines <- function(
     ...
   )
 }
+
+#' Title
+#'
+#' @param components
+#'
+#' @return
+#' @export
+dui_tooltip <- function(
+  components
+) {
+  component <- reactR::React$TooltipComponent()
+  component$children <- components
+  component
+}
+
+#' Title
+#'
+#' @param ...
+#'
+#' @return
+#' @export
+#'
+#' @examples
+dui_sparkverticalrefline <- function(
+  ...
+) {
+  reactR::React$VerticalReferenceLine(
+    ...
+  )
+}
+
+#' Title
+#'
+#' @param ...
+#'
+#' @return
+#' @export
+#'
+#' @examples
+dui_sparkhorizontalrefline <- function(
+  ...
+) {
+  reactR::React$HorizontalReferenceLine(
+    ...
+  )
+}

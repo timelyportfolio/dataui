@@ -82,7 +82,7 @@ const TooltipComponent = (props) => {
     margin,
   };
 
-  if(props.tooltipData !== null && typeof(props.tooltipData) !== "undefined") {
+  if(typeof(props.tooltipData) !== "undefined" && props.tooltipData !== null) {
     return Children.map(props.children, Child => {
       const name = componentName(Child);
       if(name === "VerticalReferenceLine") {

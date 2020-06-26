@@ -29229,7 +29229,7 @@ var TooltipComponent = function TooltipComponent(props) {
     margin: margin
   };
 
-  if (props.tooltipData !== null && typeof props.tooltipData !== "undefined") {
+  if (typeof props.tooltipData !== "undefined" && props.tooltipData !== null) {
     return react__WEBPACK_IMPORTED_MODULE_0__["Children"].map(props.children, function (Child) {
       var name = componentName(Child);
 

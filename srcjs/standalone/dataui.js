@@ -1,4 +1,4 @@
-import { React } from 'react'
+import { Children } from 'react'
 import {Histogram, BarSeries, DensitySeries, XAxis, YAxis } from '@data-ui/histogram';
 import {
   Sparkline as Sparkline,

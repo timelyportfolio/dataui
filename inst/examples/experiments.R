@@ -12,8 +12,8 @@ dui_histogram(
     dui_densityseries(rawData = rn, stroke = "#000"),
     dui_barseries(rawData = ri),
     dui_densityseries(rawData = ri),
-    dui_xAxis(),
-    dui_yAxis()
+    dui_xaxis(),
+    dui_yaxis()
   )
 )
 
@@ -80,7 +80,7 @@ reactable(
           components = list(
             dui_barseries(rawData = values, fill = fillColors[index]),
             dui_densityseries(rawData = values, stroke = fillColors[index], fill = fillColors[index]),
-            dui_xAxis()
+            dui_xaxis()
           )
         )
       }
@@ -112,7 +112,7 @@ reactable(
           components = list(
             dui_barseries(rawData = values, fill = fillColors[index]),
             dui_densityseries(rawData = values, stroke = fillColors[index], fill = fillColors[index]),
-            dui_xAxis(numTicks = 2)
+            dui_xaxis(numTicks = 2)
           )
         )
       }

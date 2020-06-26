@@ -1,5 +1,8 @@
 {
   "private": true,
+  "scripts": {
+    "standalone": "webpack --config ./srcjs/standalone/webpack.config.js"
+  },
   "dependencies": {
     "@data-ui/histogram": "^0.0.84",
     "@data-ui/sparkline": "^0.0.84"

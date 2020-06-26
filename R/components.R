@@ -157,7 +157,7 @@ dui_sparkbandline <- function(
 dui_sparkpatternlines <- function(
   ...
 ) {
-  reactR::React$PatternLine(
+  reactR::React$PatternLines(
     ...
   )
 }
@@ -204,6 +204,22 @@ dui_sparkhorizontalrefline <- function(
   ...
 ) {
   reactR::React$HorizontalReferenceLine(
+    ...
+  )
+}
+
+#' Title
+#'
+#' @param ...
+#'
+#' @return
+#' @export
+#'
+#' @examples
+dui_sparklineargradient <- function(
+  ...
+) {
+  reactR::React$LinearGradient(
     ...
   )
 }

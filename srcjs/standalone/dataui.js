@@ -9,6 +9,7 @@ import {
   VerticalReferenceLine as VerticalReferenceLine,
   BandLine as BandLine,
   PatternLines as PatternLines,
+  LinearGradient as LinearGradient,
   WithTooltip as WithTooltip
 } from '@data-ui/sparkline';
 
@@ -122,6 +123,7 @@ export {
   VerticalReferenceLine,
   BandLine,
   PatternLines,
+  LinearGradient,
   WithTooltip,
   SparklineWithTooltip,
   TooltipComponent

@@ -10,6 +10,7 @@ import {
   VerticalReferenceLine as VerticalReferenceLine,
   BandLine as BandLine,
   PatternLines as PatternLines,
+  LinearGradient as LinearGradient,
   WithTooltip as WithTooltip
 } from '@data-ui/sparkline';
 
@@ -127,6 +128,7 @@ reactWidget(
     VerticalReferenceLine: VerticalReferenceLine,
     BandLine: BandLine,
     PatternLines: PatternLines,
+    LinearGradient: LinearGradient,
     WithTooltip: WithTooltip,
     TooltipComponent: TooltipComponent,
     Fragment: React.Fragment

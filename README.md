@@ -49,6 +49,11 @@ remotes::install_github("timelyportfolio/dataui")
 
 ## Example
 
+This is is the shortest code example I could create.
+
+    library(dataui)
+    dui_sparkline(data = rnorm(50), components = list(dui_sparklineseries()))
+
 I was able to nearly fully replicate all the `data-ui` sparkline
 examples. See the
 [vignette](https://timelyportfolio.github.io/dataui/articles/dataui_replicate_examples.html).

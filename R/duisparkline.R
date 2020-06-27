@@ -36,7 +36,7 @@ dui_sparkline <- function(
   viewBox = NULL,
   ariaLabel = NULL,
   components = list(),
-  width = NULL, height = NULL, elementId = NULL
+  width = 300, height = 100, elementId = NULL
 ) {
 
     # describe a React component to send to the browser for rendering.

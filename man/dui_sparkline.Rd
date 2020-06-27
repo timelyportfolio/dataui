@@ -18,8 +18,8 @@ dui_sparkline(
   viewBox = NULL,
   ariaLabel = NULL,
   components = list(),
-  width = NULL,
-  height = NULL,
+  width = 300,
+  height = 100,
   elementId = NULL
 )
 }

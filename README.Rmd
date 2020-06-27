@@ -38,6 +38,13 @@ remotes::install_github("timelyportfolio/dataui")
 
 ## Example
 
+This is is the shortest code example I could create.
+
+```
+library(dataui)
+dui_sparkline(data = rnorm(50), components = list(dui_sparklineseries()))
+```
+
 I was able to nearly fully replicate all the `data-ui` sparkline examples.  See the [vignette](https://timelyportfolio.github.io/dataui/articles/dataui_replicate_examples.html).
 
 And thanks to the fine work of Greg Lin, `dataui` just works with [`reactable`](https://glin.github.io/reactable/).  I would still like to tighten up the integration though, since the data gets duplicated in multiple spots.  Here is a quick example to prove it.

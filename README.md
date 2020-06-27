@@ -48,7 +48,8 @@ remotes::install_github("timelyportfolio/dataui")
 ## Example
 
 I was able to nearly fully replicate all the `data-ui` sparkline
-examples. See the [vignette]().
+examples. See the
+[vignette](https://timelyportfolio.github.io/dataui/articles/dataui_replicate_examples.html).
 
 ## Code of Conduct
 

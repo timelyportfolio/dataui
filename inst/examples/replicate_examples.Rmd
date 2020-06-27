@@ -1,0 +1,672 @@
+---
+title: "Examples from data-ui"
+author: "Kent Russell"
+date: "6/26/2020"
+output: html_document
+mathjax: null
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Install/Load dataui
+
+`dataui` is currently in pre-alpha state with a potentially unstable API.  For now `dataui` will only live on Github, but cRAN is the ultimate goal.
+
+```{r load}
+# remotes::install_github("timelyportfolio/dataui")
+library(dataui)
+```
+
+## Sparkline Kitchen Sink Examples
+
+Let's attempt to replicate the examples from `data-ui` [storybook](https://williaster.github.io/data-ui/?selectedKind=sparkline&selectedStory=Kitchen%20sink&full=0&addons=0&stories=1&panelRight=0).  For reference, the JavaScript code is on [Github](https://github.com/williaster/data-ui/blob/master/packages/demo/examples/03-sparkline/KitchenSinkExamples.jsx).
+
+Unfortunately we cannot recreate the emoji label due to `htmlwidgets::JS()` scoping issues.  This likely would be solved by [pull](https://github.com/rstudio/htmltools/pull/72) but no one seems to care.
+
+```{r kitchensink1}
+# unable to add smiley face due to scoping issues with htmlwidgets::JS :(
+dui_sparkline_with_tooltip(
+  # don't have to use reactR::babel_transform but makes it easy to copy/paste
+  renderTooltip = htmlwidgets::JS(htmltools::HTML(reactR::babel_transform(
+"
+(
+  { datum }, // eslint-disable-line react/prop-types
+) => {
+return (
+  <div>
+    {datum.x && <div>{datum.x}</div>}
+    <div>{datum.y ? datum.y.toFixed(2) : '--'}</div>
+  </div>
+)}
+"
+  ))),
+  data = lapply(1:35, function(i) {
+    list(
+      x = paste0("Day ", i),
+      y = runif(1, 0, 2)
+    )
+  }),
+  valueAccessor = htmlwidgets::JS("d => d.y"),
+  width = 500,
+  height = 100,
+  margin = list( top= 24, right= 64, bottom= 24, left= 64 ),
+  ariaLabel = "sparkline example",
+  components = list(
+    dui_sparkbarseries(fill = scales::brewer_pal(palette="Purples")(3)[2])
+  )
+)
+```
+
+```{r kitchensink2}
+dui_sparkline_with_tooltip(
+  data = lapply(1:25, function(i) {
+    list(
+      x = paste0("Day ", i),
+      y = runif(1, 0, 2)
+    )
+  }),
+  valueAccessor = htmlwidgets::JS("d => d.y"),
+  width = 500,
+  height = 100,
+  margin = list( top= 24, right= 64, bottom= 24, left= 64 ),
+  ariaLabel = "sparkline example",
+  components = list(
+    dui_sparkpatternlines(
+      id = "area_pattern",
+      height = 4,
+      width = 4,
+      stroke = "#91a7ff",
+      strokeWidth = 1,
+      orientation = "diagonal"
+    ),
+    dui_sparklineseries(
+      showArea = TRUE,
+      stroke = "#91a7ff",
+      fill = "url(#area_pattern)"
+    ),
+    dui_sparkpointseries(
+      points = list("all"),
+      stroke = "rgb(92, 124, 250)",
+      fill = "#fff",
+      size = 3
+    ),
+    dui_sparkpointseries(
+      points = list("last"),
+      fill = "rgb(92, 124, 250)",
+      renderLabel = htmlwidgets::JS("d => d.toFixed(2)"),
+      labelPosition = "right"
+    ),
+    dui_tooltip(
+      components = list(
+        dui_sparkverticalrefline(
+          key = "ref-line",
+          strokeWidth = 1,
+          strokeDasharray = "4 4"
+        ),
+        dui_sparkpointseries(
+          key = "ref-point",
+          fill = "rgb(92, 124, 250)"
+        )
+      )
+    )
+  )
+)
+```
+
+```{r kitchensink3}
+dui_sparkline_with_tooltip(
+  data = lapply(1:25, function(i) {
+    list(
+      x = paste0("Day ", i),
+      y = runif(1, 0, 2)
+    )
+  }),
+  valueAccessor = htmlwidgets::JS("d => d.y"),
+  width = 500,
+  height = 100,
+  margin = list( top= 24, right= 64, bottom= 24, left= 64 ),
+  ariaLabel = "sparkline example",
+  components = list(
+    dui_sparklineseries(
+      stroke = "#f06595"
+    ),
+    dui_sparkpointseries(
+      points = list("all"),
+      stroke = "#f06595",
+      fill = "#f06595",
+      size = 3
+    ),
+    dui_sparkpointseries(
+      points = list("min","max"),
+      fill = "#fcc419",
+      stroke = "#fff",
+      renderLabel = htmlwidgets::JS("d => d.toFixed(2)"),
+      labelPosition = "right",
+      size = 5
+    ),
+    dui_tooltip(
+      components = list(
+        dui_sparkverticalrefline(
+          key = "ref-line",
+          strokeWidth = 1,
+          strokeDasharray = "4 4"
+        ),
+        dui_sparkpointseries(
+          key = "ref-point",
+          fill = "#fff",
+          stroke = "#f06595"
+        )
+      )
+    )
+  )
+)
+```
+
+```{r kitchensink4}
+dui_sparkline_with_tooltip(
+  data = lapply(1:25, function(i) {
+    list(
+      x = paste0("Day ", i),
+      y = runif(1, 0, 2)
+    )
+  }),
+  valueAccessor = htmlwidgets::JS("d => d.y"),
+  width = 500,
+  height = 100,
+  margin = list( top= 24, right= 64, bottom= 24, left= 64 ),
+  ariaLabel = "sparkline example",
+  components = list(
+    dui_sparklineseries(
+      stroke = "#1098ad"
+    ),
+    dui_sparkhorizontalrefline(
+      stroke = "#1098ad",
+      strokeWidth = 1,
+      strokeDasharray = "4 4"
+    ),
+    dui_sparkpointseries(
+      points = list("first","last"),
+      fill = "#1098ad",
+      stroke = "#fff",
+      renderLabel = htmlwidgets::JS("d => d.toFixed(2)"),
+      labelPosition = htmlwidgets::JS("{(d, i) => (i === 0 ? 'left' : 'right')}"),
+      size = 5
+    ),
+    dui_tooltip(
+      components = list(
+        dui_sparkverticalrefline(
+          key = "ref-line",
+          strokeWidth = 1,
+          strokeDasharray = "4 4"
+        ),
+        dui_sparkpointseries(
+          key = "ref-point",
+          stroke = "#fff",
+          fill = "#fcc419"
+        )
+      )
+    )
+  )
+)
+```
+
+```{r kitchensink5}
+dui_sparkline_with_tooltip(
+  data = lapply(1:25, function(i) {
+    list(
+      x = paste0("Day ", i),
+      y = runif(1, 0, 2)
+    )
+  }),
+  valueAccessor = htmlwidgets::JS("d => d.y"),
+  width = 500,
+  height = 100,
+  margin = list( top= 24, right= 64, bottom= 24, left= 64 ),
+  ariaLabel = "sparkline example",
+  components = list(
+    dui_sparkpatternlines(
+      id = "band_pattern",
+      height = 6,
+      width = 6,
+      stroke = "#be4bdb",
+      strokeWidth = 1,
+      orientation = list("diagonal")
+    ),
+    dui_sparkbandline(fill = "url(#band_pattern)"),
+    dui_sparklineseries(
+      stroke = "#be4bdb"
+    ),
+    dui_sparkhorizontalrefline(
+      stroke = "#862e9c",
+      strokeWidth = 1,
+      strokeDasharray = "4 4",
+      reference = "median"
+    ),
+    dui_sparkverticalrefline(
+      stroke = "#e599f7",
+      strokeDasharray = "4 4",
+      reference = "min"
+    ),
+    dui_sparkverticalrefline(
+      stroke = "#e599f7",
+      strokeDasharray = "4 4",
+      reference = "max"
+    ),
+    dui_sparkpointseries(
+      points = list("min","max"),
+      fill = "#da77f2",
+      stroke = "#fff",
+      renderLabel = htmlwidgets::JS("d => d.toFixed(2)"),
+      labelPosition = htmlwidgets::JS("{(d, i) => (i === 0 ? 'left' : 'right')}"),
+      size = 5
+    ),
+    dui_tooltip(
+      components = list(
+        dui_sparkverticalrefline(
+          key = "ref-line",
+          strokeWidth = 1,
+          strokeDasharray = "4 4"
+        ),
+        dui_sparkpointseries(
+          key = "ref-point",
+          stroke = "#fff",
+          fill = "#fcc419"
+        )
+      )
+    )
+  )
+)
+```
+
+```{r kitchensink6}
+dat <- lapply(1:35, function(i) {
+  list(
+    x = paste0("Day ", i),
+    y = runif(1, 0, 2)
+  )
+})
+
+dui_sparkline_with_tooltip(
+  data = dat,
+  valueAccessor = htmlwidgets::JS("d => d.y"),
+  width = 500,
+  height = 100,
+  margin = list( top= 24, right= 64, bottom= 24, left= 64 ),
+  ariaLabel = "sparkline example",
+  components = list(
+    dui_sparkpatternlines(
+      id = "band_pattern_hash",
+      height = 7,
+      width = 7,
+      stroke = "#ced4da",
+      strokeWidth = 1,
+      orientation = list("vertical", "horizontal")
+    ),
+    dui_sparkbandline(
+      fill = "url(#band_pattern_hash)",
+      stroke = "#ced4da",
+      band = list(
+        from = min(unlist(lapply(dat, function(d) d$y))),
+        to = max(unlist(lapply(dat, function(d) d$y)))
+      ) # data-ui code not working so replicate in R with min and max
+    ),
+    dui_sparklineseries(
+      stroke = "#495057"
+    ),
+    # add these for fun from prior example
+    dui_sparkhorizontalrefline(
+      stroke = "#343a40",
+      strokeWidth = 1,
+      strokeDasharray = "4 4",
+      reference = "median"
+    ),
+    dui_sparkverticalrefline(
+      stroke = "#e599f7",
+      strokeDasharray = "4 4",
+      reference = "min"
+    ),
+    dui_sparkverticalrefline(
+      stroke = "#e599f7",
+      strokeDasharray = "4 4",
+      reference = "max"
+    ),
+    dui_sparkpointseries(
+      points = list("min","max"),
+      fill = "#ced4da",
+      stroke = "#fff",
+      renderLabel = htmlwidgets::JS("d => d.toFixed(2)"),
+      labelPosition = htmlwidgets::JS("{(d, i) => (i === 0 ? 'left' : 'right')}"),
+      size = 5
+    ),
+    dui_tooltip(
+      components = list(
+        dui_sparkverticalrefline(
+          key = "ref-line",
+          strokeWidth = 1,
+          strokeDasharray = "4 4"
+        ),
+        dui_sparkpointseries(
+          key = "ref-point",
+          stroke = "#fff",
+          fill = "#343a40"
+        )
+      )
+    )
+  )
+)
+```
+
+## Sparkline Bar Examples
+
+We were almost able to fully replicate the kitchen sink examples.  Now, let's look at the  examples from `data-ui` [sparkline bar storybook](https://williaster.github.io/data-ui/?selectedKind=sparkline&selectedStory=BarSeries&full=0&addons=0&stories=1&panelRight=0).  For reference, the JavaScript code is on [Github](https://github.com/williaster/data-ui/blob/master/packages/demo/examples/03-sparkline/BarSeriesExamples.jsx).
+
+
+```{r bar1}
+dui_sparkline(
+  data = runif(50, 0, 2),
+  width = 500,
+  height = 100,
+  margin = list( top= 24, right= 64, bottom= 24, left= 8 ),
+  ariaLabel = "sparkline bar example",
+  components = list(
+    dui_sparkbarseries()
+  )
+)
+```
+
+```{r bar2}
+dui_sparkline_with_tooltip(
+  data = runif(35, 0, 5) + 1:35 ,
+  width = 500,
+  height = 100,
+  margin = list( top= 24, right= 64, bottom= 24, left= 8 ),
+  ariaLabel = "sparkline bar example",
+  components = list(
+    dui_sparkbarseries(
+      fillOpacity = 0.7,
+      fill = "#eebefa"
+    ),
+    dui_tooltip(
+      components = list(
+        dui_sparkhorizontalrefline(
+          stroke = "#9c36b5",
+          strokeWidth = 1,
+          strokeDasharray = "3,3",
+          # not able to recreate label due to htmlwidgets::JS scope
+          labelPosition = "right",
+          labelOffset = "12",
+          renderLabel = htmlwidgets::JS("d => d.toFixed(1)")
+        )
+      )
+    )
+  )
+)
+```
+
+```{r bar3}
+dui_sparkline_with_tooltip(
+  data = runif(30, 0, 2),
+  width = 500,
+  height = 100,
+  margin = list( top= 24, right= 64, bottom= 24, left= 8 ),
+  ariaLabel = "sparkline bar example",
+  components = list(
+    dui_sparklineargradient(
+      id = "bar_gradient",
+      to = "#fff3bf",
+      from = "#f08c00"
+    ),
+    dui_sparkbarseries(
+      fillOpacity = htmlwidgets::JS("(d, i) => (i === 24 ? 1 : 0.5)"),
+      fill = "url(#bar_gradient)"
+    ),
+    dui_sparkverticalrefline(
+      reference = 24,
+      stroke = "#f08c00",
+      strokeWidth = 1,
+      strokeDasharray = "3,3",
+      renderLabel = htmlwidgets::JS("d => d.toFixed(1)")
+    ),
+    dui_tooltip(
+      components = list(
+        dui_sparkhorizontalrefline(
+          stroke = "#f08c00",
+          strokeWidth = 1,
+          strokeDasharray = "3,3",
+          renderLabel = htmlwidgets::JS("d => d.toFixed(1)")
+        )
+      )
+    )
+  )
+)
+```
+
+```{r bar4}
+dui_sparkline_with_tooltip(
+  data = runif(30, 0, 2),
+  width = 500,
+  height = 100,
+  margin = list( top= 24, right= 64, bottom= 24, left= 8 ),
+  ariaLabel = "sparkline bar example",
+  components = list(
+    dui_sparkbarseries(
+      fillOpacity = 0.9,
+      fill = "#63e6be"
+    ),
+    dui_sparklineseries(
+      stroke = "#087f5b"
+    )
+  )
+)
+```
+
+```{r bar5}
+dui_sparkline_with_tooltip(
+  data = runif(20, 0, 2),
+  width = 500,
+  height = 100,
+  margin = list( top= 24, right= 64, bottom= 24, left= 8 ),
+  ariaLabel = "sparkline bar example",
+  components = list(
+    dui_sparkpatternlines(
+      id = "bar_pattern",
+      height = 4,
+      width = 4,
+      stroke = "#868e96",
+      strokeWidth = 1,
+      orientation = list('diagonal')
+    ),
+    dui_sparkpatternlines(
+      id = "bar_pattern_2",
+      height = 4,
+      width = 4,
+      stroke = "#d6336c",
+      strokeWidth = 1,
+      orientation = list('horizontal', 'vertical')
+    ),
+    dui_sparkbarseries(
+      fill = htmlwidgets::JS(htmltools::HTML(
+        "(d, i) => (i > 9 ? 'url(#bar_pattern_2)' : 'url(#bar_pattern)')"
+      )),
+      strokeWidth = 5
+    ),
+    dui_sparkverticalrefline(
+      reference = 9.5,
+      stroke = "#343a40",
+      strokeWidth = 1,
+      strokeDasharray = "2,2",
+      strokeLinecap = "square",
+      # let's not use reactR::babel_transform this time
+      renderLabel = htmlwidgets::JS(htmltools::HTML("
+() => React.createElement('tspan', {fill: '#d6336c'}, '!!')
+      "))
+    )
+  )
+)
+```
+
+
+## Sparkline Line Examples
+
+Since we are making good progress, we can now explore the examples from `data-ui` [sparkline line storybook](https://williaster.github.io/data-ui/?selectedKind=sparkline&selectedStory=LineSeries&full=0&addons=0&stories=1&panelRight=0).  For reference, the JavaScript code is on [Github](https://github.com/williaster/data-ui/blob/master/packages/demo/examples/03-sparkline/LineSeriesExamples.jsx).
+
+```{r line1}
+dui_sparkline(
+  data = runif(50,0,2),
+  width = 500,
+  height = 100,
+  margin = list( top= 24, right= 90, bottom= 24, left= 8 ),
+  ariaLabel = "sparkline line example",
+  components = list(
+    dui_sparklineseries(),
+    dui_sparkpointseries(
+      points = list('last'),
+      size = 4,
+      stroke = "white",
+      renderLabel = htmlwidgets::JS("d => d.toFixed(1)"),
+      labelPosition = "right"
+    )
+  )
+)
+```
+
+```{r line2}
+dui_sparkline_with_tooltip(
+  data = runif(40,0,2),
+  width = 500,
+  height = 100,
+  margin = list( top= 24, right= 90, bottom= 24, left= 8 ),
+  ariaLabel = "sparkline line example",
+  components = list(
+    dui_sparklineargradient(
+      id = "area_gradient",
+      to = "#ffdeeb",
+      from = "#e64980"
+    ),
+    dui_sparklineseries(
+      showArea = TRUE,
+      fill = "url(#area_gradient)",
+      stroke = "#f783ac"
+    ),
+    dui_tooltip(
+      components = list(
+        dui_sparkverticalrefline(
+          strokeWidth = 1,
+          stroke = "#e64980",
+          strokeDasharray="4 4"          
+        ),
+        dui_sparkpointseries(
+          fill = "#e64980"
+        )
+      )
+    )
+  )
+)
+```
+
+```{r line3}
+dui_sparkline_with_tooltip(
+  data = runif(30,0,2),
+  width = 500,
+  height = 100,
+  margin = list( top= 24, right= 90, bottom= 24, left= 8 ),
+  ariaLabel = "sparkline line example",
+  components = list(
+    dui_sparkpatternlines(
+      id = "innerquartile_pattern",
+      height = 4,
+      width = 4,
+      stroke = "#329af0",
+      strokeWidth = 1,
+      orientation= list("diagonal")
+    ),
+    dui_sparkbandline(
+      band = "innerquartiles",
+      fill = "url(#innerquartile_pattern)"
+    ),
+    dui_sparklineseries(
+      curve = "linear",
+      stroke = "#4dadf7"
+    ),
+    dui_sparkhorizontalrefline(
+      stroke = "#329af0",
+      strokeDasharray = "3,3",
+      strokeLinecap = "square",
+      strokeWidth = 1,
+      renderLabel = htmlwidgets::JS("d => `Median ${d.toFixed(1)}`")
+    ),
+    dui_sparkpointseries(
+      points = list('min', 'max'),
+      fill = "#228ae6",
+      size = 4,
+      stroke = "white",
+      renderLabel = htmlwidgets::JS("d => d.toFixed(1)")
+    )
+  )
+)
+```
+
+```{r line4}
+curvesData <-  c(-10, 10, -10, 5, -5, 0)
+curves <-  c('cardinal', 'linear', 'monotoneX', 'basis')
+
+dui_sparkline(
+  data = curvesData,
+  width = 500,
+  height = 100,
+  margin = list( top= 24, right= 90, bottom= 24, left= 8 ),
+  ariaLabel = "sparkline line example",
+  components = c(
+    mapply(
+      function(d,i) {
+        dui_sparkverticalrefline(
+          key = i,
+          reference = i,
+          stroke = "#dee2e6",
+          strokeWidth = 1,
+          strokeLineCap = "square",
+          strokeDasharray = "2,3",
+          labelPosition = "right"
+        )
+      },
+      curvesData,
+      seq_along(curvesData) - 1,
+      SIMPLIFY = FALSE,
+      USE.NAMES = FALSE
+    ),
+    mapply(
+      function(curve,i) {
+        dui_sparklineseries(
+          key = curve,
+          curve = curve,
+          stroke = blues9[i+2],
+          strokeWidth = 2
+        )
+      },
+      curves,
+      seq_along(curves) - 1,
+      SIMPLIFY = FALSE,
+      USE.NAMES = FALSE
+    ),
+    mapply(
+      function(curve,i) {
+        dui_sparklabel(
+          key = curve,
+          textAnchor = "start",
+          x = 500 - 90,
+          dy = 8 + i * 12,
+          label = curve,
+          fill = blues9[i+2],
+          strokeWidth = 1
+        )
+      },
+      curves,
+      seq_along(curves) - 1,
+      SIMPLIFY = FALSE,
+      USE.NAMES = FALSE
+    )
+  )
+)
+```

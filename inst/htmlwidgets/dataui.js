@@ -29275,6 +29275,7 @@ Object(reactR__WEBPACK_IMPORTED_MODULE_1__["reactWidget"])('dataui', 'output', {
   BandLine: _data_ui_sparkline__WEBPACK_IMPORTED_MODULE_3__["BandLine"],
   PatternLines: _data_ui_sparkline__WEBPACK_IMPORTED_MODULE_3__["PatternLines"],
   LinearGradient: _data_ui_sparkline__WEBPACK_IMPORTED_MODULE_3__["LinearGradient"],
+  Label: _data_ui_sparkline__WEBPACK_IMPORTED_MODULE_3__["Label"],
   WithTooltip: _data_ui_sparkline__WEBPACK_IMPORTED_MODULE_3__["WithTooltip"],
   TooltipComponent: TooltipComponent,
   Fragment: React.Fragment

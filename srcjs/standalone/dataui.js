@@ -10,6 +10,7 @@ import {
   BandLine as BandLine,
   PatternLines as PatternLines,
   LinearGradient as LinearGradient,
+  Label as Label,
   WithTooltip as WithTooltip
 } from '@data-ui/sparkline';
 
@@ -124,6 +125,7 @@ export {
   BandLine,
   PatternLines,
   LinearGradient,
+  Label,
   WithTooltip,
   SparklineWithTooltip,
   TooltipComponent

@@ -40,7 +40,7 @@ dui_densityseries <- function(
 #' @return
 #' @export
 #'
-#' @examples
+
 dui_xaxis <- function(
   ...
 ) {
@@ -57,7 +57,7 @@ dui_xaxis <- function(
 #' @return
 #' @export
 #'
-#' @examples
+
 dui_yaxis <- function(
   ...
 ) {
@@ -73,7 +73,7 @@ dui_yaxis <- function(
 #' @return
 #' @export
 #'
-#' @examples
+
 dui_sparklineseries <- function(
   ...
 ) {
@@ -89,7 +89,7 @@ dui_sparklineseries <- function(
 #' @return
 #' @export
 #'
-#' @examples
+
 dui_sparkbarseries <- function(
   ...
 ) {
@@ -105,7 +105,7 @@ dui_sparkbarseries <- function(
 #' @return
 #' @export
 #'
-#' @examples
+
 dui_sparkpointseries <- function(
   ...
 ) {
@@ -121,7 +121,7 @@ dui_sparkpointseries <- function(
 #' @return
 #' @export
 #'
-#' @examples
+
 dui_sparkrefline <- function(
   ...
 ) {
@@ -137,7 +137,7 @@ dui_sparkrefline <- function(
 #' @return
 #' @export
 #'
-#' @examples
+
 dui_sparkbandline <- function(
   ...
 ) {
@@ -153,7 +153,7 @@ dui_sparkbandline <- function(
 #' @return
 #' @export
 #'
-#' @examples
+
 dui_sparkpatternlines <- function(
   ...
 ) {
@@ -183,7 +183,7 @@ dui_tooltip <- function(
 #' @return
 #' @export
 #'
-#' @examples
+
 dui_sparkverticalrefline <- function(
   ...
 ) {
@@ -199,7 +199,7 @@ dui_sparkverticalrefline <- function(
 #' @return
 #' @export
 #'
-#' @examples
+
 dui_sparkhorizontalrefline <- function(
   ...
 ) {
@@ -215,11 +215,27 @@ dui_sparkhorizontalrefline <- function(
 #' @return
 #' @export
 #'
-#' @examples
+
 dui_sparklineargradient <- function(
   ...
 ) {
   reactR::React$LinearGradient(
+    ...
+  )
+}
+
+#' Title
+#'
+#' @param ...
+#'
+#' @return
+#' @export
+#'
+
+dui_sparklabel <- function(
+  ...
+) {
+  reactR::React$Label(
     ...
   )
 }

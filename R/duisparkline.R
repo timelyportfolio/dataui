@@ -93,8 +93,6 @@ dui_sparkline <- function(
 #'
 #' @return
 #' @export
-#'
-#' @examples
 dui_sparkline_with_tooltip <- function(
   data = NULL,
   className = NULL,

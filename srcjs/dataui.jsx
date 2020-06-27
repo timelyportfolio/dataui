@@ -11,6 +11,7 @@ import {
   BandLine as BandLine,
   PatternLines as PatternLines,
   LinearGradient as LinearGradient,
+  Label as Label,
   WithTooltip as WithTooltip
 } from '@data-ui/sparkline';
 
@@ -129,6 +130,7 @@ reactWidget(
     BandLine: BandLine,
     PatternLines: PatternLines,
     LinearGradient: LinearGradient,
+    Label: Label,
     WithTooltip: WithTooltip,
     TooltipComponent: TooltipComponent,
     Fragment: React.Fragment

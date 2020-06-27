@@ -1,22 +1,38 @@
 Package: dataui
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
-Authors@R: 
-    person(given = "First",
-           family = "Last",
-           role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+Type: Package
+Title: `Data-UI` Interactive Visualizations
+Version: 0.0.1
+Date: 2020-06-26
+Authors@R: c(
+      person(
+        "Chris", " Williams"
+        , role = c("aut", "cph")
+        , comment = "data-ui library, https://williaster.github.io/data-ui"
+      ),
+      person(
+        "Kent", "Russell"
+        , role = c("aut", "cre")
+        , comment = "R interface"
+        , email = "kent.russell@timelyportfolio.com"
+      )
+  )
+Maintainer: Kent Russell <kent.russell@timelyportfolio.com>
+URL: https://github.com/timelyportfolio/dataui
+BugReports: https://github.com/timelyportfolio/dataui/issues
+Description: Create sparklines and histograms with 'data-ui'.
 License: MIT + file LICENSE
-Encoding: UTF-8
-LazyData: true
+LazyData: TRUE
 Imports: 
     htmltools,
     htmlwidgets,
-    reactR
-RoxygenNote: 7.0.2
+    reactR,
+    jsonlite
 Suggests: 
     knitr,
+    markdown,
+    reactable,
     rmarkdown
+Enhances:
+    shiny
+RoxygenNote: 7.0.2
 VignetteBuilder: knitr

@@ -2,7 +2,7 @@
 % Please edit documentation in R/dependency.R
 \name{html_dependency_dataui}
 \alias{html_dependency_dataui}
-\title{Title}
+\title{'JavaScript' Dependencies for Standalone Usage}
 \usage{
 html_dependency_dataui()
 }
@@ -10,5 +10,5 @@ html_dependency_dataui()
 
 }
 \description{
-Title
+'JavaScript' Dependencies for Standalone Usage
 }

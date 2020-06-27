@@ -674,3 +674,163 @@ dui_sparkline(
   )
 )
 ```
+
+
+## Sparkline Miscellaneous Examples
+
+We are now approaching the last set of examples in `data-ui` [sparkline miscellaneous storybook](https://williaster.github.io/data-ui/?selectedKind=sparkline&selectedStory=Miscellaneous%E2%9D%97%EF%B8%8F&full=0&addons=0&stories=1&panelRight=0).  For reference, the JavaScript code is on [Github](https://github.com/williaster/data-ui/blob/master/packages/demo/examples/03-sparkline/PointsAndBandsExamples.jsx).
+
+```{r misc1}
+dui_sparkline(
+  data = runif(40,0,2),
+  width = 500,
+  height = 100,
+  margin = list( top= 24, right= 72, bottom= 24, left= 8 ),
+  ariaLabel = "sparkline misc example",
+  components = list(
+    dui_sparklineseries(
+      strokeWidth = 1,
+      stroke = "#66d9e8"
+    ),
+    dui_sparkpointseries(
+      points = list('all')
+    ),
+    dui_sparkpointseries(
+      points = list('max'),
+      fill = "#fab005"
+    )
+  )
+)
+```
+
+```{r misc2}
+dat_misc <- runif(25,0,1)
+htmltools::tagList(
+  lapply( c(9,3), function(multiplier) {
+    dui_sparkline(
+      data = dat_misc * multiplier,
+      min = 0,
+      max = 10,
+      width = 500,
+      height = 100,
+      margin = list( top= 24, right= 72, bottom= 24, left= 8 ),
+      ariaLabel = "sparkline misc example",
+      components = list(
+        dui_sparkbandline(
+          fill = "#c3fae8",
+          band = list(from = list(y=0), to = list(y=10))
+        ),
+        dui_sparklineseries(
+          strokeWidth = 1,
+          stroke = "#12b886"
+        ),
+        dui_sparkpointseries(
+          points = list('min','max'),
+          fill = "#12b886"
+        ),
+        dui_sparkhorizontalrefline(
+          reference = 10,
+          stroke = "#0ca678",
+          strokeDasharray = "3,3",
+          strokeLinecap = "square",
+          strokeWidth = 1,
+          renderLabel = htmlwidgets::JS("d => React.createElement('tspan',{fill: '#0ca678'},d.toFixed(1))")
+        )
+      )
+    )    
+  })
+)
+```
+
+```{r misc3}
+dui_sparkline(
+  data = c(10, -10, 5, -5, 1, -1, 0),
+  width = 500,
+  height = 100,
+  margin = list( top= 24, right= 72, bottom= 24, left= 8 ),
+  ariaLabel = "sparkline misc example",
+  components = list(
+    dui_sparkpatternlines(
+      id = "band_pattern_misc",
+      height = 4,
+      width = 4,
+      stroke = "#da77f2",
+      strokeWidth = 1,
+      orientation = list('diagonal')
+    ),
+    dui_sparkbandline(
+      band = list( from = list( y = 1 ), to = list( y = 10 ) ),
+      fill = "url(#band_pattern_misc)"
+    ),
+    dui_sparkbandline(
+      band = list( from = list( x = 1 ), to = list( x = 3 ) ),
+      fill = "url(#band_pattern_misc)"
+    ),
+    dui_sparklineseries(
+      strokeWidth = 2,
+      stroke = "#be4bdb"
+    ),
+    dui_sparkpointseries(
+      points = list('all'),
+      fill = "#da77f2"
+    )
+  )
+)
+```
+
+```{r misc4}
+dui_sparkline_with_tooltip(
+  data = runif(30, 0, 20),
+  width = 500,
+  height = 100,
+  margin = list( top= 24, right= 72, bottom= 24, left= 8 ),
+  ariaLabel = "sparkline misc example",
+  renderTooltip = htmlwidgets::JS("({ datum }) => datum.y.toFixed(2)"),
+  components = c(
+    lapply(
+      1:30 - 1,
+      function(i) {
+        dui_sparkverticalrefline(
+          key = i,
+          reference = i,
+          stroke = "#8ce99a",
+          strokeWidth = 1,
+          strokeLinecap = "square",
+          strokeDasharray = "2,2"
+        )
+      }
+    ),
+    list(
+      dui_sparklineseries(
+        stroke = "#40c057"
+      ),
+      dui_sparkpointseries(
+        points = list('all'),
+        fill = "#8ce99a"
+      ),
+      dui_tooltip(
+        components = list(
+          dui_sparkhorizontalrefline(
+            key = "ref-hline",
+            strokeWidth = 1,
+            stroke = "#c2255c",
+            strokeDasharray = "4,4"
+          ),
+          dui_sparkverticalrefline(
+            key = "ref-vline",
+            strokeWidth = 1,
+            stroke = "#c2255c",
+            strokeDasharray = "4,4"
+          ),
+          dui_sparkpointseries(
+            key = "ref-point",
+            fill = "#c2255c"
+          )
+        )
+      )
+    )
+  )
+)
+```
+
+... responsive example missing because I have not integrated yet ...

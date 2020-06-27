@@ -28,9 +28,10 @@ freeze](https://github.com/williaster/data-ui#repo-freeze-), but I could
 not wait for [\#201](https://github.com/williaster/data-ui/issues/201).
 The author, now also on the `vx` team, has done an incredible job, so I
 am willing (slightly crazy) to invest the time to write this package.
-Plus, I sort of “need” it for a live project. These
-[sparklines](https://omnipotent.net/jquery.sparkline/#s-about) are a
-little old and tired (but I still very much appreciate the library).
+Plus, I sort of “need” it for a live project. Our other
+[sparkline](https://omnipotent.net/jquery.sparkline/#s-about) in R is a
+little old and tired (but I still very much appreciate the library) and
+has been frozen/unmaintained for many years.
 
 ## Help
 
@@ -49,19 +50,53 @@ remotes::install_github("timelyportfolio/dataui")
 
 ## Example
 
+#### Sparkines
+
 This is is the shortest code example I could create.
 
     library(dataui)
-    dui_sparkline(data = rnorm(50), components = list(dui_sparklineseries()))
+    dui_sparkline(
+      data = rnorm(50),
+      components = list(dui_sparklineseries())
+    )
 
 I was able to nearly fully replicate all the `data-ui` sparkline
 examples. See the
 [vignette](https://timelyportfolio.github.io/dataui/articles/dataui_replicate_examples.html).
 
+#### Histogram
+
+Currently there are some examples in
+[experiments.R](https://github.com/timelyportfolio/dataui/blob/master/inst/examples/experiments.R).
+I should also note that `dataui` histograms also work very well as
+sparklines.
+
+Below is a quick example.
+
+    library(dataui)
+    
+    rn <- rnorm(1000)
+    ri <- runif(1000)
+    
+    dui_histogram(
+      binCount = 25,
+      components = list(
+        dui_barseries(rawData = rn, fill="#000"),
+        dui_densityseries(rawData = rn, stroke = "#000"),
+        dui_barseries(rawData = ri),
+        dui_densityseries(rawData = ri),
+        dui_xaxis(),
+        dui_yaxis()
+      )
+    )
+
+#### reactable
+
 And thanks to the fine work of Greg Lin, `dataui` just works with
 [`reactable`](https://glin.github.io/reactable/). I would still like to
 tighten up the integration though, since the data gets duplicated in
-multiple spots. Here is a quick example to prove it.
+multiple spots. Here is a quick example to prove it. `dataui` should
+also work relatively well with other `R` table libraries.
 
     library(dataui)
     library(dplyr)

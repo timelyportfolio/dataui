@@ -31,8 +31,7 @@ Suggests:
     knitr,
     markdown,
     reactable,
-    rmarkdown,
-    V8
+    rmarkdown
 Enhances:
     shiny
 RoxygenNote: 7.0.2

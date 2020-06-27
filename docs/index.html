@@ -159,27 +159,77 @@
 <span id="cb4-21"><a href="#cb4-21"></a>          <span class="dt">height =</span> <span class="dv">200</span>,</span>
 <span id="cb4-22"><a href="#cb4-22"></a>          <span class="dt">width =</span> <span class="dv">400</span>,</span>
 <span id="cb4-23"><a href="#cb4-23"></a>          <span class="dt">binValues =</span> binValues,</span>
-<span id="cb4-24"><a href="#cb4-24"></a>          <span class="dt">renderTooltip =</span> htmlwidgets<span class="op">::</span><span class="kw">JS</span>(reactR<span class="op">::</span><span class="kw">babel_transform</span>(<span class="st">"</span></span>
-<span id="cb4-25"><a href="#cb4-25"></a><span class="st">{({ event, datum, data, color }) =&gt; (</span></span>
-<span id="cb4-26"><a href="#cb4-26"></a><span class="st">  &lt;div&gt;</span></span>
-<span id="cb4-27"><a href="#cb4-27"></a><span class="st">    &lt;strong style={{ color }}&gt;{datum.bin0} to {datum.bin1}&lt;/strong&gt;</span></span>
-<span id="cb4-28"><a href="#cb4-28"></a><span class="st">    &lt;div&gt;&lt;strong&gt;count &lt;/strong&gt;{datum.count}&lt;/div&gt;</span></span>
-<span id="cb4-29"><a href="#cb4-29"></a><span class="st">    &lt;div&gt;&lt;strong&gt;cumulative &lt;/strong&gt;{datum.cumulative.toFixed(0)}&lt;/div&gt;</span></span>
-<span id="cb4-30"><a href="#cb4-30"></a><span class="st">    &lt;div&gt;&lt;strong&gt;density &lt;/strong&gt;{datum.density.toFixed(0)}&lt;/div&gt;</span></span>
-<span id="cb4-31"><a href="#cb4-31"></a><span class="st">  &lt;/div&gt;</span></span>
-<span id="cb4-32"><a href="#cb4-32"></a><span class="st">)}</span></span>
-<span id="cb4-33"><a href="#cb4-33"></a><span class="st">          "</span>)),</span>
-<span id="cb4-34"><a href="#cb4-34"></a>          <span class="dt">components =</span> <span class="kw">list</span>(</span>
-<span id="cb4-35"><a href="#cb4-35"></a>            <span class="kw">dui_barseries</span>(<span class="dt">rawData =</span> values, <span class="dt">fill =</span> fillColors[index]),</span>
-<span id="cb4-36"><a href="#cb4-36"></a>            <span class="kw">dui_densityseries</span>(<span class="dt">rawData =</span> values, <span class="dt">stroke =</span> fillColors[index], <span class="dt">fill =</span> fillColors[index]),</span>
-<span id="cb4-37"><a href="#cb4-37"></a>            <span class="kw">dui_xaxis</span>()</span>
-<span id="cb4-38"><a href="#cb4-38"></a>          )</span>
-<span id="cb4-39"><a href="#cb4-39"></a>        )</span>
-<span id="cb4-40"><a href="#cb4-40"></a>      }</span>
-<span id="cb4-41"><a href="#cb4-41"></a>    )</span>
-<span id="cb4-42"><a href="#cb4-42"></a>  ),</span>
-<span id="cb4-43"><a href="#cb4-43"></a>  <span class="dt">width =</span> <span class="dv">600</span></span>
-<span id="cb4-44"><a href="#cb4-44"></a>)</span></code></pre></div>
+<span id="cb4-24"><a href="#cb4-24"></a>          <span class="dt">renderTooltip =</span> htmlwidgets<span class="op">::</span><span class="kw">JS</span>(htmltools<span class="op">::</span><span class="kw">HTML</span>(<span class="st">'</span></span>
+<span id="cb4-25"><a href="#cb4-25"></a><span class="st">function (_ref) {</span></span>
+<span id="cb4-26"><a href="#cb4-26"></a><span class="st">  var event = _ref.event,</span></span>
+<span id="cb4-27"><a href="#cb4-27"></a><span class="st">      datum = _ref.datum,</span></span>
+<span id="cb4-28"><a href="#cb4-28"></a><span class="st">      data = _ref.data,</span></span>
+<span id="cb4-29"><a href="#cb4-29"></a><span class="st">      color = _ref.color;</span></span>
+<span id="cb4-30"><a href="#cb4-30"></a><span class="st">  return React.createElement(</span></span>
+<span id="cb4-31"><a href="#cb4-31"></a><span class="st">    "div",</span></span>
+<span id="cb4-32"><a href="#cb4-32"></a><span class="st">    null,</span></span>
+<span id="cb4-33"><a href="#cb4-33"></a><span class="st">    React.createElement(</span></span>
+<span id="cb4-34"><a href="#cb4-34"></a><span class="st">      "strong",</span></span>
+<span id="cb4-35"><a href="#cb4-35"></a><span class="st">      { style: { color: color } },</span></span>
+<span id="cb4-36"><a href="#cb4-36"></a><span class="st">      datum.bin0,</span></span>
+<span id="cb4-37"><a href="#cb4-37"></a><span class="st">      " to ",</span></span>
+<span id="cb4-38"><a href="#cb4-38"></a><span class="st">      datum.bin1</span></span>
+<span id="cb4-39"><a href="#cb4-39"></a><span class="st">    ),</span></span>
+<span id="cb4-40"><a href="#cb4-40"></a><span class="st">    React.createElement(</span></span>
+<span id="cb4-41"><a href="#cb4-41"></a><span class="st">      "div",</span></span>
+<span id="cb4-42"><a href="#cb4-42"></a><span class="st">      null,</span></span>
+<span id="cb4-43"><a href="#cb4-43"></a><span class="st">      React.createElement(</span></span>
+<span id="cb4-44"><a href="#cb4-44"></a><span class="st">        "strong",</span></span>
+<span id="cb4-45"><a href="#cb4-45"></a><span class="st">        null,</span></span>
+<span id="cb4-46"><a href="#cb4-46"></a><span class="st">        "count "</span></span>
+<span id="cb4-47"><a href="#cb4-47"></a><span class="st">      ),</span></span>
+<span id="cb4-48"><a href="#cb4-48"></a><span class="st">      datum.count</span></span>
+<span id="cb4-49"><a href="#cb4-49"></a><span class="st">    ),</span></span>
+<span id="cb4-50"><a href="#cb4-50"></a><span class="st">    React.createElement(</span></span>
+<span id="cb4-51"><a href="#cb4-51"></a><span class="st">      "div",</span></span>
+<span id="cb4-52"><a href="#cb4-52"></a><span class="st">      null,</span></span>
+<span id="cb4-53"><a href="#cb4-53"></a><span class="st">      React.createElement(</span></span>
+<span id="cb4-54"><a href="#cb4-54"></a><span class="st">        "strong",</span></span>
+<span id="cb4-55"><a href="#cb4-55"></a><span class="st">        null,</span></span>
+<span id="cb4-56"><a href="#cb4-56"></a><span class="st">        "cumulative "</span></span>
+<span id="cb4-57"><a href="#cb4-57"></a><span class="st">      ),</span></span>
+<span id="cb4-58"><a href="#cb4-58"></a><span class="st">      datum.cumulative.toFixed(0)</span></span>
+<span id="cb4-59"><a href="#cb4-59"></a><span class="st">    ),</span></span>
+<span id="cb4-60"><a href="#cb4-60"></a><span class="st">    React.createElement(</span></span>
+<span id="cb4-61"><a href="#cb4-61"></a><span class="st">      "div",</span></span>
+<span id="cb4-62"><a href="#cb4-62"></a><span class="st">      null,</span></span>
+<span id="cb4-63"><a href="#cb4-63"></a><span class="st">      React.createElement(</span></span>
+<span id="cb4-64"><a href="#cb4-64"></a><span class="st">        "strong",</span></span>
+<span id="cb4-65"><a href="#cb4-65"></a><span class="st">        null,</span></span>
+<span id="cb4-66"><a href="#cb4-66"></a><span class="st">        "density "</span></span>
+<span id="cb4-67"><a href="#cb4-67"></a><span class="st">      ),</span></span>
+<span id="cb4-68"><a href="#cb4-68"></a><span class="st">      datum.density.toFixed(0)</span></span>
+<span id="cb4-69"><a href="#cb4-69"></a><span class="st">    )</span></span>
+<span id="cb4-70"><a href="#cb4-70"></a><span class="st">  );</span></span>
+<span id="cb4-71"><a href="#cb4-71"></a><span class="st">}</span></span>
+<span id="cb4-72"><a href="#cb4-72"></a><span class="st">          '</span>)),</span>
+<span id="cb4-73"><a href="#cb4-73"></a><span class="co"># reactR::babel_transform equivalent of the above</span></span>
+<span id="cb4-74"><a href="#cb4-74"></a><span class="co">#            htmlwidgets::JS(reactR::babel_transform("</span></span>
+<span id="cb4-75"><a href="#cb4-75"></a><span class="co">#{({ event, datum, data, color }) =&gt; (</span></span>
+<span id="cb4-76"><a href="#cb4-76"></a><span class="co">#  &lt;div&gt;</span></span>
+<span id="cb4-77"><a href="#cb4-77"></a><span class="co">#    &lt;strong style={{ color }}&gt;{datum.bin0} to {datum.bin1}&lt;/strong&gt;</span></span>
+<span id="cb4-78"><a href="#cb4-78"></a><span class="co">#    &lt;div&gt;&lt;strong&gt;count &lt;/strong&gt;{datum.count}&lt;/div&gt;</span></span>
+<span id="cb4-79"><a href="#cb4-79"></a><span class="co">#    &lt;div&gt;&lt;strong&gt;cumulative &lt;/strong&gt;{datum.cumulative.toFixed(0)}&lt;/div&gt;</span></span>
+<span id="cb4-80"><a href="#cb4-80"></a><span class="co">#    &lt;div&gt;&lt;strong&gt;density &lt;/strong&gt;{datum.density.toFixed(0)}&lt;/div&gt;</span></span>
+<span id="cb4-81"><a href="#cb4-81"></a><span class="co">#  &lt;/div&gt;</span></span>
+<span id="cb4-82"><a href="#cb4-82"></a><span class="co">#)}</span></span>
+<span id="cb4-83"><a href="#cb4-83"></a><span class="co">#          ")),</span></span>
+<span id="cb4-84"><a href="#cb4-84"></a>          <span class="dt">components =</span> <span class="kw">list</span>(</span>
+<span id="cb4-85"><a href="#cb4-85"></a>            <span class="kw">dui_barseries</span>(<span class="dt">rawData =</span> values, <span class="dt">fill =</span> fillColors[index]),</span>
+<span id="cb4-86"><a href="#cb4-86"></a>            <span class="kw">dui_densityseries</span>(<span class="dt">rawData =</span> values, <span class="dt">stroke =</span> fillColors[index], <span class="dt">fill =</span> fillColors[index]),</span>
+<span id="cb4-87"><a href="#cb4-87"></a>            <span class="kw">dui_xaxis</span>()</span>
+<span id="cb4-88"><a href="#cb4-88"></a>          )</span>
+<span id="cb4-89"><a href="#cb4-89"></a>        )</span>
+<span id="cb4-90"><a href="#cb4-90"></a>      }</span>
+<span id="cb4-91"><a href="#cb4-91"></a>    )</span>
+<span id="cb4-92"><a href="#cb4-92"></a>  ),</span>
+<span id="cb4-93"><a href="#cb4-93"></a>  <span class="dt">width =</span> <span class="dv">600</span></span>
+<span id="cb4-94"><a href="#cb4-94"></a>)</span></code></pre></div>
 <p>If you use <code>dataui</code> in the wild, let me know and I will save a spot here for you.</p>
 </div>
 </div>

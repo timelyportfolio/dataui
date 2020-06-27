@@ -121,16 +121,66 @@ also work relatively well with other `R` table libraries.
               height = 200,
               width = 400,
               binValues = binValues,
-              renderTooltip = htmlwidgets::JS(reactR::babel_transform("
-    {({ event, datum, data, color }) => (
-      <div>
-        <strong style={{ color }}>{datum.bin0} to {datum.bin1}</strong>
-        <div><strong>count </strong>{datum.count}</div>
-        <div><strong>cumulative </strong>{datum.cumulative.toFixed(0)}</div>
-        <div><strong>density </strong>{datum.density.toFixed(0)}</div>
-      </div>
-    )}
-              ")),
+              renderTooltip = htmlwidgets::JS(htmltools::HTML('
+    function (_ref) {
+      var event = _ref.event,
+          datum = _ref.datum,
+          data = _ref.data,
+          color = _ref.color;
+      return React.createElement(
+        "div",
+        null,
+        React.createElement(
+          "strong",
+          { style: { color: color } },
+          datum.bin0,
+          " to ",
+          datum.bin1
+        ),
+        React.createElement(
+          "div",
+          null,
+          React.createElement(
+            "strong",
+            null,
+            "count "
+          ),
+          datum.count
+        ),
+        React.createElement(
+          "div",
+          null,
+          React.createElement(
+            "strong",
+            null,
+            "cumulative "
+          ),
+          datum.cumulative.toFixed(0)
+        ),
+        React.createElement(
+          "div",
+          null,
+          React.createElement(
+            "strong",
+            null,
+            "density "
+          ),
+          datum.density.toFixed(0)
+        )
+      );
+    }
+              ')),
+    # reactR::babel_transform equivalent of the above
+    #            htmlwidgets::JS(reactR::babel_transform("
+    #{({ event, datum, data, color }) => (
+    #  <div>
+    #    <strong style={{ color }}>{datum.bin0} to {datum.bin1}</strong>
+    #    <div><strong>count </strong>{datum.count}</div>
+    #    <div><strong>cumulative </strong>{datum.cumulative.toFixed(0)}</div>
+    #    <div><strong>density </strong>{datum.density.toFixed(0)}</div>
+    #  </div>
+    #)}
+    #          ")),
               components = list(
                 dui_barseries(rawData = values, fill = fillColors[index]),
                 dui_densityseries(rawData = values, stroke = fillColors[index], fill = fillColors[index]),

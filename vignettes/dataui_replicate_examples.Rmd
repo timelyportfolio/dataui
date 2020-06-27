@@ -76,7 +76,7 @@ function (_ref) {
   margin = list( top= 24, right= 64, bottom= 24, left= 64 ),
   ariaLabel = "sparkline example",
   components = list(
-    dui_sparkbarseries(fill = scales::brewer_pal(palette="Purples")(3)[2])
+    dui_sparkbarseries(fill = "#BCBDDC")
   )
 )
 ```

@@ -39,7 +39,7 @@ dui_sparkline(
 )
 
 library(dataui)
-dui_sparkline_with_tooltip(
+dui_sparkline(
   data = runif(20),
   renderTooltip = htmlwidgets::JS(htmltools::HTML("
 function (_ref) {

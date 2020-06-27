@@ -12,6 +12,7 @@ dui_sparkline(
   min = NULL,
   onMouseMove = NULL,
   onMouseLeave = NULL,
+  renderTooltip = NULL,
   preserveAspectRatio = NULL,
   valueAccessor = NULL,
   viewBox = NULL,

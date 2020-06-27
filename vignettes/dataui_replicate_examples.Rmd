@@ -31,7 +31,7 @@ Unfortunately we cannot recreate the emoji label due to `htmlwidgets::JS()` scop
 
 ```{r kitchensink1}
 # unable to add smiley face due to scoping issues with htmlwidgets::JS :(
-dui_sparkline_with_tooltip(
+dui_sparkline(
   # don't have to use reactR::babel_transform but makes it easy to copy/paste
   renderTooltip = htmlwidgets::JS(htmltools::HTML(reactR::babel_transform(
 "
@@ -64,7 +64,7 @@ return (
 ```
 
 ```{r kitchensink2}
-dui_sparkline_with_tooltip(
+dui_sparkline(
   data = lapply(1:25, function(i) {
     list(
       x = paste0("Day ", i),
@@ -120,7 +120,7 @@ dui_sparkline_with_tooltip(
 ```
 
 ```{r kitchensink3}
-dui_sparkline_with_tooltip(
+dui_sparkline(
   data = lapply(1:25, function(i) {
     list(
       x = paste0("Day ", i),
@@ -169,7 +169,7 @@ dui_sparkline_with_tooltip(
 ```
 
 ```{r kitchensink4}
-dui_sparkline_with_tooltip(
+dui_sparkline(
   data = lapply(1:25, function(i) {
     list(
       x = paste0("Day ", i),
@@ -217,7 +217,7 @@ dui_sparkline_with_tooltip(
 ```
 
 ```{r kitchensink5}
-dui_sparkline_with_tooltip(
+dui_sparkline(
   data = lapply(1:25, function(i) {
     list(
       x = paste0("Day ", i),
@@ -292,7 +292,7 @@ dat <- lapply(1:35, function(i) {
   )
 })
 
-dui_sparkline_with_tooltip(
+dui_sparkline(
   data = dat,
   valueAccessor = htmlwidgets::JS("d => d.y"),
   width = 500,
@@ -381,7 +381,7 @@ dui_sparkline(
 ```
 
 ```{r bar2}
-dui_sparkline_with_tooltip(
+dui_sparkline(
   data = runif(35, 0, 5) + 1:35 ,
   width = 500,
   height = 100,
@@ -410,7 +410,7 @@ dui_sparkline_with_tooltip(
 ```
 
 ```{r bar3}
-dui_sparkline_with_tooltip(
+dui_sparkline(
   data = runif(30, 0, 2),
   width = 500,
   height = 100,
@@ -448,7 +448,7 @@ dui_sparkline_with_tooltip(
 ```
 
 ```{r bar4}
-dui_sparkline_with_tooltip(
+dui_sparkline(
   data = runif(30, 0, 2),
   width = 500,
   height = 100,
@@ -467,7 +467,7 @@ dui_sparkline_with_tooltip(
 ```
 
 ```{r bar5}
-dui_sparkline_with_tooltip(
+dui_sparkline(
   data = runif(20, 0, 2),
   width = 500,
   height = 100,
@@ -537,7 +537,7 @@ dui_sparkline(
 ```
 
 ```{r line2}
-dui_sparkline_with_tooltip(
+dui_sparkline(
   data = runif(40,0,2),
   width = 500,
   height = 100,
@@ -571,7 +571,7 @@ dui_sparkline_with_tooltip(
 ```
 
 ```{r line3}
-dui_sparkline_with_tooltip(
+dui_sparkline(
   data = runif(30,0,2),
   width = 500,
   height = 100,
@@ -779,7 +779,7 @@ dui_sparkline(
 ```
 
 ```{r misc4}
-dui_sparkline_with_tooltip(
+dui_sparkline(
   data = runif(30, 0, 20),
   width = 500,
   height = 100,

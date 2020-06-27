@@ -1,7 +1,7 @@
 var path = require('path');
 
 module.exports = {
-    mode: 'development',
+    mode: 'production',
     entry: path.join(__dirname, 'srcjs', 'dataui.jsx'),
     output: {
         path: path.join(__dirname, 'inst/htmlwidgets'),
@@ -25,6 +25,6 @@ module.exports = {
     },
     stats: {
         colors: true
-    },
-    devtool: 'source-map'
+    }//,
+    //devtool: 'source-map'
 };

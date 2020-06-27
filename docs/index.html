@@ -103,11 +103,11 @@
 <h4 class="hasAnchor">
 <a href="#sparkines" class="anchor"></a>Sparkines</h4>
 <p>This is is the shortest code example I could create.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">library</span>(dataui)</a>
-<a class="sourceLine" id="cb2-2" title="2"><span class="kw">dui_sparkline</span>(</a>
-<a class="sourceLine" id="cb2-3" title="3">  <span class="dt">data =</span> <span class="kw">rnorm</span>(<span class="dv">50</span>),</a>
-<a class="sourceLine" id="cb2-4" title="4">  <span class="dt">components =</span> <span class="kw">list</span>(<span class="kw">dui_sparklineseries</span>())</a>
-<a class="sourceLine" id="cb2-5" title="5">)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">library</span>(dataui)</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">dui_sparkline</span>(</span>
+<span id="cb2-3"><a href="#cb2-3"></a>  <span class="dt">data =</span> <span class="kw">rnorm</span>(<span class="dv">50</span>),</span>
+<span id="cb2-4"><a href="#cb2-4"></a>  <span class="dt">components =</span> <span class="kw">list</span>(<span class="kw">dui_sparklineseries</span>())</span>
+<span id="cb2-5"><a href="#cb2-5"></a>)</span></code></pre></div>
 <p>I was able to nearly fully replicate all the <code>data-ui</code> sparkline examples. See the <a href="https://timelyportfolio.github.io/dataui/articles/dataui_replicate_examples.html">vignette</a>.</p>
 </div>
 <div id="histogram" class="section level4">
@@ -115,71 +115,71 @@
 <a href="#histogram" class="anchor"></a>Histogram</h4>
 <p>Currently there are some examples in <a href="https://github.com/timelyportfolio/dataui/blob/master/inst/examples/experiments.R">experiments.R</a>. I should also note that <code>dataui</code> histograms also work very well as sparklines.</p>
 <p>Below is a quick example.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">library</span>(dataui)</a>
-<a class="sourceLine" id="cb3-2" title="2"></a>
-<a class="sourceLine" id="cb3-3" title="3">rn &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>)</a>
-<a class="sourceLine" id="cb3-4" title="4">ri &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1000</span>)</a>
-<a class="sourceLine" id="cb3-5" title="5"></a>
-<a class="sourceLine" id="cb3-6" title="6"><span class="kw">dui_histogram</span>(</a>
-<a class="sourceLine" id="cb3-7" title="7">  <span class="dt">binCount =</span> <span class="dv">25</span>,</a>
-<a class="sourceLine" id="cb3-8" title="8">  <span class="dt">components =</span> <span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb3-9" title="9">    <span class="kw">dui_barseries</span>(<span class="dt">rawData =</span> rn, <span class="dt">fill=</span><span class="st">"#000"</span>),</a>
-<a class="sourceLine" id="cb3-10" title="10">    <span class="kw">dui_densityseries</span>(<span class="dt">rawData =</span> rn, <span class="dt">stroke =</span> <span class="st">"#000"</span>),</a>
-<a class="sourceLine" id="cb3-11" title="11">    <span class="kw">dui_barseries</span>(<span class="dt">rawData =</span> ri),</a>
-<a class="sourceLine" id="cb3-12" title="12">    <span class="kw">dui_densityseries</span>(<span class="dt">rawData =</span> ri),</a>
-<a class="sourceLine" id="cb3-13" title="13">    <span class="kw">dui_xaxis</span>(),</a>
-<a class="sourceLine" id="cb3-14" title="14">    <span class="kw">dui_yaxis</span>()</a>
-<a class="sourceLine" id="cb3-15" title="15">  )</a>
-<a class="sourceLine" id="cb3-16" title="16">)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">library</span>(dataui)</span>
+<span id="cb3-2"><a href="#cb3-2"></a></span>
+<span id="cb3-3"><a href="#cb3-3"></a>rn &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>)</span>
+<span id="cb3-4"><a href="#cb3-4"></a>ri &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1000</span>)</span>
+<span id="cb3-5"><a href="#cb3-5"></a></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="kw">dui_histogram</span>(</span>
+<span id="cb3-7"><a href="#cb3-7"></a>  <span class="dt">binCount =</span> <span class="dv">25</span>,</span>
+<span id="cb3-8"><a href="#cb3-8"></a>  <span class="dt">components =</span> <span class="kw">list</span>(</span>
+<span id="cb3-9"><a href="#cb3-9"></a>    <span class="kw">dui_barseries</span>(<span class="dt">rawData =</span> rn, <span class="dt">fill=</span><span class="st">"#000"</span>),</span>
+<span id="cb3-10"><a href="#cb3-10"></a>    <span class="kw">dui_densityseries</span>(<span class="dt">rawData =</span> rn, <span class="dt">stroke =</span> <span class="st">"#000"</span>),</span>
+<span id="cb3-11"><a href="#cb3-11"></a>    <span class="kw">dui_barseries</span>(<span class="dt">rawData =</span> ri),</span>
+<span id="cb3-12"><a href="#cb3-12"></a>    <span class="kw">dui_densityseries</span>(<span class="dt">rawData =</span> ri),</span>
+<span id="cb3-13"><a href="#cb3-13"></a>    <span class="kw">dui_xaxis</span>(),</span>
+<span id="cb3-14"><a href="#cb3-14"></a>    <span class="kw">dui_yaxis</span>()</span>
+<span id="cb3-15"><a href="#cb3-15"></a>  )</span>
+<span id="cb3-16"><a href="#cb3-16"></a>)</span></code></pre></div>
 </div>
 <div id="reactable" class="section level4">
 <h4 class="hasAnchor">
 <a href="#reactable" class="anchor"></a>reactable</h4>
 <p>And thanks to the fine work of Greg Lin, <code>dataui</code> just works with <a href="https://glin.github.io/reactable/"><code>reactable</code></a>. I would still like to tighten up the integration though, since the data gets duplicated in multiple spots. Here is a quick example to prove it. <code>dataui</code> should also work relatively well with other <code>R</code> table libraries.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">library</span>(dataui)</a>
-<a class="sourceLine" id="cb4-2" title="2"><span class="kw">library</span>(dplyr)</a>
-<a class="sourceLine" id="cb4-3" title="3"><span class="kw">library</span>(reactable)</a>
-<a class="sourceLine" id="cb4-4" title="4"></a>
-<a class="sourceLine" id="cb4-5" title="5">data &lt;-<span class="st"> </span>chickwts <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-6" title="6"><span class="st">  </span><span class="kw">group_by</span>(feed) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-7" title="7"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">weight =</span> <span class="kw">list</span>(weight))</a>
-<a class="sourceLine" id="cb4-8" title="8"></a>
-<a class="sourceLine" id="cb4-9" title="9">binValues =<span class="st"> </span><span class="kw">hist</span>(chickwts<span class="op">$</span>weight, <span class="dt">breaks=</span><span class="dv">15</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>)<span class="op">$</span>breaks</a>
-<a class="sourceLine" id="cb4-10" title="10"></a>
-<a class="sourceLine" id="cb4-11" title="11">fillColors =<span class="st"> </span>scales<span class="op">::</span><span class="kw">brewer_pal</span>(<span class="dt">type=</span><span class="st">"qual"</span>, <span class="dt">palette=</span><span class="st">"Set2"</span>)(<span class="dv">8</span>)</a>
-<a class="sourceLine" id="cb4-12" title="12"></a>
-<a class="sourceLine" id="cb4-13" title="13"><span class="kw">reactable</span>(</a>
-<a class="sourceLine" id="cb4-14" title="14">  data,</a>
-<a class="sourceLine" id="cb4-15" title="15">  <span class="dt">columns =</span> <span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb4-16" title="16">    <span class="dt">feed =</span> <span class="kw">colDef</span>(<span class="dt">maxWidth =</span> <span class="dv">100</span>),</a>
-<a class="sourceLine" id="cb4-17" title="17">    <span class="dt">weight =</span> <span class="kw">colDef</span>(</a>
-<a class="sourceLine" id="cb4-18" title="18">      <span class="dt">minWidth =</span> <span class="dv">400</span>,</a>
-<a class="sourceLine" id="cb4-19" title="19">      <span class="dt">cell =</span> <span class="cf">function</span>(values, index) {</a>
-<a class="sourceLine" id="cb4-20" title="20">        <span class="kw">dui_histogram</span>(</a>
-<a class="sourceLine" id="cb4-21" title="21">          <span class="dt">height =</span> <span class="dv">200</span>,</a>
-<a class="sourceLine" id="cb4-22" title="22">          <span class="dt">width =</span> <span class="dv">400</span>,</a>
-<a class="sourceLine" id="cb4-23" title="23">          <span class="dt">binValues =</span> binValues,</a>
-<a class="sourceLine" id="cb4-24" title="24">          <span class="dt">renderTooltip =</span> htmlwidgets<span class="op">::</span><span class="kw">JS</span>(reactR<span class="op">::</span><span class="kw">babel_transform</span>(<span class="st">"</span></a>
-<a class="sourceLine" id="cb4-25" title="25"><span class="st">{({ event, datum, data, color }) =&gt; (</span></a>
-<a class="sourceLine" id="cb4-26" title="26"><span class="st">  &lt;div&gt;</span></a>
-<a class="sourceLine" id="cb4-27" title="27"><span class="st">    &lt;strong style={{ color }}&gt;{datum.bin0} to {datum.bin1}&lt;/strong&gt;</span></a>
-<a class="sourceLine" id="cb4-28" title="28"><span class="st">    &lt;div&gt;&lt;strong&gt;count &lt;/strong&gt;{datum.count}&lt;/div&gt;</span></a>
-<a class="sourceLine" id="cb4-29" title="29"><span class="st">    &lt;div&gt;&lt;strong&gt;cumulative &lt;/strong&gt;{datum.cumulative.toFixed(0)}&lt;/div&gt;</span></a>
-<a class="sourceLine" id="cb4-30" title="30"><span class="st">    &lt;div&gt;&lt;strong&gt;density &lt;/strong&gt;{datum.density.toFixed(0)}&lt;/div&gt;</span></a>
-<a class="sourceLine" id="cb4-31" title="31"><span class="st">  &lt;/div&gt;</span></a>
-<a class="sourceLine" id="cb4-32" title="32"><span class="st">)}</span></a>
-<a class="sourceLine" id="cb4-33" title="33"><span class="st">          "</span>)),</a>
-<a class="sourceLine" id="cb4-34" title="34">          <span class="dt">components =</span> <span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb4-35" title="35">            <span class="kw">dui_barseries</span>(<span class="dt">rawData =</span> values, <span class="dt">fill =</span> fillColors[index]),</a>
-<a class="sourceLine" id="cb4-36" title="36">            <span class="kw">dui_densityseries</span>(<span class="dt">rawData =</span> values, <span class="dt">stroke =</span> fillColors[index], <span class="dt">fill =</span> fillColors[index]),</a>
-<a class="sourceLine" id="cb4-37" title="37">            <span class="kw">dui_xaxis</span>()</a>
-<a class="sourceLine" id="cb4-38" title="38">          )</a>
-<a class="sourceLine" id="cb4-39" title="39">        )</a>
-<a class="sourceLine" id="cb4-40" title="40">      }</a>
-<a class="sourceLine" id="cb4-41" title="41">    )</a>
-<a class="sourceLine" id="cb4-42" title="42">  ),</a>
-<a class="sourceLine" id="cb4-43" title="43">  <span class="dt">width =</span> <span class="dv">600</span></a>
-<a class="sourceLine" id="cb4-44" title="44">)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">library</span>(dataui)</span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="kw">library</span>(dplyr)</span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="kw">library</span>(reactable)</span>
+<span id="cb4-4"><a href="#cb4-4"></a></span>
+<span id="cb4-5"><a href="#cb4-5"></a>data &lt;-<span class="st"> </span>chickwts <span class="op">%&gt;%</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="st">  </span><span class="kw">group_by</span>(feed) <span class="op">%&gt;%</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">weight =</span> <span class="kw">list</span>(weight))</span>
+<span id="cb4-8"><a href="#cb4-8"></a></span>
+<span id="cb4-9"><a href="#cb4-9"></a>binValues =<span class="st"> </span><span class="kw">hist</span>(chickwts<span class="op">$</span>weight, <span class="dt">breaks=</span><span class="dv">15</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>)<span class="op">$</span>breaks</span>
+<span id="cb4-10"><a href="#cb4-10"></a></span>
+<span id="cb4-11"><a href="#cb4-11"></a>fillColors =<span class="st"> </span>scales<span class="op">::</span><span class="kw">brewer_pal</span>(<span class="dt">type=</span><span class="st">"qual"</span>, <span class="dt">palette=</span><span class="st">"Set2"</span>)(<span class="dv">8</span>)</span>
+<span id="cb4-12"><a href="#cb4-12"></a></span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="kw">reactable</span>(</span>
+<span id="cb4-14"><a href="#cb4-14"></a>  data,</span>
+<span id="cb4-15"><a href="#cb4-15"></a>  <span class="dt">columns =</span> <span class="kw">list</span>(</span>
+<span id="cb4-16"><a href="#cb4-16"></a>    <span class="dt">feed =</span> <span class="kw">colDef</span>(<span class="dt">maxWidth =</span> <span class="dv">100</span>),</span>
+<span id="cb4-17"><a href="#cb4-17"></a>    <span class="dt">weight =</span> <span class="kw">colDef</span>(</span>
+<span id="cb4-18"><a href="#cb4-18"></a>      <span class="dt">minWidth =</span> <span class="dv">400</span>,</span>
+<span id="cb4-19"><a href="#cb4-19"></a>      <span class="dt">cell =</span> <span class="cf">function</span>(values, index) {</span>
+<span id="cb4-20"><a href="#cb4-20"></a>        <span class="kw">dui_histogram</span>(</span>
+<span id="cb4-21"><a href="#cb4-21"></a>          <span class="dt">height =</span> <span class="dv">200</span>,</span>
+<span id="cb4-22"><a href="#cb4-22"></a>          <span class="dt">width =</span> <span class="dv">400</span>,</span>
+<span id="cb4-23"><a href="#cb4-23"></a>          <span class="dt">binValues =</span> binValues,</span>
+<span id="cb4-24"><a href="#cb4-24"></a>          <span class="dt">renderTooltip =</span> htmlwidgets<span class="op">::</span><span class="kw">JS</span>(reactR<span class="op">::</span><span class="kw">babel_transform</span>(<span class="st">"</span></span>
+<span id="cb4-25"><a href="#cb4-25"></a><span class="st">{({ event, datum, data, color }) =&gt; (</span></span>
+<span id="cb4-26"><a href="#cb4-26"></a><span class="st">  &lt;div&gt;</span></span>
+<span id="cb4-27"><a href="#cb4-27"></a><span class="st">    &lt;strong style={{ color }}&gt;{datum.bin0} to {datum.bin1}&lt;/strong&gt;</span></span>
+<span id="cb4-28"><a href="#cb4-28"></a><span class="st">    &lt;div&gt;&lt;strong&gt;count &lt;/strong&gt;{datum.count}&lt;/div&gt;</span></span>
+<span id="cb4-29"><a href="#cb4-29"></a><span class="st">    &lt;div&gt;&lt;strong&gt;cumulative &lt;/strong&gt;{datum.cumulative.toFixed(0)}&lt;/div&gt;</span></span>
+<span id="cb4-30"><a href="#cb4-30"></a><span class="st">    &lt;div&gt;&lt;strong&gt;density &lt;/strong&gt;{datum.density.toFixed(0)}&lt;/div&gt;</span></span>
+<span id="cb4-31"><a href="#cb4-31"></a><span class="st">  &lt;/div&gt;</span></span>
+<span id="cb4-32"><a href="#cb4-32"></a><span class="st">)}</span></span>
+<span id="cb4-33"><a href="#cb4-33"></a><span class="st">          "</span>)),</span>
+<span id="cb4-34"><a href="#cb4-34"></a>          <span class="dt">components =</span> <span class="kw">list</span>(</span>
+<span id="cb4-35"><a href="#cb4-35"></a>            <span class="kw">dui_barseries</span>(<span class="dt">rawData =</span> values, <span class="dt">fill =</span> fillColors[index]),</span>
+<span id="cb4-36"><a href="#cb4-36"></a>            <span class="kw">dui_densityseries</span>(<span class="dt">rawData =</span> values, <span class="dt">stroke =</span> fillColors[index], <span class="dt">fill =</span> fillColors[index]),</span>
+<span id="cb4-37"><a href="#cb4-37"></a>            <span class="kw">dui_xaxis</span>()</span>
+<span id="cb4-38"><a href="#cb4-38"></a>          )</span>
+<span id="cb4-39"><a href="#cb4-39"></a>        )</span>
+<span id="cb4-40"><a href="#cb4-40"></a>      }</span>
+<span id="cb4-41"><a href="#cb4-41"></a>    )</span>
+<span id="cb4-42"><a href="#cb4-42"></a>  ),</span>
+<span id="cb4-43"><a href="#cb4-43"></a>  <span class="dt">width =</span> <span class="dv">600</span></span>
+<span id="cb4-44"><a href="#cb4-44"></a>)</span></code></pre></div>
 <p>If you use <code>dataui</code> in the wild, let me know and I will save a spot here for you.</p>
 </div>
 </div>

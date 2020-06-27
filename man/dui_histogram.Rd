@@ -21,8 +21,8 @@ dui_histogram(
   tooltipData = NULL,
   ariaLabel = NULL,
   components = NULL,
-  width = NULL,
-  height = NULL,
+  width = 600,
+  height = 400,
   elementId = NULL
 )
 }

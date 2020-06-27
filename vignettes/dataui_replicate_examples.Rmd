@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 ## Install/Load dataui
 
-`dataui` is currently in pre-alpha state with a potentially unstable API.  For now `dataui` will only live on Github, but cRAN is the ultimate goal.
+`dataui` is currently in pre-alpha state with a potentially unstable API.  For now `dataui` will only live on Github, but CRAN is the ultimate goal.
 
 ```{r setup}
 # remotes::install_github("timelyportfolio/dataui")

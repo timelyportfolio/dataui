@@ -2,7 +2,7 @@
 % Please edit documentation in R/components.R
 \name{dui_yaxis}
 \alias{dui_yaxis}
-\title{Title}
+\title{'Y' Axis for Histograms}
 \usage{
 dui_yaxis(...)
 }
@@ -13,5 +13,5 @@ dui_yaxis(...)
 
 }
 \description{
-Title
+'Y' Axis for Histograms
 }

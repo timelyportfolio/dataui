@@ -1,4 +1,4 @@
-#' Title
+#' Bars for Histograms
 #'
 #' @param rawData
 #' @param ...
@@ -15,7 +15,7 @@ dui_barseries <- function(
   )
 }
 
-#' Title
+#' Density Line Series for Histograms
 #'
 #' @param rawData
 #' @param ...
@@ -33,7 +33,7 @@ dui_densityseries <- function(
 }
 
 
-#' Title
+#' 'X' Axis for Histograms
 #'
 #' @param ...
 #'
@@ -50,7 +50,7 @@ dui_xaxis <- function(
 }
 
 
-#' Title
+#' 'Y' Axis for Histograms
 #'
 #' @param ...
 #'
@@ -66,7 +66,7 @@ dui_yaxis <- function(
   )
 }
 
-#' Title
+#' Line Series for 'Sparklines'
 #'
 #' @param ...
 #'
@@ -82,7 +82,7 @@ dui_sparklineseries <- function(
   )
 }
 
-#' Title
+#' Bar Series for 'Sparklines'
 #'
 #' @param ...
 #'
@@ -98,7 +98,7 @@ dui_sparkbarseries <- function(
   )
 }
 
-#' Title
+#' Point Series for 'Sparklines'
 #'
 #' @param ...
 #'
@@ -114,7 +114,7 @@ dui_sparkpointseries <- function(
   )
 }
 
-#' Title
+#' Horizontal Reference Line for 'Sparklines'
 #'
 #' @param ...
 #'
@@ -130,7 +130,7 @@ dui_sparkrefline <- function(
   )
 }
 
-#' Title
+#' Band Lines for 'Sparklines'
 #'
 #' @param ...
 #'
@@ -146,7 +146,7 @@ dui_sparkbandline <- function(
   )
 }
 
-#' Title
+#' Pattern Fill for 'Sparklines'
 #'
 #' @param ...
 #'
@@ -162,7 +162,7 @@ dui_sparkpatternlines <- function(
   )
 }
 
-#' Title
+#' Tooltip Container for 'Sparklines'
 #'
 #' @param components
 #'
@@ -176,7 +176,7 @@ dui_tooltip <- function(
   component
 }
 
-#' Title
+#' Vertical Reference Line for 'Sparklines'
 #'
 #' @param ...
 #'
@@ -192,7 +192,7 @@ dui_sparkverticalrefline <- function(
   )
 }
 
-#' Title
+#' Horizontal Reference Line for 'Sparklines'
 #'
 #' @param ...
 #'
@@ -208,7 +208,7 @@ dui_sparkhorizontalrefline <- function(
   )
 }
 
-#' Title
+#' Linear Gradient for 'Sparklines'
 #'
 #' @param ...
 #'
@@ -224,7 +224,7 @@ dui_sparklineargradient <- function(
   )
 }
 
-#' Title
+#' Labels for 'Sparklines'
 #'
 #' @param ...
 #'

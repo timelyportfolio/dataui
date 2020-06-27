@@ -2,7 +2,7 @@
 % Please edit documentation in R/components.R
 \name{dui_sparkrefline}
 \alias{dui_sparkrefline}
-\title{Title}
+\title{Horizontal Reference Line for 'Sparklines'}
 \usage{
 dui_sparkrefline(...)
 }
@@ -13,5 +13,5 @@ dui_sparkrefline(...)
 
 }
 \description{
-Title
+Horizontal Reference Line for 'Sparklines'
 }

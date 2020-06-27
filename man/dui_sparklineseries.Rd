@@ -2,7 +2,7 @@
 % Please edit documentation in R/components.R
 \name{dui_sparklineseries}
 \alias{dui_sparklineseries}
-\title{Title}
+\title{Line Series for 'Sparklines'}
 \usage{
 dui_sparklineseries(...)
 }
@@ -13,5 +13,5 @@ dui_sparklineseries(...)
 
 }
 \description{
-Title
+Line Series for 'Sparklines'
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/components.R
 \name{dui_sparkbandline}
 \alias{dui_sparkbandline}
-\title{Title}
+\title{Band Lines for 'Sparklines'}
 \usage{
 dui_sparkbandline(...)
 }
@@ -13,5 +13,5 @@ dui_sparkbandline(...)
 
 }
 \description{
-Title
+Band Lines for 'Sparklines'
 }

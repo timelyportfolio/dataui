@@ -2,7 +2,7 @@
 % Please edit documentation in R/components.R
 \name{dui_tooltip}
 \alias{dui_tooltip}
-\title{Title}
+\title{Tooltip Container for 'Sparklines'}
 \usage{
 dui_tooltip(components)
 }
@@ -13,5 +13,5 @@ dui_tooltip(components)
 
 }
 \description{
-Title
+Tooltip Container for 'Sparklines'
 }

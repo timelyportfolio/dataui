@@ -2,7 +2,7 @@
 % Please edit documentation in R/components.R
 \name{dui_sparklineargradient}
 \alias{dui_sparklineargradient}
-\title{Title}
+\title{Linear Gradient for 'Sparklines'}
 \usage{
 dui_sparklineargradient(...)
 }
@@ -13,5 +13,5 @@ dui_sparklineargradient(...)
 
 }
 \description{
-Title
+Linear Gradient for 'Sparklines'
 }

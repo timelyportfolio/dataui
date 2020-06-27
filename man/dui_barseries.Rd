@@ -2,7 +2,7 @@
 % Please edit documentation in R/components.R
 \name{dui_barseries}
 \alias{dui_barseries}
-\title{Title}
+\title{Bars for Histograms}
 \usage{
 dui_barseries(rawData = NULL, ...)
 }
@@ -13,5 +13,5 @@ dui_barseries(rawData = NULL, ...)
 
 }
 \description{
-Title
+Bars for Histograms
 }

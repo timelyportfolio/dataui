@@ -2,7 +2,7 @@
 % Please edit documentation in R/components.R
 \name{dui_sparklabel}
 \alias{dui_sparklabel}
-\title{Title}
+\title{Labels for 'Sparklines'}
 \usage{
 dui_sparklabel(...)
 }
@@ -13,5 +13,5 @@ dui_sparklabel(...)
 
 }
 \description{
-Title
+Labels for 'Sparklines'
 }

@@ -1,6 +1,9 @@
-#' <Add Title>
+#' 'data-ui Sparklines'
 #'
-#' <Add Description>
+#' Create interactive 'sparklines' visualizations for use as a standalone comoponent or
+#' in combination with 'reactable' or other table libraries.  There are a wide variety of
+#' components for use with \code{dui_sparkline}, including lines, bars, points, reference
+#' lines, and labels.
 #'
 #' @param data
 #' @param className
@@ -20,7 +23,7 @@
 #' @param elementId
 #'
 #' @import htmlwidgets
-#'
+#' @return \code{htmlwidget}
 #' @export
 dui_sparkline <- function(
   data = NULL,

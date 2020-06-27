@@ -2,7 +2,7 @@
 % Please edit documentation in R/components.R
 \name{dui_densityseries}
 \alias{dui_densityseries}
-\title{Title}
+\title{Density Line Series for Histograms}
 \usage{
 dui_densityseries(rawData = NULL, ...)
 }
@@ -13,5 +13,5 @@ dui_densityseries(rawData = NULL, ...)
 
 }
 \description{
-Title
+Density Line Series for Histograms
 }

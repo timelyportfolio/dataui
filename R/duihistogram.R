@@ -1,8 +1,12 @@
-#' <Add Title>
+#' 'data-ui' Histogram
 #'
-#' <Add Description>
+#' Create interactive histogram visualizations with 'data-ui'.  The histogram will
+#' perform the calculations in 'JavaScript' if the data is raw.  If you would like
+#' more control over the calculation, then you can pass pre-binned values
+#' with help from \code{\link{hist_to_binned_data}}.  \{dui_histogram} works well
+#' as a full-featured visualization or can also be used as a 'sparkline` in smaller
+#' contexts.
 #'
-#' @param rawData
 #' @param binCount
 #' @param binType
 #' @param binValues
@@ -24,6 +28,7 @@
 #'
 #' @import htmlwidgets
 #'
+#' @return \code{htmlwidget}
 #' @export
 dui_histogram <- function(
   rawData = NULL,
@@ -83,7 +88,7 @@ dui_histogram <- function(
   hw
 }
 
-#' Shiny bindings for dataui
+#' Shiny Bindings for 'dataui'
 #'
 #' Output and render functions for using dataui within Shiny
 #' applications and interactive Rmd documents.

@@ -5,7 +5,7 @@
 \alias{datauiOutput}
 \alias{renderDataui}
 \alias{dataui_html}
-\title{Shiny bindings for dataui}
+\title{Shiny Bindings for 'dataui'}
 \usage{
 datauiOutput(outputId, width = "100\%", height = "400px")
 

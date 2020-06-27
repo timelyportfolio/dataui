@@ -2,7 +2,7 @@
 % Please edit documentation in R/components.R
 \name{dui_sparkpatternlines}
 \alias{dui_sparkpatternlines}
-\title{Title}
+\title{Pattern Fill for 'Sparklines'}
 \usage{
 dui_sparkpatternlines(...)
 }
@@ -13,5 +13,5 @@ dui_sparkpatternlines(...)
 
 }
 \description{
-Title
+Pattern Fill for 'Sparklines'
 }

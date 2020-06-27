@@ -2,7 +2,7 @@
 % Please edit documentation in R/duisparkline.R
 \name{dui_sparkline}
 \alias{dui_sparkline}
-\title{<Add Title>}
+\title{'data-ui Sparklines'}
 \usage{
 dui_sparkline(
   data = NULL,
@@ -26,6 +26,12 @@ dui_sparkline(
 \arguments{
 \item{elementId}{}
 }
+\value{
+\code{htmlwidget}
+}
 \description{
-<Add Description>
+Create interactive 'sparklines' visualizations for use as a standalone comoponent or
+in combination with 'reactable' or other table libraries.  There are a wide variety of
+components for use with \code{dui_sparkline}, including lines, bars, points, reference
+lines, and labels.
 }

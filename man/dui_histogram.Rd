@@ -2,7 +2,7 @@
 % Please edit documentation in R/duihistogram.R
 \name{dui_histogram}
 \alias{dui_histogram}
-\title{<Add Title>}
+\title{'data-ui' Histogram}
 \usage{
 dui_histogram(
   rawData = NULL,
@@ -29,6 +29,9 @@ dui_histogram(
 \arguments{
 \item{elementId}{}
 }
+\value{
+\code{htmlwidget}
+}
 \description{
-<Add Description>
+
 }

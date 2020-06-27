@@ -42,7 +42,7 @@ dui_histogram <- function(
   tooltipData = NULL,
   ariaLabel = NULL,
   components = NULL,
-  width = NULL, height = NULL, elementId = NULL
+  width = 600, height = 400, elementId = NULL
 ) {
 
   # describe a React component to send to the browser for rendering.

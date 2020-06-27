@@ -4,8 +4,6 @@ rn <- rnorm(1000)
 ri <- runif(1000)
 
 dui_histogram(
-  height = 400,
-  width = 600,
   binCount = 25,
   components = list(
     dui_barseries(rawData = rn, fill="#000"),

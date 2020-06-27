@@ -9,6 +9,8 @@
 status](https://www.r-pkg.org/badges/version/dataui)](https://CRAN.R-project.org/package=dataui)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![Travis build
+status](https://travis-ci.org/timelyportfolio/dataui.svg?branch=master)](https://travis-ci.org/timelyportfolio/dataui)
 <!-- badges: end -->
 
 `dataui` brings the beautiful interactive visualizations of

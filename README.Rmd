@@ -17,6 +17,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/dataui)](https://CRAN.R-project.org/package=dataui)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![Travis build status](https://travis-ci.org/timelyportfolio/dataui.svg?branch=master)](https://travis-ci.org/timelyportfolio/dataui)
 <!-- badges: end -->
 
 `dataui` brings the beautiful interactive visualizations of [`data-ui`](https://williaster.github.io/data-ui) based on [`vx`](https://vx-demo.now.sh/) to **R**.  Currently the package nearly fully supports [`sparkline`](https://williaster.github.io/data-ui/?selectedKind=sparkline&selectedStory=Kitchen%20sink&full=0&addons=0&stories=1&panelRight=0) and [`histogram`](https://williaster.github.io/data-ui/?selectedKind=histogram&selectedStory=Playground&full=0&addons=0&stories=1&panelRight=0), and no you do **not** need to know `React`.  You will be writing `React` without even knowing it.

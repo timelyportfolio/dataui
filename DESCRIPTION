@@ -23,10 +23,11 @@ Description: Create sparklines and histograms with 'data-ui'.
 License: MIT + file LICENSE
 LazyData: TRUE
 Imports: 
+    glue,
     htmltools,
     htmlwidgets,
-    reactR,
-    jsonlite
+    jsonlite,
+    reactR
 Suggests: 
     knitr,
     markdown,

@@ -140,6 +140,7 @@ export {
   Label,
   WithTooltip,
   SparklineWithTooltip,
+  SparklineResponsive,
   withParentSize,
   TooltipComponent
 }

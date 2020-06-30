@@ -7,10 +7,12 @@
 dui_tooltip(components)
 }
 \arguments{
-\item{components}{}
+\item{components}{\code{list} of children (series or reference lines) to include
+in the sparkline.  Multiple components should be wrapped in \code{list} such as
+\code{components = list(dui_sparklineseries, dui_sparkverticalrefline())}.}
 }
 \value{
-
+\code{reactR component} which is a special form of \code{htmltools::tag}
 }
 \description{
 Tooltip Container for 'Sparklines'

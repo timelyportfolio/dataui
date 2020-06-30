@@ -7,10 +7,10 @@
 dui_sparkbarseries(...)
 }
 \arguments{
-\item{...}{}
+\item{...}{see \href{https://github.com/williaster/data-ui/tree/master/packages/sparkline#series}{data-ui series}}
 }
 \value{
-
+\code{reactR component} which is a special form of \code{htmltools::tag}
 }
 \description{
 Bar Series for 'Sparklines'

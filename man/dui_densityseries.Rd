@@ -7,10 +7,12 @@
 dui_densityseries(rawData = NULL, ...)
 }
 \arguments{
-\item{...}{}
+\item{rawData}{\code{vector}, \code{list}, \code{data.frame} of data}
+
+\item{...}{see \href{https://github.com/williaster/data-ui/tree/master/packages/histogram#series-}{data-ui series}}
 }
 \value{
-
+\code{reactR component} which is a special form of \code{htmltools::tag}
 }
 \description{
 Density Line Series for Histograms

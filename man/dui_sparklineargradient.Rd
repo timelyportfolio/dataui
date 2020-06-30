@@ -7,10 +7,10 @@
 dui_sparklineargradient(...)
 }
 \arguments{
-\item{...}{}
+\item{...}{see \href{https://github.com/williaster/data-ui/tree/master/packages/sparkline#patternlines--and-lineargradients}{data-ui patterns and gradients}}
 }
 \value{
-
+\code{reactR component} which is a special form of \code{htmltools::tag}
 }
 \description{
 Linear Gradient for 'Sparklines'

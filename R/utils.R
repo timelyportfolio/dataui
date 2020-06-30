@@ -34,3 +34,12 @@ hist_to_binned_data <- function(h = NULL, density=TRUE) {
     USE.NAMES = FALSE
   )
 }
+
+#' @keywords internal
+wrap_components <- function(components) {
+  if(!is.null(components) && length(components) > 0 && !is.list(components[[1]])) {
+    components <- list(components)
+  }
+
+  components
+}

@@ -7,10 +7,10 @@
 dui_sparkrefline(...)
 }
 \arguments{
-\item{...}{}
+\item{...}{see \href{https://github.com/williaster/data-ui/tree/master/packages/sparkline#reference-lines-and-bands}{data-ui reference lines and bands}}
 }
 \value{
-
+\code{reactR component} which is a special form of \code{htmltools::tag}
 }
 \description{
 Horizontal Reference Line for 'Sparklines'

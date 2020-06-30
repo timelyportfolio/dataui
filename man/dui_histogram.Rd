@@ -27,11 +27,62 @@ dui_histogram(
 )
 }
 \arguments{
-\item{elementId}{}
+\item{binCount}{\code{numeric} specifying the approximate number of bins to calculate.}
+
+\item{binType}{\code{character} one of \code{'numeric'}(default) or \code{'categorical'}.}
+
+\item{binValues}{\code{numeric vector} of the bin or break values to override the
+automatic calculations.}
+
+\item{cumulative}{\code{logical} to specify whether or not the histogram will display
+cumulative sums of the counts.}
+
+\item{horizontal}{\code{logical} with \code{TRUE} meaning the chart will be in
+horizontal layout.}
+
+\item{limits}{\code{numeric vector} of length two to give a range for which values
+will be ignored if they are outside of the range.}
+
+\item{margin}{\code{list} of the form \code{list(top =, right =, bottom =, left=)}
+that will specify the margins for the 'sparkline' chart.}
+
+\item{normalized}{\code{logical} specifying whether or not to the values will be
+calculated as a percent of total.}
+
+\item{renderTooltip}{\code{htmlwidget::JS} function that will provide the 'React' element
+to render when a user moves their mouse over the visualization.  The function
+should follow the signature \code{({ event, data, datum, color }) =>}.  If the
+function returns a \code{falsy} value then nothing will be rendered.}
+
+\item{valueAccessor}{\code{htmlwidgets::JS} function to let the chart know where to
+look for the \code{y} value in the \code{data}.  An example would look like
+\code{(d) => d.yval} where \code{yval} is the property containing the value.}
+
+\item{onMouseMove, onMouseLeave}{\code{htmlwidgets::JS} function to run on mouse events.}
+
+\item{tooltipData}{currently not supported.}
+
+\item{ariaLabel}{\code{character} accessibility label for the chart}
+
+\item{components}{\code{list} of children (series or reference lines) to include
+in the histogram.  Multiple components should be wrapped in \code{list} such as
+\code{components = list(dui_densityseries, dui_barseries())}.}
+
+\item{width, height}{\code{numeric} valid 'css' size unit.  For \code{height}, this should
+always be \code{numeric}, but \code{width} might be something like \code{'100\%'}
+or \code{'50vw'}.}
+
+\item{elementId}{\code{character} valid 'css' identifier for the \code{htmlwidget}
+container.}
 }
 \value{
-\code{htmlwidget}
+react \code{htmlwidget}
 }
 \description{
-
+Create interactive histogram visualizations with 'data-ui'.  The histogram will
+perform the calculations in 'JavaScript' if the data is raw.  If you would like
+more control over the calculation, then you can pass pre-binned values
+with help from \code{\link{hist_to_binned_data}}.  \code{dui_histogram} works well
+as a full-featured visualization or can also be used as a 'sparkline` in smaller
+contexts.
 }

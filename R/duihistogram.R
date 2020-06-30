@@ -3,32 +3,46 @@
 #' Create interactive histogram visualizations with 'data-ui'.  The histogram will
 #' perform the calculations in 'JavaScript' if the data is raw.  If you would like
 #' more control over the calculation, then you can pass pre-binned values
-#' with help from \code{\link{hist_to_binned_data}}.  \{dui_histogram} works well
+#' with help from \code{\link{hist_to_binned_data}}.  \code{dui_histogram} works well
 #' as a full-featured visualization or can also be used as a 'sparkline` in smaller
 #' contexts.
 #'
-#' @param binCount
-#' @param binType
-#' @param binValues
-#' @param cumulative
-#' @param horizontal
-#' @param limits
-#' @param margin
-#' @param normalized
-#' @param renderTooltip
-#' @param valueAccessor
-#' @param onMouseMove
-#' @param onMouseLeave
-#' @param tooltipData
-#' @param ariaLabel
-#' @param width
-#' @param height
-#' @param components
-#' @param elementId
+#' @param binCount \code{numeric} specifying the approximate number of bins to calculate.
+#' @param binType \code{character} one of \code{'numeric'}(default) or \code{'categorical'}.
+#' @param binValues \code{numeric vector} of the bin or break values to override the
+#'          automatic calculations.
+#' @param cumulative \code{logical} to specify whether or not the histogram will display
+#'          cumulative sums of the counts.
+#' @param horizontal \code{logical} with \code{TRUE} meaning the chart will be in
+#'          horizontal layout.
+#' @param limits \code{numeric vector} of length two to give a range for which values
+#'          will be ignored if they are outside of the range.
+#' @param margin \code{list} of the form \code{list(top =, right =, bottom =, left=)}
+#'          that will specify the margins for the 'sparkline' chart.
+#' @param normalized \code{logical} specifying whether or not to the values will be
+#'          calculated as a percent of total.
+#' @param renderTooltip \code{htmlwidget::JS} function that will provide the 'React' element
+#'          to render when a user moves their mouse over the visualization.  The function
+#'          should follow the signature \code{({ event, data, datum, color }) =>}.  If the
+#'          function returns a \code{falsy} value then nothing will be rendered.
+#' @param valueAccessor \code{htmlwidgets::JS} function to let the chart know where to
+#'          look for the \code{y} value in the \code{data}.  An example would look like
+#'          \code{(d) => d.yval} where \code{yval} is the property containing the value.
+#' @param onMouseMove,onMouseLeave \code{htmlwidgets::JS} function to run on mouse events.
+#' @param tooltipData currently not supported.
+#' @param ariaLabel \code{character} accessibility label for the chart
+#' @param components \code{list} of children (series or reference lines) to include
+#'          in the histogram.  Multiple components should be wrapped in \code{list} such as
+#'          \code{components = list(dui_densityseries, dui_barseries())}.
+#' @param width,height \code{numeric} valid 'css' size unit.  For \code{height}, this should
+#'          always be \code{numeric}, but \code{width} might be something like \code{'100\%'}
+#'          or \code{'50vw'}.
+#' @param elementId \code{character} valid 'css' identifier for the \code{htmlwidget}
+#'          container.
 #'
 #' @import htmlwidgets
 #'
-#' @return \code{htmlwidget}
+#' @return react \code{htmlwidget}
 #' @export
 dui_histogram <- function(
   rawData = NULL,
@@ -74,6 +88,10 @@ dui_histogram <- function(
     ))
   )
 
+  # expects components to be a list of lists so convert
+  #   if a user does not wrap a single component with list()
+  components <- wrap_components(components)
+
   # create widget
   hw <- htmlwidgets::createWidget(
     name = 'dataui',
@@ -94,7 +112,7 @@ dui_histogram <- function(
 #' applications and interactive Rmd documents.
 #'
 #' @param outputId output variable to read from
-#' @param width,height Must be a valid CSS unit (like \code{'100\%%'},
+#' @param width,height Must be a valid CSS unit (like \code{'100\%'}),
 #'   \code{'400px'}, \code{'auto'}) or a number, which will be coerced to a
 #'   string and have \code{'px'} appended.
 #' @param expr An expression that generates a dataui

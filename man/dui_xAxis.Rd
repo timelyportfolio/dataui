@@ -7,10 +7,10 @@
 dui_xaxis(...)
 }
 \arguments{
-\item{...}{}
+\item{...}{see \href{https://github.com/williaster/data-ui/tree/master/packages/histogram#xaxis--and-yaxis-}{data-ui axis}}
 }
 \value{
-
+\code{reactR component} which is a special form of \code{htmltools::tag}
 }
 \description{
 'X' Axis for Histograms

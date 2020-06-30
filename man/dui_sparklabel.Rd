@@ -7,10 +7,10 @@
 dui_sparklabel(...)
 }
 \arguments{
-\item{...}{}
+\item{...}{see \href{https://github.com/williaster/data-ui/blob/master/packages/sparkline/src/annotation/Label.jsx}{data-ui label}}
 }
 \value{
-
+\code{reactR component} which is a special form of \code{htmltools::tag}
 }
 \description{
 Labels for 'Sparklines'

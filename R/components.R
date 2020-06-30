@@ -1,9 +1,9 @@
 #' Bars for Histograms
 #'
-#' @param rawData
-#' @param ...
+#' @param rawData \code{vector}, \code{list}, \code{data.frame} of data
+#' @param ... see \href{https://github.com/williaster/data-ui/tree/master/packages/histogram#series-}{data-ui series}
 #'
-#' @return
+#' @return \code{reactR component} which is a special form of \code{htmltools::tag}
 #' @export
 dui_barseries <- function(
   rawData = NULL,
@@ -17,10 +17,10 @@ dui_barseries <- function(
 
 #' Density Line Series for Histograms
 #'
-#' @param rawData
-#' @param ...
+#' @param rawData \code{vector}, \code{list}, \code{data.frame} of data
+#' @param ... see \href{https://github.com/williaster/data-ui/tree/master/packages/histogram#series-}{data-ui series}
 #'
-#' @return
+#' @return \code{reactR component} which is a special form of \code{htmltools::tag}
 #' @export
 dui_densityseries <- function(
   rawData = NULL,
@@ -35,9 +35,9 @@ dui_densityseries <- function(
 
 #' 'X' Axis for Histograms
 #'
-#' @param ...
+#' @param ... see \href{https://github.com/williaster/data-ui/tree/master/packages/histogram#xaxis--and-yaxis-}{data-ui axis}
 #'
-#' @return
+#' @return \code{reactR component} which is a special form of \code{htmltools::tag}
 #' @export
 #'
 
@@ -52,9 +52,9 @@ dui_xaxis <- function(
 
 #' 'Y' Axis for Histograms
 #'
-#' @param ...
+#' @param ... see \href{https://github.com/williaster/data-ui/tree/master/packages/histogram#xaxis--and-yaxis-}{data-ui axis}
 #'
-#' @return
+#' @return \code{reactR component} which is a special form of \code{htmltools::tag}
 #' @export
 #'
 
@@ -68,9 +68,9 @@ dui_yaxis <- function(
 
 #' Line Series for 'Sparklines'
 #'
-#' @param ...
+#' @param ... see \href{https://github.com/williaster/data-ui/tree/master/packages/sparkline#series}{data-ui series}
 #'
-#' @return
+#' @return \code{reactR component} which is a special form of \code{htmltools::tag}
 #' @export
 #'
 
@@ -84,9 +84,9 @@ dui_sparklineseries <- function(
 
 #' Bar Series for 'Sparklines'
 #'
-#' @param ...
+#' @param ... see \href{https://github.com/williaster/data-ui/tree/master/packages/sparkline#series}{data-ui series}
 #'
-#' @return
+#' @return \code{reactR component} which is a special form of \code{htmltools::tag}
 #' @export
 #'
 
@@ -100,9 +100,9 @@ dui_sparkbarseries <- function(
 
 #' Point Series for 'Sparklines'
 #'
-#' @param ...
+#' @param ... see \href{https://github.com/williaster/data-ui/tree/master/packages/sparkline#series}{data-ui series}
 #'
-#' @return
+#' @return \code{reactR component} which is a special form of \code{htmltools::tag}
 #' @export
 #'
 
@@ -116,9 +116,9 @@ dui_sparkpointseries <- function(
 
 #' Horizontal Reference Line for 'Sparklines'
 #'
-#' @param ...
+#' @param ... see \href{https://github.com/williaster/data-ui/tree/master/packages/sparkline#reference-lines-and-bands}{data-ui reference lines and bands}
 #'
-#' @return
+#' @return \code{reactR component} which is a special form of \code{htmltools::tag}
 #' @export
 #'
 
@@ -132,9 +132,9 @@ dui_sparkrefline <- function(
 
 #' Band Lines for 'Sparklines'
 #'
-#' @param ...
+#' @param ... see \href{https://github.com/williaster/data-ui/tree/master/packages/sparkline#reference-lines-and-bands}{data-ui reference lines and bands}
 #'
-#' @return
+#' @return \code{reactR component} which is a special form of \code{htmltools::tag}
 #' @export
 #'
 
@@ -146,41 +146,12 @@ dui_sparkbandline <- function(
   )
 }
 
-#' Pattern Fill for 'Sparklines'
-#'
-#' @param ...
-#'
-#' @return
-#' @export
-#'
-
-dui_sparkpatternlines <- function(
-  ...
-) {
-  reactR::React$PatternLines(
-    ...
-  )
-}
-
-#' Tooltip Container for 'Sparklines'
-#'
-#' @param components
-#'
-#' @return
-#' @export
-dui_tooltip <- function(
-  components
-) {
-  component <- reactR::React$TooltipComponent()
-  component$children <- components
-  component
-}
 
 #' Vertical Reference Line for 'Sparklines'
 #'
-#' @param ...
+#' @param ... see \href{https://github.com/williaster/data-ui/tree/master/packages/sparkline#reference-lines-and-bands}{data-ui reference lines and bands}
 #'
-#' @return
+#' @return \code{reactR component} which is a special form of \code{htmltools::tag}
 #' @export
 #'
 
@@ -194,9 +165,9 @@ dui_sparkverticalrefline <- function(
 
 #' Horizontal Reference Line for 'Sparklines'
 #'
-#' @param ...
+#' @param ... see \href{https://github.com/williaster/data-ui/tree/master/packages/sparkline#reference-lines-and-bands}{data-ui reference lines and bands}
 #'
-#' @return
+#' @return \code{reactR component} which is a special form of \code{htmltools::tag}
 #' @export
 #'
 
@@ -208,11 +179,27 @@ dui_sparkhorizontalrefline <- function(
   )
 }
 
+#' Pattern Fill for 'Sparklines'
+#'
+#' @param ... see \href{https://github.com/williaster/data-ui/tree/master/packages/sparkline#patternlines--and-lineargradients}{data-ui patterns and gradients}
+#'
+#' @return \code{reactR component} which is a special form of \code{htmltools::tag}
+#' @export
+#'
+
+dui_sparkpatternlines <- function(
+  ...
+) {
+  reactR::React$PatternLines(
+    ...
+  )
+}
+
 #' Linear Gradient for 'Sparklines'
 #'
-#' @param ...
+#' @param ... see \href{https://github.com/williaster/data-ui/tree/master/packages/sparkline#patternlines--and-lineargradients}{data-ui patterns and gradients}
 #'
-#' @return
+#' @return \code{reactR component} which is a special form of \code{htmltools::tag}
 #' @export
 #'
 
@@ -224,11 +211,33 @@ dui_sparklineargradient <- function(
   )
 }
 
+#' Tooltip Container for 'Sparklines'
+#'
+#' @param components \code{list} of children (series or reference lines) to include
+#'          in the sparkline.  Multiple components should be wrapped in \code{list} such as
+#'          \code{components = list(dui_sparklineseries, dui_sparkverticalrefline())}.
+#'
+#' @return \code{reactR component} which is a special form of \code{htmltools::tag}
+#' @export
+dui_tooltip <- function(
+  components
+) {
+  component <- reactR::React$TooltipComponent()
+
+  # expects components to be a list of lists so convert
+  #   if a user does not wrap a single component with list()
+  components <- wrap_components(components)
+
+  component$children <- components
+  component
+}
+
+
 #' Labels for 'Sparklines'
 #'
-#' @param ...
+#' @param ... see \href{https://github.com/williaster/data-ui/blob/master/packages/sparkline/src/annotation/Label.jsx}{data-ui label}
 #'
-#' @return
+#' @return \code{reactR component} which is a special form of \code{htmltools::tag}
 #' @export
 #'
 

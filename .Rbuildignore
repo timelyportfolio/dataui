@@ -13,3 +13,4 @@
 ^docs$
 ^pkgdown$
 ^\.travis\.yml$
+^vignettes/dataui_reactable\.Rmd$

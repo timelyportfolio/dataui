@@ -34,6 +34,7 @@ Suggests:
     reactable,
     rmarkdown
 Enhances:
+    DT,
     shiny
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr

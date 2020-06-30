@@ -8,8 +8,10 @@ browsable(
     html_dependency_dataui(),
     tags$div(id = "chart"),
     tags$div(id = "chart-hydrate"),
-    tags$script(HTML("
-
+    tags$div(id = "chart-hydrate-fromwidget"),
+    tags$script(HTML(
+sprintf(
+"
 const sparklineProps = {
   ariaLabel: 'This is a Sparkline of...',
   width: 500,
@@ -63,6 +65,21 @@ const spk_hydrate = window.reactR.hydrate(
 )
 
 ReactDOM.render(spk_hydrate, document.getElementById('chart-hydrate'))
-    "))
+
+const spk_hydrate_from_widget = window.reactR.hydrate(
+  dataui,
+  %s
+)
+
+ReactDOM.render(spk_hydrate_from_widget, document.getElementById('chart-hydrate-fromwidget'))
+",
+  jsonlite::toJSON(
+    dui_sparkline(data = 1:6, components = list(dui_sparklineseries(stroke="gray")))$x$tag,
+    auto_unbox = TRUE,
+    force = TRUE
+  )
+)
+
+    ))
   )
 )

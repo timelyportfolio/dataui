@@ -17,6 +17,6 @@ Add 'dataui' Dependency to 'reactable'
 }
 \examples{
 if(requireNamespace("reactable")) {
-   dui_add_reactable_dep(reactable(mtcars))
+   dui_add_reactable_dep(reactable::reactable(mtcars))
 }
 }

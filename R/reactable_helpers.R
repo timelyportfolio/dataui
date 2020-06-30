@@ -108,7 +108,7 @@ function({jsarg}) {{
 #'
 #' @examples
 #' if(requireNamespace("reactable")) {
-#'    dui_add_reactable_dep(reactable(mtcars))
+#'    dui_add_reactable_dep(reactable::reactable(mtcars))
 #' }
 dui_add_reactable_dep <- function(rt) {
   if(!inherits(rt,"reactable") && !inherits(rt,"htmlwidget")) {

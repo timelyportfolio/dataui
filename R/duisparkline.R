@@ -19,7 +19,11 @@
 #' @param viewBox
 #' @param ariaLabel
 #' @param components
-#' @param responsive
+#' @param responsive \code{logical} with default as \code{TRUE}.  This argument is not passed
+#'          on to the \code{React} component as a \code{prop}.  Rather it is used in the \code{R}
+#'          constructor to choose our \code{SparklineResponsive} component (\code{TRUE}) or
+#'          \code{SparklineWithTooltip} (\code{FALSE}) component.  Since \code{height} can be unstable
+#'          and finicky, we only make \code{width} responsive.
 #' @param width
 #' @param height
 #' @param elementId
@@ -41,11 +45,11 @@ dui_sparkline <- function(
   viewBox = NULL,
   ariaLabel = NULL,
   components = list(),
-  responsive = FALSE,
+  responsive = TRUE,
   width = 300, height = 100, elementId = NULL
 ) {
 
-  # responsive is great but does not always work
+  # responsive is great but does not always work in edge cases
   if(responsive == TRUE || is.null(width)) {
     tagname <- "SparklineResponsive"
   } else {

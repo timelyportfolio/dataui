@@ -37,10 +37,10 @@ dui_histogram(
 max_pct <- max(unlist(lapply(dat$hist, function(x) {x$counts/sum(x$counts)})))
 max_density <- max(unlist(lapply(dat$hist, function(x) {x$density})))
 
+# standalone sparkline version
 dat %>%
   reactable(
     style = "font-family: sans-serif;",
-    width = 700,
     rowStyle = "font-size:1.2rem; align-items: flex-end; border-bottom: 1px solid lightgray;",
     compact = TRUE,
     borderless = TRUE,
@@ -51,7 +51,6 @@ dat %>%
       n = colDef(name = "Count", format = colFormat(separators = TRUE)),
       mean_price = colDef(name = "Avg. Price", format = colFormat(currency = "USD", separators = TRUE) ),
       hist = colDef(
-        width = 400,
         name = "Price Histogram",
         sortable = FALSE,
         cell = dui_for_reactable(
@@ -59,7 +58,6 @@ dat %>%
             data = htmlwidgets::JS("cellInfo.value.density"),
             max = max_density,
             height = 80,
-            width = 400,
             margin = list(top = 0, bottom = 0, left = 20, right = 0),
             components = list(
               dui_sparkbarseries(),
@@ -83,3 +81,47 @@ dat %>%
   ) %>%
   dataui::dui_add_reactable_dep()
 
+# htmlwidget version
+dat %>%
+  reactable(
+    style = "font-family: sans-serif;",
+    rowStyle = "font-size:1.2rem; align-items: flex-end; border-bottom: 1px solid lightgray;",
+    compact = TRUE,
+    borderless = TRUE,
+    striped = TRUE,
+    defaultColDef = colDef(headerStyle = "text-transform: uppercase; align-self: flex-end; font-weight:normal;"),
+    columns = list(
+      cut = colDef(name = "Cut"),
+      n = colDef(name = "Count", format = colFormat(separators = TRUE)),
+      mean_price = colDef(name = "Avg. Price", format = colFormat(currency = "USD", separators = TRUE) ),
+      hist = colDef(
+        #width = 400,
+        name = "Price Histogram",
+        sortable = FALSE,
+        cell = function(value, info)  {
+          dui_sparkline(
+            data = value$density,
+            max = max_density,
+            height = 80,
+            width = "100%",
+            margin = list(top = 0, bottom = 0, left = 20, right = 0),
+            components = list(
+              dui_sparkbarseries(),
+              dui_tooltip(
+                list(
+                  dui_sparkhorizontalrefline(
+                    stroke = "#ccc",
+                    strokeDasharray = "4,4"
+                  ),
+                  dui_sparkpointseries(
+                    renderLabel = htmlwidgets::JS("(d) => d ? (d*100000).toFixed(2) + '%' : null"),
+                    labelPosition = "right"
+                  )
+                )
+              )
+            )
+          )
+        }
+      )
+    )
+  )

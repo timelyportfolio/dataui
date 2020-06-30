@@ -24,7 +24,7 @@ const componentName = function(component) {
   return '';
 }
 
-class SparklineResponsive extends React.PureComponent {
+class SparklineResponsiveComponent extends React.PureComponent {
   constructor(props) {
     super(props);
   }
@@ -34,6 +34,8 @@ class SparklineResponsive extends React.PureComponent {
     return <SparklineWithTooltip {...propsChangedSize} />
   }
 }
+
+const SparklineResponsive = withParentSize(SparklineResponsiveComponent);
 
 const SparklineWithTooltip = props => {
   return (

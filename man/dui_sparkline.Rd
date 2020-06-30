@@ -18,13 +18,19 @@ dui_sparkline(
   viewBox = NULL,
   ariaLabel = NULL,
   components = list(),
-  responsive = FALSE,
+  responsive = TRUE,
   width = 300,
   height = 100,
   elementId = NULL
 )
 }
 \arguments{
+\item{responsive}{\code{logical} with default as \code{TRUE}.  This argument is not passed
+on to the \code{React} component as a \code{prop}.  Rather it is used in the \code{R}
+constructor to choose our \code{SparklineResponsive} component (\code{TRUE}) or
+\code{SparklineWithTooltip} (\code{FALSE}) component.  Since \code{height} can be unstable
+and finicky, we only make \code{width} responsive.}
+
 \item{elementId}{}
 }
 \value{

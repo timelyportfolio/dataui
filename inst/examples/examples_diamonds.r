@@ -95,7 +95,7 @@ dat %>%
       n = colDef(name = "Count", format = colFormat(separators = TRUE)),
       mean_price = colDef(name = "Avg. Price", format = colFormat(currency = "USD", separators = TRUE) ),
       hist = colDef(
-        #width = 400,
+        minWidth = 200,
         name = "Price Histogram",
         sortable = FALSE,
         cell = function(value, info)  {

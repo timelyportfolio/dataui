@@ -853,4 +853,35 @@ dui_sparkline(
 )
 ```
 
-... responsive example missing because I have not integrated yet ...
+```{r misc5}
+# responsive is turned on by default so in R
+#   to see if it is working resize your browser window
+dui_sparkline(
+  data = lapply(1:25, function(i) {
+    list(
+      x = paste0("Day ", i),
+      y = runif(1, 0, 2)
+    )
+  }),
+  valueAccessor = htmlwidgets::JS("d => d.y"),
+  width = "90%",
+  height = 100,
+  margin = list( top= 10, right= 10, bottom= 10, left= 10 ),
+  ariaLabel = "sparkline example",
+  components = list(
+    dui_sparkpatternlines(
+      id = "area_pattern2",
+      height = 4,
+      width = 4,
+      stroke = "#91a7ff",
+      strokeWidth = 1,
+      orientation = "diagonal"
+    ),
+    dui_sparklineseries(
+      showArea = TRUE,
+      stroke = "#91a7ff",
+      fill = "url(#area_pattern2)"
+    )
+  )
+)
+```

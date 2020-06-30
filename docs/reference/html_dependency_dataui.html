@@ -38,7 +38,11 @@
 
 <meta property="og:title" content="'JavaScript' Dependencies for Standalone Usage — html_dependency_dataui" />
 
-<meta property="og:description" content="'JavaScript' Dependencies for Standalone Usage" />
+<meta property="og:description" content="'dataui' also ships a standalone version of the 'JavaScript' allowing
+for usage outside of a traditional htmlwidget context.  The variable dataui
+is added to window object.  Usage of html_dependency_dataui should likely
+be accompanied with html_dependency_react along with
+html_dependency_reacttools for hydrate." />
 
 
 
@@ -127,7 +131,11 @@
 
     <div class="ref-description">
     
-    <p>'JavaScript' Dependencies for Standalone Usage</p>
+    <p>'dataui' also ships a standalone version of the 'JavaScript' allowing
+for usage outside of a traditional <code>htmlwidget</code> context.  The variable <code>dataui</code>
+is added to <code>window</code> object.  Usage of <code>html_dependency_dataui</code> should likely
+be accompanied with <code><a href='https://rdrr.io/pkg/reactR/man/html_dependency_react.html'>html_dependency_react</a></code> along with
+<code><a href='https://rdrr.io/pkg/reactR/man/html_dependency_reacttools.html'>html_dependency_reacttools</a></code> for <code>hydrate</code>.</p>
     
     </div>
 
@@ -135,11 +143,34 @@
         
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
+    <p><code><a href='https://rdrr.io/pkg/htmltools/man/htmlDependency.html'>htmltools::htmlDependency</a></code></p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>htmltools</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dataui</span>)
 
-    
+<span class='fu'><a href='https://rdrr.io/pkg/htmltools/man/browsable.html'>browsable</a></span>(
+  <span class='fu'><a href='https://rdrr.io/pkg/htmltools/man/tag.html'>tagList</a></span>(
+    <span class='kw pkg'>reactR</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/reactR/man/html_dependency_react.html'>html_dependency_react</a></span>(),
+    <span class='kw pkg'>reactR</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/reactR/man/html_dependency_reacttools.html'>html_dependency_reacttools</a></span>(),
+    <span class='fu'>html_dependency_dataui</span>(),
+    <span class='no'>tags</span>$<span class='fu'><a href='https://rdrr.io/pkg/htmltools/man/builder.html'>div</a></span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='st'>"chart"</span>),
+    <span class='no'>tags</span>$<span class='fu'><a href='https://rdrr.io/pkg/htmltools/man/builder.html'>div</a></span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='st'>"chart-hydrate"</span>),
+    <span class='no'>tags</span>$<span class='fu'><a href='https://rdrr.io/pkg/htmltools/man/builder.html'>div</a></span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='st'>"chart-hydrate-fromwidget"</span>),
+    <span class='no'>tags</span>$<span class='fu'>script</span>(<span class='fu'><a href='https://rdrr.io/pkg/htmltools/man/HTML.html'>HTML</a></span>(
+<span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>sprintf</a></span>(
+<span class='st'>[1282 chars quoted with '"']</span>,
+  <span class='kw pkg'>jsonlite</span><span class='kw ns'>::</span><span class='fu'><a href='https://jeroen.cran.dev/jsonlite/reference/fromJSON.html'>toJSON</a></span>(
+    <span class='fu'><a href='dui_sparkline.html'>dui_sparkline</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>6</span>, <span class='kw'>components</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fu'><a href='dui_sparklineseries.html'>dui_sparklineseries</a></span>(<span class='kw'>stroke</span><span class='kw'>=</span><span class='st'>"gray"</span>)))$<span class='no'>x</span>$<span class='no'>tag</span>,
+    <span class='kw'>auto_unbox</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+    <span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+  )
+)
 
+    ))
+  )
+)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

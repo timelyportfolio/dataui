@@ -31,7 +31,7 @@ class SparklineResponsive extends React.PureComponent {
   }
 
   render() {
-    const propsChangedSize = {...this.props, ...{height:this.props.parentHeight, width:this.props.parentWidth}}
+    const propsChangedSize = {...this.props, ...{width:this.props.parentWidth}}
     return <SparklineWithTooltip {...propsChangedSize} />
   }
 }

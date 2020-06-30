@@ -19,6 +19,7 @@
 #' @param viewBox
 #' @param ariaLabel
 #' @param components
+#' @param responsive
 #' @param width
 #' @param height
 #' @param elementId
@@ -40,12 +41,19 @@ dui_sparkline <- function(
   viewBox = NULL,
   ariaLabel = NULL,
   components = list(),
+  responsive = FALSE,
   width = 300, height = 100, elementId = NULL
 ) {
 
-    # describe a React component to send to the browser for rendering.
+  # responsive is great but does not always work
+  if(responsive == TRUE || is.null(width)) {
+    tagname <- "SparklineResponsive"
+  } else {
+    tagname <- "SparklineWithTooltip"
+  }
+  # describe a React component to send to the browser for rendering.
   component <- reactR::component(
-    "SparklineResponsive",
+    tagname,
     Filter(Negate(is.null),list(
       #props
       data = data,

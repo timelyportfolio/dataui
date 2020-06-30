@@ -33,5 +33,6 @@ dui_sparkline(
 Create interactive 'sparklines' visualizations for use as a standalone comoponent or
 in combination with 'reactable' or other table libraries.  There are a wide variety of
 components for use with \code{dui_sparkline}, including lines, bars, points, reference
-lines, and labels.
+lines, and labels.  These 'sparklines' automatically include responsive and tooltip
+behaviors.
 }

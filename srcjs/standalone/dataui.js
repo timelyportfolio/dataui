@@ -11,7 +11,8 @@ import {
   PatternLines as PatternLines,
   LinearGradient as LinearGradient,
   Label as Label,
-  WithTooltip as WithTooltip
+  WithTooltip as WithTooltip,
+  withParentSize as withParentSize
 } from '@data-ui/sparkline';
 
 // copied from https://github.com/williaster/data-ui/blob/master/packages/sparkline/src/utils/componentIsX.js
@@ -21,6 +22,17 @@ const componentName = function(component) {
   }
 
   return '';
+}
+
+class SparklineResponsive extends React.PureComponent {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    const propsChangedSize = {...this.props, ...{height:this.props.parentHeight, width:this.props.parentWidth}}
+    return <SparklineWithTooltip {...propsChangedSize} />
+  }
 }
 
 const SparklineWithTooltip = props => {
@@ -128,6 +140,7 @@ export {
   Label,
   WithTooltip,
   SparklineWithTooltip,
+  withParentSize,
   TooltipComponent
 }
 

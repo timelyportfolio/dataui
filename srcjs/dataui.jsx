@@ -12,7 +12,8 @@ import {
   PatternLines as PatternLines,
   LinearGradient as LinearGradient,
   Label as Label,
-  WithTooltip as WithTooltip
+  WithTooltip as WithTooltip,
+  withParentSize as withParentSize
 } from '@data-ui/sparkline';
 
 // copied from https://github.com/williaster/data-ui/blob/master/packages/sparkline/src/utils/componentIsX.js
@@ -22,6 +23,17 @@ const componentName = function(component) {
   }
 
   return '';
+}
+
+class SparklineResponsive extends React.PureComponent {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    const propsChangedSize = {...this.props, ...{height:this.props.parentHeight, width:this.props.parentWidth}}
+    return <SparklineWithTooltip {...propsChangedSize} />
+  }
 }
 
 const SparklineWithTooltip = props => {
@@ -122,6 +134,7 @@ reactWidget(
     Histogram: Histogram, BarSeries: BarSeries, DensitySeries: DensitySeries, XAxis: XAxis, YAxis: YAxis,
     Sparkline: Sparkline,
     SparklineWithTooltip: SparklineWithTooltip,
+    SparklineResponsive: withParentSize(SparklineResponsive),
     SparklineLineSeries: SparklineLineSeries,
     SparklinePointSeries: SparklinePointSeries,
     SparklineBarSeries: SparklineBarSeries,
@@ -132,6 +145,7 @@ reactWidget(
     LinearGradient: LinearGradient,
     Label: Label,
     WithTooltip: WithTooltip,
+    withParentSize: withParentSize,
     TooltipComponent: TooltipComponent,
     Fragment: React.Fragment
   },

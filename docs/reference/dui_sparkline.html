@@ -153,8 +153,8 @@ behaviors.</p>
   <span class='kw'>viewBox</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>ariaLabel</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>components</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
-  <span class='kw'>responsive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>300</span>,
+  <span class='kw'>responsive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>width</span> <span class='kw'>=</span> <span class='st'>"100%"</span>,
   <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>100</span>,
   <span class='kw'>elementId</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
 )</pre>
@@ -162,6 +162,14 @@ behaviors.</p>
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>responsive</th>
+      <td><p><code>logical</code> with default as <code>TRUE</code>.  This argument is not passed
+on to the <code>React</code> component as a <code>prop</code>.  Rather it is used in the <code>R</code>
+constructor to choose our <code>SparklineResponsive</code> component (<code>TRUE</code>) or
+<code>SparklineWithTooltip</code> (<code>FALSE</code>) component.  Since <code>height</code> can be unstable
+and finicky, we only make <code>width</code> responsive.</p></td>
+    </tr>
     <tr>
       <th>elementId</th>
       <td></td>

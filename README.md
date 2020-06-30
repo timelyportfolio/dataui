@@ -33,6 +33,12 @@ Plus, I sort of “need” it for a live project. Our other
 little old and tired (but I still very much appreciate the library) and
 has been frozen/unmaintained for many years.
 
+## Credits
+
+Thanks so much to Dr. Ken Steif at [Urban
+Spatial](http://urbanspatialanalysis.com/about/) for sponsoring the
+first phase of this project and inspiring its inception.
+
 ## Help
 
 I would love for you to join me on the journey, and I will make sure

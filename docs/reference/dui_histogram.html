@@ -38,9 +38,12 @@
 
 <meta property="og:title" content="'data-ui' Histogram — dui_histogram" />
 
-<meta property="og:description" content="
-
-" />
+<meta property="og:description" content="Create interactive histogram visualizations with 'data-ui'.  The histogram will
+perform the calculations in 'JavaScript' if the data is raw.  If you would like
+more control over the calculation, then you can pass pre-binned values
+with help from hist_to_binned_data.  dui_histogram works well
+as a full-featured visualization or can also be used as a 'sparkline` in smaller
+contexts." />
 
 
 
@@ -129,9 +132,12 @@
 
     <div class="ref-description">
     
-    
-
-
+    <p>Create interactive histogram visualizations with 'data-ui'.  The histogram will
+perform the calculations in 'JavaScript' if the data is raw.  If you would like
+more control over the calculation, then you can pass pre-binned values
+with help from <code><a href='hist_to_binned_data.html'>hist_to_binned_data</a></code>.  <code>dui_histogram</code> works well
+as a full-featured visualization or can also be used as a 'sparkline` in smaller
+contexts.</p>
     
     </div>
 
@@ -161,14 +167,90 @@
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>binCount</th>
+      <td><p><code>numeric</code> specifying the approximate number of bins to calculate.</p></td>
+    </tr>
+    <tr>
+      <th>binType</th>
+      <td><p><code>character</code> one of <code>'numeric'</code>(default) or <code>'categorical'</code>.</p></td>
+    </tr>
+    <tr>
+      <th>binValues</th>
+      <td><p><code>numeric vector</code> of the bin or break values to override the
+automatic calculations.</p></td>
+    </tr>
+    <tr>
+      <th>cumulative</th>
+      <td><p><code>logical</code> to specify whether or not the histogram will display
+cumulative sums of the counts.</p></td>
+    </tr>
+    <tr>
+      <th>horizontal</th>
+      <td><p><code>logical</code> with <code>TRUE</code> meaning the chart will be in
+horizontal layout.</p></td>
+    </tr>
+    <tr>
+      <th>limits</th>
+      <td><p><code>numeric vector</code> of length two to give a range for which values
+will be ignored if they are outside of the range.</p></td>
+    </tr>
+    <tr>
+      <th>margin</th>
+      <td><p><code>list</code> of the form <code><a href='https://rdrr.io/r/base/list.html'>list(top =, right =, bottom =, left=)</a></code>
+that will specify the margins for the 'sparkline' chart.</p></td>
+    </tr>
+    <tr>
+      <th>normalized</th>
+      <td><p><code>logical</code> specifying whether or not to the values will be
+calculated as a percent of total.</p></td>
+    </tr>
+    <tr>
+      <th>renderTooltip</th>
+      <td><p><code>htmlwidget::JS</code> function that will provide the 'React' element
+to render when a user moves their mouse over the visualization.  The function
+should follow the signature <code>({ event, data, datum, color }) =&gt;</code>.  If the
+function returns a <code>falsy</code> value then nothing will be rendered.</p></td>
+    </tr>
+    <tr>
+      <th>valueAccessor</th>
+      <td><p><code><a href='https://rdrr.io/pkg/htmlwidgets/man/JS.html'>htmlwidgets::JS</a></code> function to let the chart know where to
+look for the <code>y</code> value in the <code>data</code>.  An example would look like
+<code>(d) =&gt; d.yval</code> where <code>yval</code> is the property containing the value.</p></td>
+    </tr>
+    <tr>
+      <th>onMouseMove, onMouseLeave</th>
+      <td><p><code><a href='https://rdrr.io/pkg/htmlwidgets/man/JS.html'>htmlwidgets::JS</a></code> function to run on mouse events.</p></td>
+    </tr>
+    <tr>
+      <th>tooltipData</th>
+      <td><p>currently not supported.</p></td>
+    </tr>
+    <tr>
+      <th>ariaLabel</th>
+      <td><p><code>character</code> accessibility label for the chart</p></td>
+    </tr>
+    <tr>
+      <th>components</th>
+      <td><p><code>list</code> of children (series or reference lines) to include
+in the histogram.  Multiple components should be wrapped in <code>list</code> such as
+<code>components = list(dui_densityseries, dui_barseries())</code>.</p></td>
+    </tr>
+    <tr>
+      <th>width, height</th>
+      <td><p><code>numeric</code> valid 'css' size unit.  For <code>height</code>, this should
+always be <code>numeric</code>, but <code>width</code> might be something like <code>'100%'</code>
+or <code>'50vw'</code>.</p></td>
+    </tr>
+    <tr>
       <th>elementId</th>
-      <td></td>
+      <td><p><code>character</code> valid 'css' identifier for the <code>htmlwidget</code>
+container.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>htmlwidget</code></p>
+    <p>react <code>htmlwidget</code></p>
     
 
   </div>

@@ -38,7 +38,7 @@
 
 <meta property="og:title" content="'data-ui Sparklines' — dui_sparkline" />
 
-<meta property="og:description" content="Create interactive 'sparklines' visualizations for use as a standalone comoponent or
+<meta property="og:description" content="Create interactive 'sparklines' visualizations for use as a standalone component or
 in combination with 'reactable' or other table libraries.  There are a wide variety of
 components for use with dui_sparkline, including lines, bars, points, reference
 lines, and labels.  These 'sparklines' automatically include responsive and tooltip
@@ -131,7 +131,7 @@ behaviors." />
 
     <div class="ref-description">
     
-    <p>Create interactive 'sparklines' visualizations for use as a standalone comoponent or
+    <p>Create interactive 'sparklines' visualizations for use as a standalone component or
 in combination with 'reactable' or other table libraries.  There are a wide variety of
 components for use with <code>dui_sparkline</code>, including lines, bars, points, reference
 lines, and labels.  These 'sparklines' automatically include responsive and tooltip
@@ -163,6 +163,67 @@ behaviors.</p>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>data</th>
+      <td><p><code>vector</code>, <code>list</code>, <code>data.frame</code> of data that will be passed
+down to the component series.</p></td>
+    </tr>
+    <tr>
+      <th>className</th>
+      <td><p><code>character</code> 'css' class name to be added to the 'sparkline'.</p></td>
+    </tr>
+    <tr>
+      <th>margin</th>
+      <td><p><code>list</code> of the form <code><a href='https://rdrr.io/r/base/list.html'>list(top =, right =, bottom =, left=)</a></code>
+that will specify the margins for the 'sparkline' chart.</p></td>
+    </tr>
+    <tr>
+      <th>max, min</th>
+      <td><p><code>numeric</code> value that will be the maximum/minimum for the 'y' axis/scale.  This
+is useful if you have multiple 'sparklines' that you want to all use the
+same scale.</p></td>
+    </tr>
+    <tr>
+      <th>onMouseMove, onMouseLeave</th>
+      <td><p><code><a href='https://rdrr.io/pkg/htmlwidgets/man/JS.html'>htmlwidgets::JS</a></code> function to run on mouse events.
+These are automatically assigned with 'sparkline' <code>htmlwidgets</code> so it
+is unlikely that you will want to override the default <code>NULL</code>.</p></td>
+    </tr>
+    <tr>
+      <th>renderTooltip</th>
+      <td><p><code>htmlwidget::JS</code> function that will provide the 'React' element
+to render when a user moves their mouse over the visualization.  The function
+should follow the signature <code>({ event, data, datum, color }) =&gt;</code>.  If the
+function returns a <code>falsy</code> value then nothing will be rendered.</p></td>
+    </tr>
+    <tr>
+      <th>preserveAspectRatio</th>
+      <td><p><code>character</code> to specify this attribute on the <code>svg</code>
+chart container.  See
+<a href='https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/preserveAspectRatio'>preserveAspectRatio</a>.</p></td>
+    </tr>
+    <tr>
+      <th>valueAccessor</th>
+      <td><p><code><a href='https://rdrr.io/pkg/htmlwidgets/man/JS.html'>htmlwidgets::JS</a></code> function to let the chart know where to
+look for the <code>y</code> value in the <code>data</code>.  An example would look like
+<code>(d) =&gt; d.yval</code> where <code>yval</code> is the property containing the value.</p></td>
+    </tr>
+    <tr>
+      <th>viewBox</th>
+      <td><p><code>character</code> to specify this attribute on the <code>svg</code>.  See
+<a href='https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox'>viewBox</a>.</p></td>
+    </tr>
+    <tr>
+      <th>ariaLabel</th>
+      <td><p><code>character</code> label for accessibility for screen readers</p></td>
+    </tr>
+    <tr>
+      <th>components</th>
+      <td><p><code>list</code> of children (series or reference lines) to include
+in the sparkline.  Multiple components should be wrapped in <code>list</code> such as
+<code>components = list(dui_sparklineseries, dui_sparkbarseries())</code>.  <code>dui_tooltip</code>
+component should also contain a similar list in effect forming a tree.</p></td>
+    </tr>
+    <tr>
       <th>responsive</th>
       <td><p><code>logical</code> with default as <code>TRUE</code>.  This argument is not passed
 on to the <code>React</code> component as a <code>prop</code>.  Rather it is used in the <code>R</code>
@@ -171,14 +232,21 @@ constructor to choose our <code>SparklineResponsive</code> component (<code>TRUE
 and finicky, we only make <code>width</code> responsive.</p></td>
     </tr>
     <tr>
+      <th>width, height</th>
+      <td><p><code>numeric</code> valid 'css' size unit.  For <code>height</code>, this should
+always be <code>numeric</code>, but <code>width</code> might be something like <code>'100%'</code>
+or <code>'50vw'</code>.</p></td>
+    </tr>
+    <tr>
       <th>elementId</th>
-      <td></td>
+      <td><p><code>character</code> valid 'css' identifier for the <code>htmlwidget</code>
+container.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>htmlwidget</code></p>
+    <p>react <code>htmlwidget</code></p>
     
 
   </div>

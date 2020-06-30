@@ -24,6 +24,10 @@ knitr::opts_chunk$set(
 
 Yes, I know `data-ui` is in [repo freeze](https://github.com/williaster/data-ui#repo-freeze-), but I could not wait for [#201](https://github.com/williaster/data-ui/issues/201).  The author, now also on the `vx` team, has done an incredible job, so I am willing (slightly crazy) to invest the time to write this package.  Plus, I sort of "need" it for a live project.  Our other  [sparkline](https://omnipotent.net/jquery.sparkline/#s-about) in R is a little old and tired (but I still very much appreciate the library) and has been frozen/unmaintained for many years.
 
+## Credits
+
+Thanks so much to Dr. Ken Steif at [Urban Spatial](http://urbanspatialanalysis.com/about/) for sponsoring the first phase of this project and inspiring its inception.
+
 ## Help
 
 I would love for you to join me on the journey, and I will make sure that this is a friendly and welcoming place.  If money is more abundant than time for you, then let me know as well.  

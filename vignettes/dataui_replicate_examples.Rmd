@@ -27,6 +27,8 @@ library(dataui)
 
 Let's attempt to replicate the examples from `data-ui` [storybook](https://williaster.github.io/data-ui/?selectedKind=sparkline&selectedStory=Kitchen%20sink&full=0&addons=0&stories=1&panelRight=0).  For reference, the JavaScript code is on [Github](https://github.com/williaster/data-ui/blob/master/packages/demo/examples/03-sparkline/KitchenSinkExamples.jsx).
 
+I should note that our sparklines automatically include tooltip and responsive behaviors, since it is impossible (or nearly impossible) to unlock these from R.
+
 Unfortunately we cannot recreate the emoji label due to `htmlwidgets::JS()` scoping issues.  This likely would be solved by [pull](https://github.com/rstudio/htmltools/pull/72) but no one seems to care.
 
 ```{r kitchensink1}
@@ -71,7 +73,7 @@ function (_ref) {
     )
   }),
   valueAccessor = htmlwidgets::JS("d => d.y"),
-  width = 500,
+  width = "50%",  # to prove these are responsive unlike the data-ui examples
   height = 100,
   margin = list( top= 24, right= 64, bottom= 24, left= 64 ),
   ariaLabel = "sparkline example",

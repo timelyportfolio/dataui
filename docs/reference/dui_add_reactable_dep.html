@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>'JavaScript' Dependencies for Standalone Usage — html_dependency_dataui • dataui</title>
+<title>Add 'dataui' Dependency to 'reactable' — dui_add_reactable_dep • dataui</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -36,9 +36,9 @@
 
 
 
-<meta property="og:title" content="'JavaScript' Dependencies for Standalone Usage — html_dependency_dataui" />
+<meta property="og:title" content="Add 'dataui' Dependency to 'reactable' — dui_add_reactable_dep" />
 
-<meta property="og:description" content="'JavaScript' Dependencies for Standalone Usage" />
+<meta property="og:description" content="Add 'dataui' Dependency to 'reactable'" />
 
 
 
@@ -120,26 +120,37 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>'JavaScript' Dependencies for Standalone Usage</h1>
-    <small class="dont-index">Source: <a href='https://github.com/timelyportfolio/dataui/blob/master/R/dependency.R'><code>R/dependency.R</code></a></small>
-    <div class="hidden name"><code>html_dependency_dataui.Rd</code></div>
+    <h1>Add 'dataui' Dependency to 'reactable'</h1>
+    <small class="dont-index">Source: <a href='https://github.com/timelyportfolio/dataui/blob/master/R/reactable_helpers.R'><code>R/reactable_helpers.R</code></a></small>
+    <div class="hidden name"><code>dui_add_reactable_dep.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>'JavaScript' Dependencies for Standalone Usage</p>
+    <p>Add 'dataui' Dependency to 'reactable'</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>html_dependency_dataui</span>()</pre>
-        
+    <pre class="usage"><span class='fu'>dui_add_reactable_dep</span>(<span class='no'>rt</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>rt</th>
+      <td><p><code>reactable</code> htmlwidget</p></td>
+    </tr>
+    </table>
+    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
+    <p><code>reactable</code> htmlwidget with 'dataui' dependency attached</p>
     
 
-
-    
-
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"reactable"</span>)) {
+   <span class='fu'>dui_add_reactable_dep</span>(<span class='fu'>reactable</span>(<span class='no'>mtcars</span>))
+}</div><div class='output co'>#&gt; <span class='message'>Loading required namespace: reactable</span></div><div class='output co'>#&gt; <span class='error'>Error in reactable(mtcars): could not find function "reactable"</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

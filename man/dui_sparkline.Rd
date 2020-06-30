@@ -19,7 +19,7 @@ dui_sparkline(
   ariaLabel = NULL,
   components = list(),
   responsive = TRUE,
-  width = 300,
+  width = "100\%",
   height = 100,
   elementId = NULL
 )

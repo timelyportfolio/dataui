@@ -46,7 +46,7 @@ dui_sparkline <- function(
   ariaLabel = NULL,
   components = list(),
   responsive = TRUE,
-  width = 300, height = 100, elementId = NULL
+  width = "100%", height = 100, elementId = NULL
 ) {
 
   # responsive is great but does not always work in edge cases
@@ -54,6 +54,14 @@ dui_sparkline <- function(
     tagname <- "SparklineResponsive"
   } else {
     tagname <- "SparklineWithTooltip"
+  }
+  if(responsive == FALSE && !is.numeric(width)){
+    message(paste0(
+      "Responsive is FALSE which often means width should be numeric to work properly.  ",
+      paste0("In this case we see responsive = FALSE and width = ", width, ".  "),
+      "Try a different width if the sparkline does not appear.",
+      collapse = "\n"
+    ))
   }
   # describe a React component to send to the browser for rendering.
   component <- reactR::component(

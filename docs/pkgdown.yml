@@ -4,5 +4,6 @@ pkgdown_sha: ~
 articles:
   dataui_reactable: dataui_reactable.html
   dataui_replicate_examples: dataui_replicate_examples.html
-last_built: 2020-07-01T02:00Z
+  replicate_tufte_example: replicate_tufte_example.html
+last_built: 2020-07-01T23:05Z
 

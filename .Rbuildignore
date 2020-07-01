@@ -14,3 +14,4 @@
 ^pkgdown$
 ^\.travis\.yml$
 ^vignettes/dataui_reactable\.Rmd$
+^vignettes/replicate_tufte_example-Rmd\.Rmd$

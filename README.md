@@ -54,9 +54,23 @@ Far from CRAN-worthy but hopefully there eventually,
 remotes::install_github("timelyportfolio/dataui")
 ```
 
-## Example
+## Articles and Vignettes
 
-#### Sparkines
+I have prioritized vignettes and articles over proper documentation for
+now.
+
+[Replicate data-ui
+Examples](https://timelyportfolio.github.io/dataui/articles/dataui_replicate_examples.html)
+
+[dataui and
+reactable](https://timelyportfolio.github.io/dataui/articles/dataui_reactable.html)
+
+[Tufte in R with
+dataui](https://timelyportfolio.github.io/dataui/articles/replicate_tufte_example.html)
+
+## Examples
+
+#### Sparklines
 
 This is is the shortest code example I could create.
 

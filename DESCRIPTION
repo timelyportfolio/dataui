@@ -1,8 +1,8 @@
 Package: dataui
 Type: Package
 Title: `Data-UI` Interactive Visualizations
-Version: 0.0.1
-Date: 2020-06-26
+Version: 0.1.0
+Date: 2024-01-22
 Authors@R: c(
       person(
         "Chris", " Williams"
@@ -41,5 +41,5 @@ Suggests:
 Enhances:
     DT,
     shiny
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.3
 VignetteBuilder: knitr
